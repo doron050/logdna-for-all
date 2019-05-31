@@ -1,6 +1,6 @@
 {
   "name": "my-ui-hook",
-  "version": 2,
+  "version": 1,
   "builds": [
     {
       "src": "zeitConnector/integrationConfigServer.js",
@@ -13,8 +13,12 @@
       "dest": "zeitConnector/integrationConfigServer.js"
     },
     {
-      "src":"/worker",
-      "dest":"Common/cronWorker.js"
+      "src": "/worker",
+      "dest": "Common/cronWorker.js"
+    },
+    {
+      "src": "/redirect",
+      "dest": "zeitConnector/integrationConfigServer.js"
     }
   ]
 }
