@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const constants = require('./common/constants');
-const logger = require('./Common/logger');
+const logger = require('./common/logger');
 
 
 dotenv.config();
