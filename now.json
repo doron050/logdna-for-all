@@ -1,5 +1,16 @@
 {
   "name": "my-ui-hook",
   "version": 2,
-  "builds": [{ "src": "index.js", "use": "@now/node" }]
+  "builds": [
+    {
+      "src": "zeitConnector/integrationConfigServer.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "zeitConnector/integrationConfigServer.js"
+    }
+  ]
 }
