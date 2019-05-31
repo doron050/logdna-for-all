@@ -27,7 +27,7 @@ module.exports = (req, res) => {
         client_id: constants.AUTH.CLIENT_ID, //ID of your application
         client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
         code: newIntegration.code, //The code you received
-        redirect_uri: "https://logz-for-all.logz-for-all.now.sh/ui-hooks" //newIntegration.next //URL to redirect back
+        redirect_uri: newIntegration.next //URL to redirect back
     }).then(function (res) {
 
         let token = res.access_token;
