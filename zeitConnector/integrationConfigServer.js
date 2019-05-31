@@ -4,8 +4,8 @@ const mongo = require('../common/mongodb');
 console.log('building ui hooks');
 
 
-async function getSubscriber(integrationId) {
-    const subscriber = await mongo.getDoc(integrationId);
+async function getSubscriber(configurationId) {
+    const subscriber = await mongo.getDoc(configurationId);
     return subscriber ? subscriber : {};
 }
 
