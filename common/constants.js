@@ -23,10 +23,6 @@ const LOG_MESSAGES = {
     ERROR_GET_ACCESS_TOKEN: "Error! can't retrive access token: "
 };
 
-const ZEIT_HTTP_INSTANCE = axios.create({
-    baseURL: API_BASIC_ENDPOINT_URL
-});
-
 const PORT = process.env.PORT || 9000;
 
 const AUTH = {
@@ -42,7 +38,6 @@ module.exports = {
     LOGZIO_TOKEN,
     LOGSDNA_KEY,
     ZEIT_API_ROUTES,
-    ZEIT_HTTP_INSTANCE,
     PORT,
     AUTH
 };

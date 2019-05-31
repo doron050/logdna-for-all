@@ -1,7 +1,7 @@
 const url = require('url');
 const mongoClient = require('../common/mongodb');
 const constants = require('../common/constants');
-const axios = require('axios');
+const httpClient = require('../common/httpClient')
 
 module.exports = async (req, res) => {
 
@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
         console.log(constants.AUTH.CLIENT_SECRET);
         console.log(newIntegration.code);
         console.log(constants.ZEIT_PROD_REDIRECT_URL);
-        const res = await constants.ZEIT_HTTP_INSTANCE.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, {
+        const res = await httpClient.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, {
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
             client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
             code: newIntegration.code, //The code you received
