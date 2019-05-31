@@ -4,7 +4,7 @@
   "description": "This example is so cool.",
   "main": "app.js",
   "dependencies": {
-    "@zeit/integration-utils": "latest",
+    "@zeit/integration-utils": "^0.6.0",
     "axios": "^0.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "ui-hooks": "now dev -p 5005"
-  }
+    "zeit": "now dev -p 5005 --debug"
+  },
+  "license": "MIT"
 }
