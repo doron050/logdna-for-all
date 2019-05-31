@@ -2,7 +2,7 @@
 const axios = require('axios');
 const constants = require('./constants');
 
-const ZEIT_HTTP_INSTANCE = axios.create({
+let ZEIT_HTTP_INSTANCE = axios.create({
     baseURL: constants.API_BASIC_ENDPOINT_URL
 });
 
