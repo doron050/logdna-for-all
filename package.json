@@ -4,10 +4,13 @@
     "@zeit/integration-utils": "latest",
     "axios": "^0.19.0",
     "dotenv": "^8.0.0",
-    "logzio-nodejs": "^1.0.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "winston": "^3.2.1",
+    "logdna-winston": "^2.2.0",
+    "winston-logzio": "^5.0.0"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "ui-hooks": "now dev -p 5005"
   }
 }

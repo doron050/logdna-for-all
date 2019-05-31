@@ -1,24 +1,24 @@
 {
   "name": "my-ui-hook",
-  "version": 1,
+  "version": 2,
   "builds": [
     {
       "src": "zeitConnector/integrationConfigServer.js",
+      "use": "@now/node"
+    },
+    {
+      "src": "zeitConnector/redirectServer.js",
       "use": "@now/node"
     }
   ],
   "routes": [
     {
-      "src": "/",
+      "src": "/ui-hooks",
       "dest": "zeitConnector/integrationConfigServer.js"
-    },
-    {
-      "src": "/worker",
-      "dest": "Common/cronWorker.js"
     },
     {
       "src": "/redirect",
-      "dest": "zeitConnector/integrationConfigServer.js"
+      "dest": "zeitConnector/zeitConnector/redirectServer.js"
     }
   ]
 }
