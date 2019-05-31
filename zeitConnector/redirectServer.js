@@ -2,6 +2,7 @@ const url = require('url');
 const mongoClient = require('../common/mongodb');
 const constants = require('../common/constants');
 const httpClient = require('../common/httpClient')
+const axios = require('axios');
 
 module.exports = async (req, res) => {
 
@@ -24,25 +25,26 @@ module.exports = async (req, res) => {
     try {
 
         console.log(constants.ZEIT_API_ROUTES.ACCESS_TOKEN);
-        console.log( constants.AUTH.CLIENT_ID);
+        console.log(constants.AUTH.CLIENT_ID);
         console.log(constants.AUTH.CLIENT_SECRET);
         console.log(newIntegration.code);
         console.log(constants.ZEIT_PROD_REDIRECT_URL);
-        const res = await httpClient.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, {data: {
-            client_id: constants.AUTH.CLIENT_ID, //ID of your application
-            client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
-            code: newIntegration.code, //The code you received
-            redirect_uri: constants.ZEIT_PROD_REDIRECT_URL //URL to redirect back
-        },
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    });
- 
+        const res = await axios.post("https://api.zeit.co/v2/oauth/access_token", {   //constants.ZEIT_API_ROUTES.ACCESS_TOKEN
+            data: {
+                client_id: constants.AUTH.CLIENT_ID, //ID of your application
+                client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
+                code: newIntegration.code, //The code you received
+                redirect_uri: constants.ZEIT_PROD_REDIRECT_URL //URL to redirect back
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
 
         const token = res.access_token;
 
-      //  mongoClient.upsertDoc()
+        //  mongoClient.upsertDoc()
 
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
