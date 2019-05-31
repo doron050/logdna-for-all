@@ -1,9 +1,10 @@
 const constants = require('../common/constants');
+const httpClient = require('../common/httpClient')
 
 async function getLogs(deploymentId) {
 
     try {
-        const response = await constants.ZEIT_HTTP_INSTANCE.get(constants.ZEIT_API_ROUTES.DEPLOYMENTS + deploymentId + "/" + constants.ZEIT_API_ROUTES.LOGS, {
+        const response = await httpClient.get(constants.ZEIT_API_ROUTES.DEPLOYMENTS + deploymentId + "/" + constants.ZEIT_API_ROUTES.LOGS, {
             headers: {
                 [constants.AUTH.HEADER]: token
             }
@@ -22,7 +23,7 @@ async function getDeployments(projectId, token, limit) {
     if (!limit) limit = 1;
 
     try {
-        const response = await constants.ZEIT_HTTP_INSTANCE.get(constants.ZEIT_API_ROUTES.DEPLOYMENTS, {
+        const response = await httpClient.get(constants.ZEIT_API_ROUTES.DEPLOYMENTS, {
             params: {
                 limit: limit,
                 projectId: projectId
