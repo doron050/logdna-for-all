@@ -32,7 +32,7 @@ async function getDeployments(projectId, token, limit) {
                 [constants.AUTH.HEADER]: token
             }
         });
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_INTEGRATIONS + response.length);
+        console.log(constants.LOG_MESSAGES.SUCCESS_GET_INTEGRATIONS + response.data.length);
         return (response.data);
     } catch {
         console.log(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error);
@@ -55,6 +55,22 @@ function getDeploymentsLogs(projectId, token, numOfDeployments) {
     return (logs);
 }
 
+function getTeamProjects(token){
+    
+    try {
+        const response = await httpClient.get(constants.ZEIT_API_ROUTES.PROJECTS, {
+            headers: {
+                [constants.AUTH.HEADER]: token
+            }
+        });
+        console.log(constants.LOG_MESSAGES.SUCCESS_GET_PROJECTS + response.data.length);
+        return (response.data);
+    } catch {
+        console.log(constants.LOG_MESSAGES.ERROR_GET_PROJECTS + error);
+    }
+}
+
 module.exports = {
-    getDeploymentsLogs
+    getDeploymentsLogs,
+    getTeamProjects
 };
