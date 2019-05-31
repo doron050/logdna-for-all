@@ -8,7 +8,6 @@ function getLogsSince(logs, lastLogId) {
         if (logs[logsIdx].payload.id === lastLogId) {
 
             lastLogIdx = logsIdx;
-            //lastLogId = logs[logsIdx].payload.id;
         }
 
         logsIdx++;
