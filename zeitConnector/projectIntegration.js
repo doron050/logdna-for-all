@@ -2,7 +2,6 @@ const constants = require('../common/constants');
 
 async function getLogs(deploymentId) {
 
-    // Make a request for a user with a given ID
     try {
         const response = await axios.get(constants.ZEIT_API_ROUTES.DEPLOYMENTS + deploymentId + "/" + constants.ZEIT_API_ROUTES.LOGS)
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
@@ -30,6 +29,13 @@ async function getDeployments(projectId, limit) {
     } catch {
         console.log(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error);
     }
+}
+
+function getDeploymentsLogs(projectId, limit){
+
+    if (!limit) limit = 1;
+
+    
 }
 
 module.exports = {
