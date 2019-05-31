@@ -1,4 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
+const constants = require('./constants');
+
+
 const uri = "mongodb+srv://test:test123456@logz-for-all-wxd9m.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {useNewUrlParser: true});
 const connection = client.connect();
@@ -31,7 +34,7 @@ const setDoc = async function (integrationId, object) {
     });
 };
 
-const getCollection = function () {
+const getLogzCollection = function () {
     return new Promise((resolve, reject) => {
         connection.then(() => {
             const db = client.db(dbName);
@@ -49,5 +52,5 @@ const getCollection = function () {
 module.exports = {
     getDoc,
     setDoc,
-    getCollection
+    getLogzCollection
 };
