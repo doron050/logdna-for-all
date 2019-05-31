@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/";
 const API_AUTH_ENDPOINT_URL = "https://zeit.co/oauth/authorize";
+const ZEIT_PROD_REDIRECT_URL = "https://logz-for-all.logz-for-all.now.sh/redirect";
 
 const LOGZIO_TOKEN = "yyxbNlmITKFCAHGBfFtFfoHKWyFJAXiS"; // Moshe Basher
 const LOGSDNA_KEY = "33bc25c119324ac7341346450188cbc4"; // Moshe Basher
@@ -36,6 +37,7 @@ const AUTH = {
 
 module.exports = {
     API_BASIC_ENDPOINT_URL,
+    ZEIT_PROD_REDIRECT_URL,
     LOG_MESSAGES,
     LOGZIO_TOKEN,
     LOGSDNA_KEY,
