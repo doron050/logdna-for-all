@@ -1,5 +1,4 @@
 require('dotenv').config();
-const constants = require('../common/constants');
 const {withUiHook, htm} = require('@zeit/integration-utils');
 const mongo = require('../common/mongodb');
 
@@ -18,7 +17,7 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
         subscriber.logDnaToken = clientState.token;
         subscriber.active = !!clientState.token;
 
-        await mongo.upsertDoc(integrationId,subscriber);
+        await mongo.upsertDoc(integrationId, subscriber);
     }
 
     return htm`
