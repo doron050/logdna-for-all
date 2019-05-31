@@ -31,14 +31,22 @@ async function getDeployments(projectId, limit) {
     }
 }
 
-function getDeploymentsLogs(projectId, limit){
+function getDeploymentsLogs(projectId, numOfDeployments){
 
-    if (!limit) limit = 1;
+    // If no limit passed, get the last deployment
+    if (!numOfDeployments) numOfDeployments = 1;
 
-    
+    let deployments = getDeployments(projectId, numOfDeployments);
+    let logs = [];
+
+    deployments.forEach(deploy => {
+        
+        logs.push(getLogs(deploy.name));
+    });
+
+    return (logs);
 }
 
 module.exports = {
-    getLogs,
-    getDeployments
+    getDeploymentsLogs
 };
