@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 
         const token = res.access_token;
 
-        mongoClient.upsertDoc()
+      //  mongoClient.upsertDoc()
 
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
