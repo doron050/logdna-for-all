@@ -1,7 +1,7 @@
 const dna = require('logdna');
-
 const zeit = require('./zeitConnector/projectIntegration');
-
+const logConvertor = require('./common/zeitTOdna');
+const consts = require('./common/constants');
 
 
 // DEBUG ONLY
@@ -43,20 +43,15 @@ const mylog = [{
 function handleClient(clientToHandle) {
     // const testLog = zeit.getDeploymentsLogs(clientToHandle.projectId)[0];
     const logLines = mylog;
-    console.log(`handling client, ID: ${clientToHandle.integrationId}`);
+    console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + clientToHandle.configurationId);
 
     if (!clientToHandle.logger) {
-        console.log(`Creating new logger for client ID: ${clientToHandle.integrationId} , DNAkey: ${clientToHandle.logDnaToken}`);
+        console.log(consts.LOG_MESSAGES.NEW_LOGGER + clientToHandle.configurationId);
         clientToHandle.logger = dna.createLogger(clientToHandle.logDnaToken, {});
     }
-    logLines.forEach(currentLog => {
-        const templog = {
-            deploymentId: currentLog.payload.deploymentId,
-            data: currentLog.payload.text,
-            id: clientToHandle.integrationId
-        }
-        clientToHandle.logger.log(templog);
-        console.log("log line sent");
+    logLines.forEach(zeitLogLine => {
+        const dnaLog = logConvertor.convertToDNA(zeitLogLine,clientToHandle);
+        clientToHandle.logger.log(dnaLog);
     });
 }
 
