@@ -8,6 +8,6 @@
     "express": "^4.17.1"
   },
   "scripts": {
-    "start": "now dev -p 5005 --debug"
+    "start": "node app.js"
   }
 }
