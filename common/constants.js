@@ -20,7 +20,8 @@ const LOG_MESSAGES = {
     ERROR_GET_INTEGRATIONS: "Error get last integrations: ",
     SUCCESS_GET_LOGS: "Success get logs: ",
     ERROR_GET_LOGS: "Error get logs: ",
-    SUCCESS_GET_ACCESS_TOKEN: "Access token retrive: "
+    SUCCESS_GET_ACCESS_TOKEN: "Access token retrive: ",
+    ERROR_GET_ACCESS_TOKEN: "Error! can't retrive access token: "
 };
 
 const ZEIT_HTTP_INSTANCE = axios.create({
