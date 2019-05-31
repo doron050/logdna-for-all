@@ -5,16 +5,20 @@
     {
       "src": "zeitConnector/integrationConfigServer.js",
       "use": "@now/node"
+    },
+    {
+      "src": "zeitConnector/redirectServer.js",
+      "use": "@now/node"
     }
   ],
   "routes": [
     {
-      "src": "/",
+      "src": "/ui-hooks",
       "dest": "zeitConnector/integrationConfigServer.js"
     },
     {
       "src": "/redirect",
-      "dest": "zeitConnector/integrationConfigServer.js"
+      "dest": "zeitConnector/zeitConnector/redirectServer.js"
     }
   ]
 }
