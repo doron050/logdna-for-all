@@ -5,13 +5,6 @@ const dnaLogger = require('./common/dnaLogger');
 
 const app = express();
 
-const mongo =require('./common/mongodb');
-
-mongo.getDoc('asd').then((sd) => {
-    console.log(sd ? 'yes' : 'no');
-    const a=1;
-});
-
 app.get('/hi', async (req, res) => {
 
     dnaLogger.log("hello world - dna log");
