@@ -3,27 +3,37 @@ const uri = "mongodb+srv://test:test123456@logz-for-all-wxd9m.mongodb.net/test?r
 const client = new MongoClient(uri, {useNewUrlParser: true});
 const connection = client.connect();
 
+const dbName = 'logz';
+const collecrtionName = 'logz';
 
-// connection.then(() => {
-//     const doc = {id: 3};
-//     const db = client.db('database_name');
-//     const coll = db.collection('collection_name');
-//     coll.insertOne(doc, (err, result) => {
-//         if (err) throw err
-//     })
-// });
-//
 
-// const getDoc = async function (integrationId) {
-//     await connection;
-//     const doc = {id: 3};
-//     const db = client.db('logz');
-//     const coll = db.collection('collection_name');
-//     coll.insertOne(doc, (err, result) => {
-//         if (err) throw err
-//     })
-// };
+const getDoc = function (integrationId, callback) {
+    connection.then(() => {
+        const db = client.db(dbName);
+        const coll = db.collection(collecrtionName);
+        coll.findOne({integrationId: integrationId}, (err, result) => {
+            if (err)
+                console.log(err);
+
+            callback(result);
+        });
+    });
+};
+
+const setDoc = function(integrationId, object) {
+    connection.then(() => {
+        const db = client.db(dbName);
+        const coll = db.collection(collecrtionName);
+        coll.findOne({integrationId: integrationId}, (err, result) => {
+            if (err)
+                console.log(err);
+
+            callback(result);
+        });
+    });
+};
 
 module.exports = {
     getDoc,
+    setDoc,
 };
