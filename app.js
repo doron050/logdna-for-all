@@ -1,12 +1,9 @@
+require('dotenv').config();
 const express = require('express');
-const dotenv = require('dotenv');
 const constants = require('./common/constants');
 const logger = require('./common/logger');
 
-
-dotenv.config();
 const app = express();
-
 
 app.get('/hi', async (req, res) => {
 

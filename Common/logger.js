@@ -2,7 +2,7 @@ const dna = require('logdna');
 const param = require('./constants');
 
 
-var dnalog = dna.createLogger(param.LOGSDNA_KEY,{});
+const dnalog = dna.createLogger(param.LOGSDNA_KEY,{});
 
 function log(data)
 {
@@ -12,4 +12,4 @@ function log(data)
 
 module.exports = {
     log
-}
+};

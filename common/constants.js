@@ -1,4 +1,3 @@
-require('dotenv').config();
 const axios = require('axios');
 
 const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/";
@@ -33,7 +32,7 @@ const AUTH = {
     HEADER: "Authorization",
     CLIENT_ID: process.env.INTEGRATION_CLIENT_ID,
     CLIENT_SECRET: process.env.INTEGRATION_CLIENT_SECRET
-}
+};
 
 module.exports = {
     API_BASIC_ENDPOINT_URL,
