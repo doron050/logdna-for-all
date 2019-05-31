@@ -1,4 +1,4 @@
-function convertToDNA(zeitLog) {
+function convertToDNA(zeitLog,clientToHandle) {
     const dnaLog = {
         deploymentId: zeitLog.payload.deploymentId,
         data: zeitLog.payload.text,
