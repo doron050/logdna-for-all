@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/v2/now/";
 const LOGZIO_TOKEN = "037b265e-c010-49f6-9a99-ecfe29d5adb8"; // Moshe Basher
 
@@ -19,10 +21,13 @@ const ZEIT_HTTP_INSTANCE = axios.create({
     baseURL: API_BASIC_ENDPOINT_URL
 });
 
+const PORT = process.env.PORT || 9000;
+
 module.exports = {
     API_BASIC_ENDPOINT_URL,
     LOG_MESSAGES,
     LOGZIO_TOKEN,
     ZEIT_API_ROUTES,
-    ZEIT_HTTP_INSTANCE
+    ZEIT_HTTP_INSTANCE,
+    PORT
 };

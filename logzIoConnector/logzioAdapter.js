@@ -1,5 +1,5 @@
-require ('../logz-for-all/Common/Parameters');
-const file = require('../Common/fileAdapter');
+require ('../logz-for-all/common/Parameters');
+const file = require('../common/fileAdapter');
 
 var logger = require('logzio-nodejs').createLogger({
     token: LOGZIO_TOKEN,
