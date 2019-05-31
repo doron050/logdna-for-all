@@ -22,12 +22,19 @@ module.exports = async (req, res) => {
     //console.log(constants.AUTH.CLIENT_ID + " | " + constants.AUTH.CLIENT_SECRET + " | " + newIntegration.code + " | " + newIntegration.next); 
 
     try {
+
+        console.log(constants.ZEIT_API_ROUTES.ACCESS_TOKEN);
+        console.log( constants.AUTH.CLIENT_ID);
+        console.log(constants.AUTH.CLIENT_SECRET);
+        console.log(newIntegration.code);
+        console.log(constants.ZEIT_PROD_REDIRECT_URL);
         const res = await constants.ZEIT_HTTP_INSTANCE.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, {
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
             client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
             code: newIntegration.code, //The code you received
             redirect_uri: constants.ZEIT_PROD_REDIRECT_URL //URL to redirect back
         });
+ 
 
         const token = res.access_token;
 
