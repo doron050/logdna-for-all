@@ -1,4 +1,4 @@
-const {parse} = require('url');
+
 const constants = require('../common/constants');
 
 module.exports = (req, res) => {
@@ -15,10 +15,12 @@ module.exports = (req, res) => {
         client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
         code: newIntegration.code, //The code you received
         redirect_uri: newIntegration.next //URL to redirect back
-    }).then(function(res){
+    }).then(function (res) {
 
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN)
         let token = res.accessToken;
+        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token)
+    }).catch(function (error) {
+        console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);
     });
 
     res.end();
