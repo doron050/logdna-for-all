@@ -3,8 +3,8 @@ const {withUiHook, htm} = require('@zeit/integration-utils');
 const mongo = require('../common/mongodb');
 
 
-async function getSubscriber(integrationId) {
-    const subscriber = await mongo.getDoc(integrationId);
+async function getSubscriber(configurationId) {
+    const subscriber = await mongo.getDoc(configurationId);
     return subscriber ? subscriber : {};
 }
 
