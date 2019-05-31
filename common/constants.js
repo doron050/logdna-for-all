@@ -1,10 +1,7 @@
 const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/v2/now/";
-const LOGZIO_TOKEN = "037b265e-c010-49f6-9a99-ecfe29d5adb8";
-const MONGO_URL = "mongodb://localhost:27017/";
-const MONGO_DB = "mydb";
+const LOGZIO_TOKEN = "037b265e-c010-49f6-9a99-ecfe29d5adb8"; // Moshe Basher
 
 const ZEIT_API_ROUTES = {
-
     LOGS: "/events",
     DEPLOYMENTS: "/deployments"
 };
@@ -26,7 +23,6 @@ module.exports = {
     API_BASIC_ENDPOINT_URL,
     LOG_MESSAGES,
     LOGZIO_TOKEN,
-    MONGO_URL,
     ZEIT_API_ROUTES,
     ZEIT_HTTP_INSTANCE
 };

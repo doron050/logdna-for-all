@@ -11,6 +11,10 @@
     {
       "src": "/",
       "dest": "zeitConnector/integrationConfigServer.js"
+    },
+    {
+      "src":"/worker",
+      "dest":"Common/cronWorker.js"
     }
   ]
 }
