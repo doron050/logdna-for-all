@@ -1,23 +1,35 @@
 
+const url = require('url');
 const constants = require('../common/constants');
+const axios = require('axios');
 
 module.exports = (req, res) => {
 
+    let query = url.parse(req.url, true).query;
+    
+    console.log(query);
+    console.log(query.teamId);
+    console.log(query.configurationId);
+    console.log(query.code);
+    console.log(query.next);
+    console.log(constants.AUTH.CLIENT_ID);
+    console.log(constants.AUTH.CLIENT_SECRET);
     const newIntegration = {
-        teamId: res.teamId, //The teamId of the installation
-        configurationId: res.configurationId, //The id of the related configuration
-        code: res.code, //OAuth authorization code (you can exchange an accessToken using this)
-        next: res.next //The installation URL of your Integration in the ZEIT Dashboard
+        teamId: query.teamId, //The teamId of the installation
+        configurationId: query.configurationId, //The id of the related configuration
+        code: query.code, //OAuth authorization code (you can exchange an accessToken using this)
+        next: query.next //The installation URL of your Integration in the ZEIT Dashboard
     };
-
-    constants.ZEIT_HTTP_INSTANCE.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, {
-        clinet_id: constants.AUTH.CLIENT_ID, //ID of your application
+    console.log(constants.AUTH.CLIENT_ID + " | " + constants.AUTH.CLIENT_SECRET + " | " + newIntegration.code + " | " + newIntegration.next); 
+    
+    axios.post("https://api.zeit.co/v2/oauth/access_token", {
+        client_id: constants.AUTH.CLIENT_ID, //ID of your application
         client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
         code: newIntegration.code, //The code you received
-        redirect_uri: newIntegration.next //URL to redirect back
+        redirect_uri: newIntegration.next //newIntegration.next //URL to redirect back
     }).then(function (res) {
 
-        let token = res.accessToken;
+        let token = res.access_token;
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token)
     }).catch(function (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);

@@ -18,7 +18,7 @@
     },
     {
       "src": "/redirect",
-      "dest": "zeitConnector/zeitConnector/redirectServer.js"
+      "dest": "zeitConnector/redirectServer.js"
     }
   ]
 }
