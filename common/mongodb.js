@@ -26,7 +26,7 @@ const getDoc = function (integrationId) {
     });
 };
 
-const setDoc = async function (integrationId, object) {
+const updateDoc = async function (integrationId, object) {
     connection.then(async () => {
         const db = client.db(dbName);
         const coll = db.collection(collecrtionName);
@@ -51,6 +51,6 @@ const getLogzCollection = function () {
 
 module.exports = {
     getDoc,
-    setDoc,
+    updateDoc,
     getLogzCollection
 };
