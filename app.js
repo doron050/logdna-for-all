@@ -10,7 +10,7 @@ const app = express();
 
 app.get('/hi', async (req, res) => {
 
-    logger.log("hello dna log");
+    logger.log("hello world - dna log");
         
     
     res.send('hello world');
