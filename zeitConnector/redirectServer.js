@@ -30,16 +30,12 @@ module.exports = async (req, res) => {
         console.log(constants.AUTH.CLIENT_SECRET);
         console.log(newIntegration.code);
         console.log(constants.ZEIT_PROD_REDIRECT_URL);
-        const res = await axios.post("https://api.zeit.co/v2/oauth/access_token", qs.stringify({ //constants.ZEIT_API_ROUTES.ACCESS_TOKEN
+        const resAccess = await axios.post("https://api.zeit.co/v2/oauth/access_token", qs.stringify({ //constants.ZEIT_API_ROUTES.ACCESS_TOKEN
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
             client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
             code: newIntegration.code, //The code you received
             redirect_uri: constants.ZEIT_PROD_REDIRECT_URL //URL to redirect back
-        }), {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+        }));
 
 
         const token = res.access_token;
