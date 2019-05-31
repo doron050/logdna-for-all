@@ -9,7 +9,7 @@ const LOGSDNA_KEY = "33bc25c119324ac7341346450188cbc4"; // Moshe Basher
 const ZEIT_API_ROUTES = {
     LOGS: "v2/now/events",
     DEPLOYMENTS: "v2/now/deployments",
-    ACCESS_TOKEN: "/v2/oauth/access_token"
+    ACCESS_TOKEN: "v2/oauth/access_token"
 };
 
 const LOG_MESSAGES = {
