@@ -6,7 +6,10 @@
     "dotenv": "^8.0.0",
     "logzio-nodejs": "^1.0.5",
     "express": "^4.17.1",
-    "mongodb": "^3.2.6"
+    "mongodb": "^3.2.6",
+    "winston": "^3.2.1",
+    "logdna-winston": "^2.2.0",
+    "winston-logzio": "^5.0.0"
   },
   "scripts": {
     "start": "node app.js",
