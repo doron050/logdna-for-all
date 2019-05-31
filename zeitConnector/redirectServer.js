@@ -21,7 +21,6 @@ module.exports = async (req, res) => {
     };
 
     try {
-
         const resAccess = await httpClient.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, qs.stringify({
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
             client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
@@ -30,18 +29,17 @@ module.exports = async (req, res) => {
         }));
 
         const token = resAccess.data.access_token;
-
-        await saveToken(newIntegration.configurationId, resAccess.data.access_token);
-
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN);
+        await saveToken(newIntegration.configurationId, token);
+        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
         // Redirects to the ui-hooks
         res.writeHead(302, {
             'Location': newIntegration.next
         });
         res.end();
+
     } catch (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);
         res.end();
-    };
+    }
 };
