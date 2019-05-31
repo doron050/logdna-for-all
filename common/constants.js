@@ -8,7 +8,8 @@ const LOGSDNA_KEY = "33bc25c119324ac7341346450188cbc4"; // Moshe Basher
 const ZEIT_API_ROUTES = {
     LOGS: "v2/now/events",
     DEPLOYMENTS: "v2/now/deployments",
-    ACCESS_TOKEN: "v2/oauth/access_token"
+    ACCESS_TOKEN: "v2/oauth/access_token",
+    PROJECTS: "v1/projects/list"
 };
 
 const LOG_MESSAGES = {
@@ -24,7 +25,9 @@ const LOG_MESSAGES = {
     NEW_CLIENT: "Found new client with project ID: ",
     HANDLING_CLIENT: "Currently handling client with project ID: ",
     STATUS_CHANGE: "Change of status for Client with project ID: ",
-    TERMINATION_NOTICE: "killing cycle for client with project ID: "
+    TERMINATION_NOTICE: "killing cycle for client with project ID: ",
+    SUCCESS_GET_PROJECTS: "Success get projects: ",
+    ERROR_GET_PROJECTS: "Error get projects: "
 
 };
 
