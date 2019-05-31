@@ -1,6 +1,7 @@
 {
   "name": "my-ui-hook",
   "dependencies": {
-    "@zeit/integration-utils": "latest"
+    "@zeit/integration-utils": "latest",
+    "logzio-nodejs": "^1.0.5"
   }
 }
