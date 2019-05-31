@@ -7,28 +7,41 @@ const dbName = 'logz';
 const collecrtionName = 'logz';
 
 
-const getDoc = function (integrationId, callback) {
-    connection.then(() => {
-        const db = client.db(dbName);
-        const coll = db.collection(collecrtionName);
-        coll.findOne({integrationId: integrationId}, (err, result) => {
-            if (err)
-                console.log(err);
+const getDoc = function (integrationId) {
+    return new Promise((resolve, reject) => {
+        connection.then(() => {
+            const db = client.db(dbName);
+            const coll = db.collection(collecrtionName);
+            coll.findOne({integrationId: integrationId}, (err, result) => {
+                if (err)
+                    reject(err);
 
-            callback(result);
+                resolve(result);
+            });
+
         });
     });
 };
 
-const setDoc = function(integrationId, object) {
-    connection.then(() => {
+const setDoc = async function (integrationId, object) {
+    connection.then(async () => {
         const db = client.db(dbName);
         const coll = db.collection(collecrtionName);
-        coll.findOne({integrationId: integrationId}, (err, result) => {
-            if (err)
-                console.log(err);
+        await coll.findOneAndUpdate({}, {$set: object});
+    });
+};
 
-            callback(result);
+const getCollection = function () {
+    return new Promise((resolve, reject) => {
+        connection.then(() => {
+            const db = client.db(dbName);
+            const coll = db.collection(collecrtionName);
+            coll.find().toArray((err, result) => {
+                if (err)
+                    reject(err);
+
+                resolve(result);
+            });
         });
     });
 };
@@ -36,4 +49,5 @@ const setDoc = function(integrationId, object) {
 module.exports = {
     getDoc,
     setDoc,
+    getCollection
 };
