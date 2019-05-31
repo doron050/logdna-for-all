@@ -1,7 +1,7 @@
 const dna = require('logdna');
-// const constants = require('./constants');
+const param = require('./constants');
 
-var dnalog = dna.createLogger("33bc25c119324ac7341346450188cbc4",{});
+var dnalog = dna.createLogger(param.LOGSDNA_KEY,{});
 
 function log(data)
 {
