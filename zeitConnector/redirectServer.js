@@ -37,8 +37,10 @@ module.exports = async (req, res) => {
             redirect_uri: constants.ZEIT_PROD_REDIRECT_URL //URL to redirect back
         }));
 
-
-        const token = res.access_token;
+        console.log({
+            resAccess
+        });
+        const token = resAccess.access_token;
 
         //  mongoClient.upsertDoc()
 
