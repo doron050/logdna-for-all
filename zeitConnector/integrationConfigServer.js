@@ -9,15 +9,15 @@ async function getSubscriber(integrationId) {
 }
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
-    const {clientState, action, integrationId} = payload;
+    const {clientState, action, configurationId} = payload;
 
-    const subscriber = await getSubscriber(integrationId);
+    const subscriber = await getSubscriber(configurationId);
 
     if (action === 'submit') {
         subscriber.logDnaToken = clientState.token;
         subscriber.active = !!clientState.token;
 
-        await mongo.upsertDoc(integrationId, subscriber);
+        await mongo.upsertDoc(configurationId, subscriber);
     }
 
     return htm`
