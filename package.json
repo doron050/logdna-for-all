@@ -17,5 +17,6 @@
   "scripts": {
     "start": "node app.js",
     "zeit": "now dev -p 5005"
-  }
+  },
+  "license": "MIT"
 }
