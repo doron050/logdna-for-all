@@ -1,13 +1,13 @@
 require('dotenv').config();
 const express = require('express');
-const constants = require('common/constants');
-const dnalogger = require('common/logger');
+const constants = require('./common/constants');
+const dnaLogger = require('./common/dnaLogger');
 
 const app = express();
 
 app.get('/hi', async (req, res) => {
 
-    dnalogger.log("hello world - dna log");
+    dnaLogger.log("hello world - dna log");
         
     
     res.send('hello world');
