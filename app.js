@@ -17,4 +17,8 @@ app.get('/hi', async (req, res) => {
     console.log("Done");
 });
 
+app.get('/keepalive',async (req,res) => {
+    res.send("thank you");
+});
+
 app.listen(constants.PORT, () => console.log(`app on port ${constants.PORT}`));
