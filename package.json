@@ -16,6 +16,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "ui-hooks": "now dev -p 5005"
+    "zeit": "now dev -p 5005"
   }
 }
