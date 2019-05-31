@@ -55,7 +55,7 @@ function getDeploymentsLogs(projectId, token, numOfDeployments) {
     return (logs);
 }
 
-function getTeamProjects(token){
+async function getTeamProjects(token){
     
     try {
         const response = await httpClient.get(constants.ZEIT_API_ROUTES.PROJECTS, {
@@ -65,7 +65,7 @@ function getTeamProjects(token){
         });
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_PROJECTS + response.data.length);
         return (response.data);
-    } catch {
+    } catch (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_PROJECTS + error);
     }
 }
