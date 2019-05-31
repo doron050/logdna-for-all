@@ -1,5 +1,4 @@
 require('dotenv').config();
-const constants = require('../common/constants');
 const {withUiHook, htm} = require('@zeit/integration-utils');
 const mongo = require('../common/mongodb');
 
@@ -10,21 +9,22 @@ async function getSubscriber(integrationId) {
 }
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
-    const {clientState, action, integrationId} = payload;
-    console.log(integrationId);
+    const {clientState, action, configurationId} = payload;
 
-    const subscriber = await getSubscriber(integrationId);
+    const subscriber = await getSubscriber(configurationId);
 
     if (action === 'submit') {
         subscriber.logDnaToken = clientState.token;
-        await mongo.updateDoc(integrationId,subscriber);
+        subscriber.active = !!clientState.token;
+
+        await mongo.upsertDoc(configurationId, subscriber);
     }
 
     return htm`
     <Page>
       <P>LogDNA configuration page:</P>
       <Container>
-        <Input label="LogDNA token" name="token" value="${subscriber.logDnaToken}" />
+        <Input label="LogDNA token" name="token" value="${subscriber.logDnaToken ? subscriber.logDnaToken : ''}" />
       </Container>
 
       <Container>

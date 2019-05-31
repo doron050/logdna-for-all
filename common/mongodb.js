@@ -10,12 +10,12 @@ const dbName = 'logz';
 const collecrtionName = 'logz';
 
 
-const getDoc = function (integrationId) {
+const getDoc = function (configurationId) {
     return new Promise((resolve, reject) => {
         connection.then(() => {
             const db = client.db(dbName);
             const coll = db.collection(collecrtionName);
-            coll.findOne({integrationId: integrationId}, (err, result) => {
+            coll.findOne({configurationId: configurationId}, (err, result) => {
                 if (err)
                     reject(err);
 
@@ -26,11 +26,11 @@ const getDoc = function (integrationId) {
     });
 };
 
-const updateDoc = async function (integrationId, object) {
+const upsertDoc = async function (configurationId, object) {
     connection.then(async () => {
         const db = client.db(dbName);
         const coll = db.collection(collecrtionName);
-        await coll.findOneAndUpdate({}, {$set: object});
+        await coll.updateOne({configurationId: configurationId}, {$set: object},{ upsert: true });
     });
 };
 
@@ -51,6 +51,6 @@ const getLogzCollection = function () {
 
 module.exports = {
     getDoc,
-    updateDoc,
+    upsertDoc,
     getLogzCollection
 };
