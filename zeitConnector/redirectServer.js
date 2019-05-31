@@ -14,6 +14,7 @@ module.exports = (req, res) => {
     console.log(query.next);
     console.log(constants.AUTH.CLIENT_ID);
     console.log(constants.AUTH.CLIENT_SECRET);
+    
     const newIntegration = {
         teamId: query.teamId, //The teamId of the installation
         configurationId: query.configurationId, //The id of the related configuration

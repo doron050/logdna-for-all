@@ -12,7 +12,8 @@
     "logzio-nodejs": "^1.0.5",
     "mongodb": "^3.2.6",
     "winston": "^3.2.1",
-    "winston-logzio": "^5.0.0"
+    "winston-logzio": "^5.0.0",
+    "lodash": "^4.17.11"
   },
   "scripts": {
     "start": "node app.js",
