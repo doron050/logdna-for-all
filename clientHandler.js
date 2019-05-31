@@ -50,7 +50,7 @@ function handleClient(clientToHandle) {
         clientToHandle.logger = dna.createLogger(clientToHandle.logDnaToken, {});
     }
     logLines.forEach(zeitLogLine => {
-        const dnaLog = logConvertor(zeitLogLine);
+        const dnaLog = convertToDNA(zeitLogLine);
         clientToHandle.logger.log(dnaLog);
     });
 }
