@@ -1,39 +1,27 @@
 const constants = require('../common/constants');
-const {withUiHook,htm} = require('@zeit/integration-utils');
+const {withUiHook, htm} = require('@zeit/integration-utils');
 
-let count = 0;
+const store = {token: ''};
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
 
+    const {clientState, action} = payload;
 
-    // console.log(constants.LOG_MESSAGES.NEW_INTEGRATION);
-    //
-    // const integrationDetails = {};
-    // console.log(payload);
-    // const u = payload.user;
-    // console.log(u);
-    // const p = payload.project;
-    // console.log(p);
-    // const t = payload.team;
-    // console.log(t);
-    // const {projectId} = payload;
-    // let apiUrl = `/v4/now/deployments?limit=10`;
-    // if (projectId) {
-    //     apiUrl += `&projectId=${projectId}`
-    // }
-    //
-    // const {deployments} = await zeitClient.fetchAndThrow(apiUrl, {method: 'GET'});
-    //
-    // console.log(deployments);
-    //
-    // const logs = await zeitClient.fetchAndThrow("/v2/now/deployments/" + "dpl_8qZ3rjJtDAK7E5DUoJN9ybz5rEem" + "/events", {method: 'GET'});
-    //
-    // console.log(logs.length);
-    count += 1;
+    if (action === 'submit') {
+        store.token = clientState.token;
+    }
+
     return htm`
     <Page>
-      <P>Counter: ${count}</P>
-      <Button>Count Me</Button>
+      <P>LogDNA configuration page:</P>
+      <Container>
+        <Input label="LogDNA token" name="token" value="${store.token}" />
+      </Container>
+      
+      <Container>
+          <Button action="submit">Submit</Button>
+          ${action === 'submit' ? '    Saved': ''}
+      </Container>
     </Page>
   `
 });
