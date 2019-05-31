@@ -1,4 +1,3 @@
-const axios = require('axios');
 
 const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/";
 const API_AUTH_ENDPOINT_URL = "https://zeit.co/oauth/authorize";

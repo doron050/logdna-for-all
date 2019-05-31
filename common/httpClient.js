@@ -1,4 +1,5 @@
 
+const axios = require('axios');
 const constants = require('./constants');
 
 const ZEIT_HTTP_INSTANCE = axios.create({
