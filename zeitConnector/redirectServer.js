@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
         next: query.next //The installation URL of your Integration in the ZEIT Dashboard
     };
 
+    console.log(query);
     try {
         const resAccess = await httpClient.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, qs.stringify({
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
