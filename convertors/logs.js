@@ -1,18 +1,29 @@
 function getLogsSince(logs, lastLogId) {
 
+    let foundFlag = false;
     let logsIdx = 0;
     let lastLogIdx = 0;
 
-    do {
+    if (lastLogId) {
 
-        if (logs[logsIdx].payload.id === lastLogId) {
+        do {
 
-            lastLogIdx = logsIdx;
+            if (logs[logsIdx].payload.id === lastLogId) {
+
+                lastLogIdx = logsIdx;
+                foundFlag = true;
+            }
+
+            logsIdx++;
         }
-
-        logsIdx++;
+        while (!foundFlag && logsIdx < logs.length)
     }
-    while (!lastLogId || logsIdx < logs.length)
+
+    if (!lastLogId || !foundFlag) {
+
+        // If no last log exists or found, it should return at the end all the logs
+        lastLogIdx = -1;
+    }
 
     return ({
         logs: logs.slice(lastLogIdx + 1),

@@ -9,27 +9,33 @@ const subscriberPIDlist = [];
 
 // DELETE LATER
 const debug = [{
-    configurationId: "11111111111",
-        logDnaToken: "33bc25c119324ac7341346450188cbc4",
-        active: true,
-        projectId: 'proj1ID',
-        zeitToken: 'zeitToken1',
-        lastSentLogId: '123'
+        configurationId: "0",
+        zeitToken: 'zeit-tocken-mock',
+        projects: [{
+            logDnaToken: "33bc25c119324ac7341346450188cbc4",
+            active: true,
+            projectId: 'project1',
+            lastSentLogId: 'last-log-mock'
+        }]
     },
     {
-        configurationId: "2222222222",
-        logDnaToken: "33bc25c119324ac7341346450188cbc4",
-        active: true,
-        projectId: 'proj2ID',
-        zeitToken: 'zeitToken2',
-        lastSentLogId: '123'
+        configurationId: "1",
+        zeitToken: 'zeit-tocken-mock',
+        projects: [{
+            logDnaToken: "33bc25c119324ac7341346450188cbc4",
+            active: true,
+            projectId: 'project2',
+            lastSentLogId: 'last-log-mock'
+        }]
     }, {
-        configurationId: "33333333333",
-        logDnaToken: "33bc25c119324ac7341346450188cbc4",
-        active: true,
-        projectId: 'proj3ID',
-        zeitToken: 'zeitToken3',
-        lastSentLogId: '123'
+        configurationId: "2",
+        zeitToken: 'zeit-tocken-mock',
+        projects: [{
+            logDnaToken: "33bc25c119324ac7341346450188cbc4",
+            active: true,
+            projectId: 'project3',
+            lastSentLogId: 'last-log-mock'
+        }]
     }
 ];
 addNewSubs(mySubCollection, debug);
@@ -41,39 +47,43 @@ function syncCollection() {
     // DELETE LATER
     // const currentActiveSubCollection = mongo.getLogzCollection();
     const currentActiveSubCollection = [{
-        configurationId: "444444444444",
-        logDnaToken: "33bc25c119324ac7341346450188cbc4",
-        active: true,
-        projectId: 'NEWproj3ID',
-        zeitToken: 'NEWzeitToken3',
-        lastSentLogId: '123'
+        configurationId: "27",
+        zeitToken: 'zeit-tocken-mock',
+        projects: [{
+            logDnaToken: "33bc25c119324ac7341346450188cbc4",
+            active: true,
+            projectId: 'project27',
+            lastSentLogId: 'last-log-mock'
+        }]
     }, {
-        configurationId: "11111111111",
-        logDnaToken: "33bc25c119324ac7341346450188cbc4",
-        active: false,
-        projectId: 'proj1ID',
-        zeitToken: 'zeitToken1',
-        lastSentLogId: '123'
+        configurationId: "2",
+        zeitToken: 'zeit-tocken-mock',
+        projects: [{
+            logDnaToken: "33bc25c119324ac7341346450188cbc4",
+            active: false,
+            projectId: 'project3',
+            lastSentLogId: 'last-log-mock'
+        }]
     }];
 
 
     addNewSubs(mySubCollection, currentActiveSubCollection);
 
     mySubCollection.forEach(oldSubscriberData => {
-        const latestSubscriberData = currentActiveSubCollection.find(current => current.configurationId === oldSubscriberData.configurationId);
+        const latestSubscriberData = currentActiveSubCollection.find(current => current.projects.projectId === oldSubscriberData.projects.projectId);
         if (latestSubscriberData) {
             if (isSubscriberStatusUpdate(oldSubscriberData, latestSubscriberData)) {
 
-                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + oldSubscriberData.configurationId);
+                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + oldSubscriberData.projects.projectId);
 
                 mySubCollection.splice(_.findIndex(mySubCollection, function (temp) {
                     return isSameSubscriber(temp, oldSubscriberData);
                 }), 1);
 
                 // kill loop for this subscriber
-                const processToKill = subscriberPIDlist.find(x => x.Subscriber.configurationId == latestSubscriberData.configurationId);
+                const processToKill = subscriberPIDlist.find(x => x.Subscriber.projects.projectId == latestSubscriberData.projects.projectId);
                 if (processToKill) {
-                    console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Subscriber.configurationId);
+                    console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Subscriber.projects.projectId);
                     clearTimeout(processToKill.Pid);
                 }
             }
@@ -83,9 +93,9 @@ function syncCollection() {
 
 function addNewSubs(mySubCollection, currentActiveSubCollection) {
     currentActiveSubCollection.forEach(newSub => {
-        if (!mySubCollection.some(e => e.configurationId === newSub.configurationId)) {
+        if (!mySubCollection.some(e =>  e.projects.projectId === newSub.projects.projectId)) {
 
-            console.log(consts.LOG_MESSAGES.NEW_CLIENT + newSub.configurationId);
+            console.log(consts.LOG_MESSAGES.NEW_CLIENT + newSub.projects.projectId);
             mySubCollection.push(newSub);
 
             const _pid = setInterval(() => clientHandler.handleClient(newSub), 1000);
@@ -102,7 +112,7 @@ function isSubscriberStatusUpdate(sub1, sub2) {
 }
 
 function isSameSubscriber(sub1, sub2) {
-    return (sub1.configurationId === sub2.configurationId);
+    return (sub1.projects.projectId === sub2.projects.projectId);
 }
 
 module.exports = {
