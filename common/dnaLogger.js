@@ -1,5 +1,5 @@
 const dna = require('logdna');
-const param = require('./common/constants');
+const param = require('./constants');
 
 
 const dnalog = dna.createLogger(param.LOGSDNA_KEY,{});
