@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const constants = require('./common/constants');
 const _logdnaWinstonTransport = require('logdna-winston');
-const _LogzioWinstonTransport = require('winston-logzio');
+// const _LogzioWinstonTransport = require('winston-logzio');
 const winston = require('winston');
 
 dotenv.config();
