@@ -8,10 +8,7 @@ module.exports = (req, res) => {
     let query = url.parse(req.url, true).query;
     
     console.log(query);
-    console.log(query.teamId);
-    console.log(query.configurationId);
-    console.log(query.code);
-    console.log(query.next);
+
     console.log(constants.AUTH.CLIENT_ID);
     console.log(constants.AUTH.CLIENT_SECRET);
     
@@ -31,10 +28,12 @@ module.exports = (req, res) => {
     }).then(function (res) {
 
         let token = res.access_token;
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token)
+        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
+        res.end();
     }).catch(function (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);
+        res.end();
     });
 
-    res.end();
+    
 };
