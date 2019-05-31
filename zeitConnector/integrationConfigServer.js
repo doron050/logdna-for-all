@@ -11,20 +11,21 @@ async function getSubscriber(integrationId) {
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
     const {clientState, action, integrationId} = payload;
-    console.log(integrationId);
 
     const subscriber = await getSubscriber(integrationId);
 
     if (action === 'submit') {
         subscriber.logDnaToken = clientState.token;
-        await mongo.updateDoc(integrationId,subscriber);
+        subscriber.active = !!clientState.token;
+
+        await mongo.upsertDoc(integrationId,subscriber);
     }
 
     return htm`
     <Page>
       <P>LogDNA configuration page:</P>
       <Container>
-        <Input label="LogDNA token" name="token" value="${subscriber.logDnaToken}" />
+        <Input label="LogDNA token" name="token" value="${subscriber.logDnaToken ? subscriber.logDnaToken : ''}" />
       </Container>
 
       <Container>

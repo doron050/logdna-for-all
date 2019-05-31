@@ -20,5 +20,8 @@
       "src": "/redirect",
       "dest": "zeitConnector/redirectServer.js"
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 }

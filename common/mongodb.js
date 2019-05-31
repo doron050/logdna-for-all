@@ -26,11 +26,11 @@ const getDoc = function (integrationId) {
     });
 };
 
-const updateDoc = async function (integrationId, object) {
+const upsertDoc = async function (integrationId, object) {
     connection.then(async () => {
         const db = client.db(dbName);
         const coll = db.collection(collecrtionName);
-        await coll.findOneAndUpdate({}, {$set: object});
+        await coll.updateOne({integrationId: integrationId}, {$set: object},{ upsert: true });
     });
 };
 
@@ -51,6 +51,6 @@ const getLogzCollection = function () {
 
 module.exports = {
     getDoc,
-    updateDoc,
+    upsertDoc,
     getLogzCollection
 };
