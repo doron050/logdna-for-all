@@ -1,7 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const constants = require('./common/constants');
-const logger = require('./logSender/winston');
+const logger = require('./common/logger');
+
 
 dotenv.config();
 const app = express();
@@ -9,8 +10,15 @@ const app = express();
 
 app.get('/hi', async (req, res) => {
 
-    logger.sendLog('debug',"This is a test log by Moshe");
+    logger.log("hello world - dna log");
+        
+    
     res.send('hello world');
+    console.log("Done");
+});
+
+app.get('/keepalive',async (req,res) => {
+    res.send("thank you");
 });
 
 app.listen(constants.PORT, () => console.log(`app on port ${constants.PORT}`));
