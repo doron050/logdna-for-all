@@ -7,7 +7,7 @@ const {
 let count = 0;
 
 
-module.exports = withUiHook(async ({
+module.exports = withUiHook(({
 	payload
 }) => {
 
