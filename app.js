@@ -2,10 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const constants = require('./common/constants');
 const dnaLogger = require('./common/dnaLogger');
-const clientRetriver = require('./clientRetriver');
+const nivus = require("./zeitConnector/projectIntegration");
 const app = express();
-const _clientRetriverPid = setInterval(() => clientRetriver.syncCollection(), 5000);
-
 
 app.get('/hi', async (req, res) => {
 
@@ -23,5 +21,7 @@ app.get('/keepalive', async (req, res) => {
 app.get('/sync',async (req,res) => {
     
 });
+
+//nivus.getDeploymentsLogs();
 
 app.listen(constants.PORT, () => console.log(`app on port ${constants.PORT}`));
