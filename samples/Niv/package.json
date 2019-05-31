@@ -1,6 +1,0 @@
-{
-  "name": "my-ui-hook",
-  "dependencies": {
-    "@zeit/integration-utils": "latest"
-  }
-}
