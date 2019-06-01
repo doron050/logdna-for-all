@@ -14,14 +14,14 @@ async function syncCollection() {
 
     addNewProjectCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
     removeDisabledCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
-    updateTokenChanged(subscribedProjectsCollection,mappedProjectCollection);
+    updateTokenChanged(subscribedProjectsCollection, mappedProjectCollection);
 }
 
 function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollection) {
     currentActiveSubCollection.forEach(project => {
 
         // Check possibility of token change for same projectID
-        const projDataInMemory = subscribedProjectsCollection.find(x => x.ID === project.ID);
+        const projDataInMemory = subscribedProjectsCollection.find(x => (x.ID === project.ID) && (x.active === project.active));
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
 
@@ -65,9 +65,9 @@ function killCycle(projectToRemove) {
         clearTimeout(processToKill.Pid); // TODO: interval ?
 
 
-        subscriberPIDlist.splice(_.findIndex(subscriberPIDlist,function(temp){
-           return (temp.Project.ID === processToKill.Project.ID);
-        }),1);
+        subscriberPIDlist.splice(_.findIndex(subscriberPIDlist, function (temp) {
+            return (temp.Project.ID === processToKill.Project.ID);
+        }), 1);
     }
 }
 
@@ -85,8 +85,7 @@ function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActive
 
             if (project.active) {
                 console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID);
-
-                subscribeProject(subscribedProjectsCollection, project)
+                subscribeProject(subscribedProjectsCollection, project);
             }
         }
 
@@ -115,16 +114,22 @@ function mapProjects(dbRawData) {
 
     const projectList = [];
     dbRawData.forEach(document => {
-        document.projects.forEach(project => {
-            projectList.push({
-                ID: project.projectId,
-                relatedConfID: document.configurationId,
-                zeitToken: document.zeitToken,
-                logDnaToken: project.logDnaToken,
-                active: project.active,
-                lastSentLogId: project.lastSentLogId
+
+        if (!document.projects) {
+            console.log(consts.LOG_MESSAGES.NO_PROJECTS_FOUND + document.configurationId);
+        } else {
+            document.projects.forEach(project => {
+                projectList.push({
+                    ID: project.projectId,
+                    relatedConfID: document.configurationId,
+                    zeitToken: document.zeitToken,
+                    logDnaToken: project.logDnaToken,
+                    active: project.active,
+                    lastSentLogId: project.lastSentLogId,
+                    teamID: document.teamId
+                });
             });
-        });
+        }
     });
 
 
