@@ -41,7 +41,7 @@ async function getLastLogs(projectToHandle) {
     let relevantLogs = [];
 
     // Get logs for this project
-    const allLogLines = await zeit.getDeploymentsLogs(projectToHandle.ID,projectToHandle.zeitToken,projectToHandle.teamID);
+    const allLogLines = await zeit.getDeploymentsLogs(projectToHandle.projectId,projectToHandle.zeitToken,projectToHandle.teamId);
     // const allLogLines = mylog; // DEBUG ONLY
 
     const lastID = projectToHandle.lastSentLogId;

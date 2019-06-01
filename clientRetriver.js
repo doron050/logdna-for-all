@@ -21,11 +21,11 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
     currentActiveSubCollection.forEach(project => {
 
         // Check possibility of token change for same projectID
-        const projDataInMemory = subscribedProjectsCollection.find(x => (x.ID === project.ID) && (x.active === project.active));
+        const projDataInMemory = subscribedProjectsCollection.find(x => isSameSubscriber(x,project) && (x.active === project.active));
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
 
-                console.log(consts.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.ID + " <--> " + project.logDnaToken)
+                console.log(consts.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
                 unsubscribeProject(subscribedProjectsCollection, project);
                 subscribeProject(subscribedProjectsCollection, project);
             }
@@ -35,11 +35,11 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
 
 function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
     subscribedProjectsCollection.forEach(existingProject => {
-        const newProjectData = currentActiveSubCollection.find(p => p.ID === existingProject.ID);
+        const newProjectData = currentActiveSubCollection.find(p =>isSameSubscriber(p,existingProject));
         if (newProjectData) {
 
             if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
-                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + existingProject.ID);
+                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId);
                 unsubscribeProject(subscribedProjectsCollection, newProjectData);
             }
         }
@@ -59,14 +59,14 @@ function subscribeProject(subscribedProjectsCollection, projectToAdd) {
 }
 
 function killCycle(projectToRemove) {
-    const processToKill = subscriberPIDlist.find(x => x.Project.ID == projectToRemove.ID);
+    const processToKill = subscriberPIDlist.find(x => isSameSubscriber(x.Project,projectToRemove));
     if (processToKill) {
-        console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.ID);
+        console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId);
         clearTimeout(processToKill.Pid); // TODO: interval ?
 
 
         subscriberPIDlist.splice(_.findIndex(subscriberPIDlist, function (temp) {
-            return (temp.Project.ID === processToKill.Project.ID);
+            return(isSameSubscriber(temp.Project,Proces.Project));
         }), 1);
     }
 }
@@ -81,10 +81,10 @@ function startCycle(projectToRun) {
 
 function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
     currentActiveSubCollection.forEach(project => {
-        if (!subscribedProjectsCollection.some(e => e.ID === project.ID)) {
+        if (!subscribedProjectsCollection.some(e => isSameSubscriber(e,project))) {
 
             if (project.active) {
-                console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID);
+                console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.projectId);
                 subscribeProject(subscribedProjectsCollection, project);
             }
         }
@@ -101,7 +101,7 @@ function isDNATokenChanged(sub1, sub2) {
 }
 
 function isSameSubscriber(sub1, sub2) {
-    return (sub1.projectId === sub2.projectId);
+    return ((sub1.configurationId === sub2.configurationId) && (sub1.projectId === sub2.projectId));
 }
 
 module.exports = {
@@ -120,13 +120,13 @@ function mapProjects(dbRawData) {
         } else {
             document.projects.forEach(project => {
                 projectList.push({
-                    ID: project.projectId,
-                    relatedConfID: document.configurationId,
+                    projectId: project.projectId,
+                    configurationId: document.configurationId,
                     zeitToken: document.zeitToken,
                     logDnaToken: project.logDnaToken,
                     active: project.active,
                     lastSentLogId: project.lastSentLogId,
-                    teamID: document.teamId
+                    teamId: document.teamId
                 });
             });
         }
