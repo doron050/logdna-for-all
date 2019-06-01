@@ -27,7 +27,8 @@ const LOG_MESSAGES = {
     STATUS_CHANGE: "Change of status for Client with project ID: ",
     TERMINATION_NOTICE: "killing cycle for client with project ID: ",
     SUCCESS_GET_PROJECTS: "Success get projects: ",
-    ERROR_GET_PROJECTS: "Error get projects: "
+    ERROR_GET_PROJECTS: "Error get projects: ",
+    UPDATE_LASTID:"Updating lastSentLogId: "
 
 };
 
