@@ -27,11 +27,10 @@ const getDoc = function (configurationId) {
 };
 
 const upsertDoc = async function (configurationId, object) {
-    connection.then(async () => {
-        const db = client.db(dbName);
-        const coll = db.collection(collecrtionName);
-        await coll.updateOne({configurationId: configurationId}, {$set: object},{ upsert: true });
-    });
+    await connection;
+    const db = client.db(dbName);
+    const coll = db.collection(collecrtionName);
+    await coll.updateOne({configurationId: configurationId}, {$set: object}, {upsert: true});
 };
 
 const getLogzCollection = function () {
