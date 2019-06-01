@@ -54,13 +54,13 @@ function createProjectUI(project, subscriber, currentAction) {
         <P>Connect <B>${project.name}</B> to LogDNA:</P><BR />
         <Input width="250px" label="LogDNA Token:" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-        ${isSaveAction ? 'Success!' : ''}
+        ${isSaveAction ? htm`<Notice type="success">Successfuly connected to LogDNA!</Notice>` : ''}
     </Container>
     `;
 }
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
-    const projects = await zeitClient.fetchAndThrow(constants.ZEIT_API_ROUTES.PROJECTS, {});
+    const projects = await zeitClient.fetchAndThrow("/" + constants.ZEIT_API_ROUTES.PROJECTS, {});
     const {clientState, action, configurationId} = payload;
 
     const subscriber = await getSubscriber(configurationId);
