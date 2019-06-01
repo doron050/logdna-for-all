@@ -8,11 +8,12 @@ function createHeaders(token) {
     }
 }
 
-async function getLogs(deploymentId, token) {
+async function getLogs(deploymentId, token,teamId) {
 
     try {
         const response = await httpClient.get(constants.ZEIT_API_ROUTES.LOGS_FOR_DEPLOYMENT(deploymentId), {
-            headers: createHeaders(token)
+            headers: createHeaders(token),
+            params:{teamId:teamId}
         });
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
         return response.data;
@@ -57,7 +58,8 @@ async function getDeploymentsLogs(projectId, token, teamId, numOfDeployments) {
 
 
     for (let i=0; i< deployments.length; i++) {
-        logs.push(...await getLogs(deployments[i].uid, token));
+        const currlog =await getLogs(deployments[i].uid, token,teamId); 
+        logs.push(...currlog);
     }
 
     return logs;

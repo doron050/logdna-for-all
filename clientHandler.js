@@ -18,14 +18,18 @@ async function handleProject(projectToHandle) {
     // Get last logs
     const logLines = await logHandler.getLastLogs(projectToHandle);
 
-    // Send logs
-    sendData(projectToHandle, logLines);
+    if (logLines.length > 0) {
 
-    // Save last index in DB
-    updateLastLog(projectToHandle, logLines);
+        // Send logs
+        sendData(projectToHandle, logLines);
+
+        // Save last index in DB
+        updateLastLog(projectToHandle, logLines);
+    }
 }
 
 function sendData(projectToHandle, logLines) {
+    console.log("lines to sent: " + logLines.length);
     logLines.forEach(zeitLogLine => {
         const dnaLog = logConvertor.convertToDNA(zeitLogLine, projectToHandle);
         projectToHandle.logger.log(dnaLog);
@@ -35,7 +39,7 @@ function sendData(projectToHandle, logLines) {
 async function updateLastLog(projectToHandle, logLines) {
 
     const newLastSentLogId = logLines[logLines.length - 1].payload.id;
-    await mongo.upsertLastLogID(projectToHandle.relatedConfID,projectToHandle.ID,newLastSentLogId)
+    await mongo.upsertLastLogID(projectToHandle.relatedConfID, projectToHandle.ID, newLastSentLogId)
     projectToHandle.lastSentLogId = newLastSentLogId;
     console.log(consts.LOG_MESSAGES.UPDATE_LASTID + newLastSentLogId);
 }
