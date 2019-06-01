@@ -1,8 +1,9 @@
 require('dotenv').config();
+const express = require('express');
+const constants = require('../common/constants');
+
 require('./clientRetriver');
 
-const constants = require('../common/constants');
-const express = require('express');
 const app = express();
 
 app.get('/keepalive', async (req, res) => {

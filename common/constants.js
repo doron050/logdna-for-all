@@ -8,14 +8,14 @@ const ZEIT_API_ROUTES = {
     PROJECTS: "v1/projects/list"
 };
 
-const LOGZIO = {
-    LOGGER_TOKEN: process.env.LOGGER_TOKEN,
-    LOGGER_HOST: process.env.LOGGER_HOST
-}
-
-const LOG4JS = {
-    LOG_LEVEL: process.env.LOG_LEVEL
-}
+// const LOGZIO = {
+//     LOGGER_TOKEN: process.env.LOGGER_TOKEN,
+//     LOGGER_HOST: process.env.LOGGER_HOST
+// }
+//
+// const LOG4JS = {
+//     LOG_LEVEL: process.env.LOG_LEVEL
+// }
 const LOG_MESSAGES = {
     NEW_INTEGRATION: "New integration init: ",
     SUCCESS_GET_INTEGRATIONS: "Success get last integrations: ",
@@ -78,7 +78,7 @@ module.exports = {
     DB,
     MONGO_CONNECTION_STRING,
     TIME_OUTS,
-    LOG4JS,
-    LOGZIO,
+    // LOG4JS,
+    // LOGZIO,
     ENVIRONMENT
 };
