@@ -39,6 +39,10 @@ const AUTH = {
     CLIENT_SECRET: process.env.INTEGRATION_CLIENT_SECRET
 };
 
+const TIME_OUTS ={
+    PROJECT_CYCLE : 1000,
+    SYNC_CYCLE : 5000,
+};
 module.exports = {
     API_BASIC_ENDPOINT_URL,
     ZEIT_PROD_REDIRECT_URL,
@@ -47,5 +51,6 @@ module.exports = {
     LOGSDNA_KEY,
     ZEIT_API_ROUTES,
     PORT,
-    AUTH
+    AUTH,
+    TIME_OUTS
 };
