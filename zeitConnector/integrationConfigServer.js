@@ -77,12 +77,14 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     for (let i = 0; i < projects.length; i++) {
         projectsUI.push(createProjectUI(projects[i], subscriber, action));
     }
-
+//<Img title="Let us connect!" width="600px" height="100px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/unsplash.jpg?raw=true" />
     return htm`
     <Page>
-        
+      <Box  background-image="https://github.com/doron050/logz-for-all/blob/master/resources/images/federica.jpg?raw=true" display="flex" justifyContent="space-between">
+      
+      </Box>
       ${header}
-      <Img title="Let us connect!" width="600px" height="100px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/unsplash.jpg?raw=true" />
+      
       <H2>Let us connect your world!</H2>
       ${projectsUI}
 
