@@ -9,7 +9,7 @@ let connection = getConnection();
 
 async function getConnection(){
 
-    if (!connection || !connection.connectionStatus.ok){
+    if (!connection){
 
         connection = await client.connect();
 
