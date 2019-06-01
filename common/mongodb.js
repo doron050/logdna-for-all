@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const constants = require('./constants');
+const logger = require('./logger');
 
 const client = new MongoClient(constants.MONGO_CONNECTION_STRING, {useNewUrlParser: true});
 let connection = client.connect();
@@ -18,13 +19,15 @@ function initConnction() {
         connection.then(() => {
             resolve();
         }).catch((e) => {
-            console.log(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_FIRST_TRY, e);
+            logger.error(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_FIRST_TRY + e);
+            // console.log(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_FIRST_TRY, e);
             connection = client.connect();
 
             connection.then(() => {
                 resolve();
             }).catch((e) => {
-                console.log(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_SECOND_TRY, e);
+                logger.error(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_SECOND_TRY + e);
+                // console.log(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_SECOND_TRY, e);
             });
         });
     });

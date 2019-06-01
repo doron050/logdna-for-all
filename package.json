@@ -12,6 +12,8 @@
     "lodash": "^4.17.11",
     "logdna": "^3.0.2",
     "mongodb": "^3.2.6",
+    "logzio-nodejs": "^1.0.5",
+    "log4js": "^4.3.1",
     "qs": "^6.7.0"
   },
   "scripts": {
