@@ -126,7 +126,10 @@ function mapProjects(dbRawData) {
                     logDnaToken: project.logDnaToken,
                     active: project.active,
                     lastSentLogId: project.lastSentLogId,
-                    teamId: document.teamId
+                    teamId: document.teamId,
+                    lastSentLogTimestamp:project.lastSentLogTimestamp,
+                    registrationDate: project.registrationDate
+
                 });
             });
         }
