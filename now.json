@@ -1,6 +1,6 @@
 {
-  "name": "logz-for-all",
-  "version": 2,
+  "name": "logdna-for-all",
+  "version": 1,
   "builds": [{
       "src": "zeit/integrationConfigServer.js",
       "use": "@now/node"
@@ -23,7 +23,7 @@
     "silent": true
   },
   "env": {
-    "VERSION": "1.0.0",
+    "VERSION": "1.0.1",
     "INTEGRATION_CLIENT_ID": "@integration_client_id",
     "INTEGRATION_CLIENT_SECRET": "@integration_client_secret",
     "DB_USER_NAME": "@db_user_name",

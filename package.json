@@ -1,7 +1,7 @@
 {
-  "name": "logz-for-all",
-  "version": "1.0.0",
-  "description": "This example is so cool.",
+  "name": "logdna-for-all",
+  "version": "1.0.1",
+  "description": "Connect your Zeit Now projects to LogDNA",
   "main": "heroku/app.js",
   "dependencies": {
     "@zeit/integration-utils": "^0.6.0",
