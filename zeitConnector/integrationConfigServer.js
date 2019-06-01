@@ -80,7 +80,7 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
 //<Img title="Let us connect!" width="600px" height="100px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/unsplash.jpg?raw=true" />
     return htm`
     <Page>
-      <Box background-image="https://github.com/doron050/logz-for-all/blob/master/resources/images/federica.jpg?raw=true" display="flex" justifyContent="space-between">
+      <Box background-image=url("https://github.com/doron050/logz-for-all/blob/master/resources/images/federica.jpg?raw=true") display="flex" justifyContent="space-between">
       
       ${header}
       
