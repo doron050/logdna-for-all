@@ -33,12 +33,15 @@ function sendData(projectToHandle, logLines) {
 }
 
 async function updateLastLog(projectToHandle, logLines) {
-    projectToHandle.lastSentLogId = logLines[logLines.length - 1];
-    const docToUpdate = await mongo.getDoc(projectToHandle.relatedConfID);
-    if (docToUpdate) {
-        console.log(consts.LOG_MESSAGES.UPDATE_LASTID + projectToHandle.relatedConfID + " <---> " +projectToHandle.ID);     
-        await mongo.upsertDoc(projectToHandle.relatedConfID, docToUpdate);
-    }
+    
+    await mongo.upsertLastLogID(projectToHandle.relatedConfID,projectToHandle.ID,logLines[logLines.length - 1].payload.id)
+    
+    // projectToHandle.lastSentLogId = logLines[logLines.length - 1];
+    // const docToUpdate = await mongo.getDoc(projectToHandle.relatedConfID);
+    // if (docToUpdate) {
+    //     console.log(consts.LOG_MESSAGES.UPDATE_LASTID + projectToHandle.relatedConfID + " <---> " +projectToHandle.ID);     
+    //     await mongo.upsertDoc(projectToHandle.relatedConfID, docToUpdate);
+    // }
 }
 module.exports = {
     handleProject
