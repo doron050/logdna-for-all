@@ -1,6 +1,7 @@
 require('dotenv').config();
 const {withUiHook, htm} = require('@zeit/integration-utils');
 const mongoClient = require('../common/mongodb');
+const constants = require('../common/constants');
 const _ = require('lodash');
 
 async function getSubscriber(configurationId) {
@@ -53,13 +54,13 @@ function createProjectUI(project, subscriber, currentAction) {
         <P>Connect <B>${project.name}</B> to LogDNA:</P><BR />
         <Input width="250px" label="LogDNA Token:" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-        ${isSaveAction ? 'Saved' : ''}
+        ${isSaveAction ? 'Success!' : ''}
     </Container>
     `;
 }
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
-    const projects = await zeitClient.fetchAndThrow('/v1/projects/list', {});
+    const projects = await zeitClient.fetchAndThrow(constants.ZEIT_API_ROUTES.PROJECTS, {});
     const {clientState, action, configurationId} = payload;
 
     const subscriber = await getSubscriber(configurationId);
@@ -77,14 +78,13 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     for (let i = 0; i < projects.length; i++) {
         projectsUI.push(createProjectUI(projects[i], subscriber, action));
     }
-//<Img title="Let us connect!" width="600px" height="100px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/unsplash.jpg?raw=true" />
+
     return htm`
     <Page>
-      <Box height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/r.jpg?raw=true')" display="flex" justifyContent="space-between">
-      <BR /><BR />
+      <Box height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/fuse-brussels-273772-unsplash.jpg?raw=true')">
+      <BR />
       ${header}
-      <BR /><BR />
-      <H2>Let us connect your world!</H2><BR />
+      <H2>Let us connect your world -> Go and build your dashboard!</H2><BR />
       ${projectsUI}
       <BR />
 
