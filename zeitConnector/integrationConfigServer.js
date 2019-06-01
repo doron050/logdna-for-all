@@ -71,8 +71,14 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     //const blaa = await integ.getTeamProjects('NueSG6t5Y8EoTcnOfaMOroa1');
     //console.log({blaa});
 
-    const bla = await zeitClient.fetchAndThrow('v1/projects/list');
-    console.log({bla});
+    try {
+        const bla = await zeitClient.fetchAndThrow('v1/projects/list');
+        console.log({bla});
+    }
+    catch (e) {
+
+    }
+
 
 
     for (let i = 0; i < projects.length; i++) {
