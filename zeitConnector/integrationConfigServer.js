@@ -61,7 +61,7 @@ function createProjectUI(project, subscriber, currentAction) {
     `;
 }
 
-module.exports = withUiHook(async ({payload}) => {
+module.exports = withUiHook(async ({payload, zeitClient}) => {
     const projects = [{id: 'a', name: 'aaa'}, {id: 'b', name: 'bbb'}, {id: 'c', name: 'ccc'}];
     const {clientState, action, configurationId} = payload;
 
@@ -70,6 +70,10 @@ module.exports = withUiHook(async ({payload}) => {
     console.log(action);
     //const blaa = await integ.getTeamProjects('NueSG6t5Y8EoTcnOfaMOroa1');
     //console.log({blaa});
+
+    const bla = await zeitClient.fetchAndThrow('v1/projects/list');
+    console.log({bla});
+
 
     for (let i = 0; i < projects.length; i++) {
         if (action === ('submit-' + projects[i].id)) {
