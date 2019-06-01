@@ -70,21 +70,12 @@
 
 ## Setup for Development
 
-In order to develop locally you will need to open accounts on <a href="https://www.zeit.co/">Zeit</a>, <a href="https://www.mongodb.com/">MongoDB Cloud</a>, <a href="https://logdna.com/">LogDNA</a>
+In order to contribute you will need the following accounts :bookmark::
+* <a href="https://www.zeit.co/">Zeit</a>
+* <a href="https://www.mongodb.com/cloud/atlas">MongoDB Cloud</a>
+* <a href="https://logdna.com/">LogDNA</a>
 
-**Zeit integrations**
-* Follow the instarations on <a href="https://zeit.co/docs/integrations/">Zeit Integration doc</a> in order to setup your integration and connect it to this integration code
-* On your integration settings page:
-  * Leave the redirect url empty
-  * Set the ui-hooks url to: http://localhost:5005/ui-hooks
-* Go to your integration page and add it to your user/team
-* Add your logDNA token
-
-**Mongo DB cloud**
-* Register to mongo db cloud
-* Create your cluster and get the connection details
-* Make sure to set your mongo db connection detail in your env file (down)
-
+#### Get our code ####
 
 ```bash 
 # Clone this repository
@@ -96,50 +87,65 @@ $ cd logdna-for-all
 # Install dependencies
 $ npm install
 ```
-* Set your `.env` file like that:
+
+#### Zeit integrations ####
+* Follow the instarations on <a href="https://zeit.co/docs/integrations/">Zeit Integration documentation</a> in order to setup your integration
+* On your integration settings page:
+  * Leave the redirect url empty
+  * Set the ui-hooks url to: http://localhost:5005/ui-hooks
+* Go to your integration page and add it to your user/team
+* Add your logDNA token :key:
+
+#### MongoDB cloud ####
+* Register to mongo db cloud
+* Create your cluster and get the connection details :bookmark_tabs:
+* Make sure you set your `.env` file :pencil2:: 
 ```diff
 # DB
-DB_USER_NAME=[your mongodb cloud user name]
-DB_PASSWORD=[your mongodb cloud password]
-DB_URL=[your mongodb url]
-DB_SCHEME=[your mongodb scheme]
-DB_NAME=[your mongodb db name]
-DB_COLLECTION_NAME=[your mongodb collection name]
-
++ DB_USER_NAME=[your mongodb cloud user name]
++ DB_PASSWORD=[your mongodb cloud password]
++ DB_URL=[your mongodb url]
++ DB_SCHEME=[your mongodb scheme]
++ DB_NAME=[your mongodb db name]
++ DB_COLLECTION_NAME=[your mongodb collection name]
+```
+#### Advanced .env ####
+If you want to, you can control some of our intervals :clock1::
+```diff
 CONSUME_PROJECT_LOG_INTERVAL=[time between reading and sending logs - default is 3000]
-SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the mongo db - default is 6000]
+SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the metadata inside the db - default is 6000]
 ```
 
-**Run your zeit ui-hook page**
+#### Run the integration ####
 * Run your integration locally using `npm run zeit`
-* go to your integration config page and you should see the page is working with your local integration server
+* Use you browser and go to your integration configuration page :scroll:
+* You now should see the integration configuration page _(it is connected to your localhost)_
 
+_**:warning:notice!**_
 > If you want to debug and change the configuration UI you are good to go!
+> Every configuration you create will be saved inside your db. You use this data in the following background node app.
 
-> Every configuration you create will be saved on your mongodb and you will see we use this data in the following background node app
+#### Run your background node app ####
 
-**Run your background node app**
+_**:warning:notice!**_
+> Since we can't use our localhost as the redirect endpoint for the oauth proccess<br/>you will miss 2 critical fields on every db document (ZeitToken, teamId) :sweat:
 
-> NOTE - since locally we can't provide the redirect logic you will be missing 2 critical properties on every mongo document (ZeitToken, teamId)
+In order to get over it :muscle:: 
+* Upload your app to zeit using `now` command (you already got our now.json) :outbox_tray:
+* Set your integration with the redirect url redirect to `<zeit-host-name>/redirect`
+* Set the following `secret`s :closed_lock_with_key:: 
+```diff
+# Zeit 
+INTEGRATION_CLIENT_ID=[Your app auth client id]
+INTEGRATION_CLIENT_SECRET=[Your app secret]
+```
+* Now you have to follow <a href="#How-to-Use">How to Use</a> steps in order to use your integration :sweat_smile:
 
-*In order to get the missing parameters do the following:*
+_**Now you can run the background node!**_
+* Use `npm start` in order to start the sync
 
-* Upload your cloned repo to zeit (you already have our now.json) and set your integration redirect url to '<zeit-host-name>/redirect'
-* don't forget all the secrets you need to set for the app to work (see now.json)
-* Create another configuration and add it to you user/team
-* Add your logDNA token
-* Now get the missing params from the new complete document in the mongodb and copy them to all the other document
-
-
-*Now you can run the background node*
-
-* Run `npm start` this will load the node and it will start the sync
-
-Now in your console you will see that the node will load all the configuration from from the mongo.<br/>
-For every configuration the node will read the logs from zeit and send them to logDNA<br/>
 <br/>
-
-Keep Coding
+Have fun. Keep Coding. :computer:
 
 ### Our Team 
 ------
