@@ -5,7 +5,7 @@
   <br>
 </h1>
 
-<h4 align="center">Connect your Zeit *Now* Projects to <a href="https://logdna.com/" target="_blank">LogDNA</a></h4>
+<h4 align="center">Connect your Zeit Now Projects to <a href="https://logdna.com/" target="_blank">LogDNA</a></h4>
 
 <p align="center">
   <a href="https://paypal.me/doron050">
