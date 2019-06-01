@@ -1,6 +1,6 @@
 {
   "name": "logdna-for-all",
-  "version": 1,
+  "version": 2,
   "builds": [{
       "src": "zeit/integrationConfigServer.js",
       "use": "@now/node"
