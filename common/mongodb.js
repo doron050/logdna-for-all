@@ -3,7 +3,7 @@ const constants = require('./constants');
 
 const connectionString = constants.DB.urlPrefix + constants.DB.userName + ":" + constants.DB.password + "@" + constants.DB.url + constants.DB.scheme + constants.DB.connectionParamsString;
 //const uri = "mongodb+srv://test:test123456@logz-for-all-wxd9m.mongodb.net/test?retryWrites=true&w=majority";
-
+ 
 const client = new MongoClient(connectionString, {useNewUrlParser: true});
 const connection = client.connect();
 
