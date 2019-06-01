@@ -80,13 +80,14 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
 //<Img title="Let us connect!" width="600px" height="100px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/unsplash.jpg?raw=true" />
     return htm`
     <Page>
-      <Box  background-image="https://github.com/doron050/logz-for-all/blob/master/resources/images/federica.jpg?raw=true" display="flex" justifyContent="space-between">
+      <Box background-image="https://github.com/doron050/logz-for-all/blob/master/resources/images/federica.jpg?raw=true" display="flex" justifyContent="space-between">
       
       ${header}
       
       <H2>Let us connect your world!</H2>
       ${projectsUI}
 
+      </Box>
       <Notice type="error">This is an error messgae.</Notice>
       <Notice type="warn">This is an error messgae.</Notice>
       
@@ -94,7 +95,6 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
       
       <Notice type="success">This is an error messgae.</Notice>
       
-      </Box>
     </Page>
   `
 });
