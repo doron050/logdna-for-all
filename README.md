@@ -5,7 +5,8 @@
   <br>
 </h1>
 
-<h4 align="center">Connect your Zeit *Now* Projects to <a href="https://www.stremio.com/" target="_blank">LogDNA</a></h4>
+<h4 align="center">Connect your Zeit Now Projects to <a href="https://logdna.com/" target="_blank">LogDNA</a></h4>
+<h5 align="center">Say goodbay to loggers!</a></h5>
 
 <p align="center">
   <a href="https://paypal.me/doron050">
@@ -19,12 +20,12 @@
   • <a href="#How-to-Use">How to Use</a>
   • <a href="#Setup-for-Development">Dev Setup</a>
   • <a href="#Support-and-Contact">Contact</a>
-  • <a href="https://www.stremio.com/competition">Add-On Master</a>
-  • <a href="https://www.stremio.com/addon-sdk">Stremio add-on SDK</a>
+  • <a href="https://logdna.com/">LogDNA</a>
+  • <a href="https://zeit.co">Zeit</a>
   
 </p>
 
-> *Podcasts For All* - `have fun`, `be smart`.
+> *LogDNA For All* - `be smart`, `take responsibility`.
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
@@ -33,57 +34,35 @@
 > If you like our integration, you can help us by <a href="https://paypal.me/doron050">donate and become a backer</a>.
 
 ## Our Vision
-> Let every devloper take responsibility over his creation by deliver the best integration to connect your project to log & monitor service **_best listening experience_** to the **_most verstile & high-quality_** podcasts<br/>right to your daily use media platform - Stremio
+> Let **every devloper** to **_take responsibility_** over his creation<br/>by deliver **_the best integration_** to connect his project to _log:chart_with_upwards_trend: & monitor:traffic_light: service_ easisest **easiest as possible**
 
 ## Key Features
 
-* Best podcasts worldwide (smart filters and ordering) :trophy:
-  * All genres & types
-  * All languages & regions :european_castle: :tokyo_tower:
-* Podcast catalogs: :file_folder:
-  * Top Podcasts
-  * By Genres
-  * By Country
-  * By Mood
-  * By Trend
-  * Felling Luckey - Random podcast
-* Search for podcasts :mag:
-* Extra details :bookmark:
-  * Podcast length
-  * Podcast website
-  * Social Platforms refrences (Facebook, Spotify and more)
-* Stream HQ audio right to your device :headphones:
-  * Cast the podcast to available devices
-* Powered by LISTEN NOTES API
+* Integrate your Zeit Now with LogDNA :electric_plug:
+  * Connect team projects :family:
+  * Connect user projects :bowtie:
 
-#### Screenshot - Main Podcasts Catalog:
-![Podcasts Catalog](https://github.com/NivM1/podcasts-for-all/blob/master/static/podcast_for_all_screen.jpg)
+#### Screenshot - Integration Configuration:
+![Integration Configuration](https://github.com/doron050/logz-for-all/blob/master/resources/images/configuration.png?raw=true)
 
-#### Screenshot - Select Episode:
-![Podcasts Epidsodes](https://github.com/NivM1/podcasts-for-all/blob/master/static/podcast_for_all_screen2.jpg)
+#### Screenshot - LogDNA:
+![LogDNA](https://github.com/doron050/logz-for-all/blob/master/resources/images/dashboard1.png?raw=true)
 
 ## How to Use
-* Open your Stremio client :computer::iphone:
-* Install the addon:
-  * Go to `addons` (usually it's up there :arrow_upper_right:), search for this addon and click `Install`
-  * Or choose one of the alternatives:
-    * Copy our addon url <https://podcasts-for-all.ga/manifest.json> and paste it on `Add-On Repository Url`
-    * Browse to our addon  [install page](https://podcasts-for-all.ga) and click `Install Add-on`
-* Now go back :arrow_backward: and then go to `Discover` :telescope:
-* Our top podcasts are under the `Podcasts` catalog
-* You can now filter your podcasts by `Genre` or `Country` (Each one represented as sub-catalog) :performing_arts:
-* If you like to take risks - Try out our `FeelingLucky` catalog (who knows, maybe you will find your one) :roller_coaster:
-* You can also `Search` for specific podcast using the search field above :arrow_up::mag_right:
-* Inside each `podcast` page you will find:
-  * alot of details about the podcast and the contant
-  * All the avialable `Episodes` of the selected podcast
-* When you select an `Episode` you can:
-  * Stream the episode right to your stremio
-  * Go to the `podcast website`
-  * Get the `podcast RSS`
-  * Get to know your podcast via his `social network accounts`
+* **Select one of the following:**
+  * **The fastest way** :rocket: - Go [here](https://zeit.co/integrations/logdna-for-all/add)
+  * `Or` Go to [Our integration page](https://zeit.co/integrations/logdna-for-all)
+    * Press `add`
+  * `Or manually` :hand: Go to the [markekplace](https://zeit.co/integrations):
+    * Go to `[logging category](https://zeit.co/integrations?category=logging)` 
+      * select our integration `LogDNA`
+* Select which workspaces you want to connect to LogDNA -  `User or teams`
+* Press `add`
+* For each project of your worksapace that you want to connect:
+  * Insert your *LogDNA token* :key: (get it via your project page on [LogDNA](https://logdna.com/)
+  * Press `Connect`
 * Now you are ready to go by yourself. Enjoy! :tada:
-> We hope you have _the great Podcast Listening Experience of your life!_ :rainbow:
+> We hope you have _the great Logging & Monitoring Experience of your life!_ :rainbow:
 
 ## Setup for Development
 
@@ -119,17 +98,18 @@ $ npm install
 
 ### Our Team 
 
-![Podcasts For All Team](https://github.com/NivM1/podcasts-for-all/blob/master/static/team.jpg)
+![LogDNA-For-All Team](https://github.com/doron050/logz-for-all/blob/master/resources/images/team.png?raw=true)
             
 ### Support and Contact
 ------
 
-**Podcast For All** © 2019+, DE, NM Released under the [MIT License].<br>
-Authored and maintained by DE, NM. with help from contributors.
+**LogDNA-For-All** © 2019+, DE, MB, NM Released under the [MIT License].<br>
+Authored and maintained by DE, MB, NM. with help from contributors.
 
 
 > GitHub [@Niv](https://github.com/nivm1) <br/>
 > GitHub [@Doron Eli](https://github.com/doron050) <br/>
+> GitHub [@Moshe Basher](https://github.com/moshebasher) <br/>
 > Contact us via mail: <podcasts_for_all@yahoo.com>
 
 [MIT License]: http://mit-license.org/
