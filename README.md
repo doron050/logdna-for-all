@@ -98,7 +98,7 @@ $ npm install
 
 ### Our Team 
 
-![LogDNA-For-All Team](https://github.com/NivM1/podcasts-for-all/blob/master/static/team.jpg)
+![LogDNA-For-All Team](https://github.com/doron050/logz-for-all/blob/master/resources/images/team.png?raw=true)
             
 ### Support and Contact
 ------
