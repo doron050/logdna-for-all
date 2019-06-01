@@ -57,5 +57,5 @@ function handleProject(projectToHandle) {
 }
 
 module.exports = {
-    handleClient: handleProject
+    handleProject
 }

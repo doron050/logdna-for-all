@@ -57,7 +57,7 @@ const debug = [{
 ];
 addNewProjectSubs(subscribedProjectsCollection, debug);
 
-const _clientRetriverPid = setInterval(() => syncCollection(), 5000);
+const _clientRetriverPid = setInterval(() => syncCollection(), consts.TIME_OUTS.SYNC_CYCLE);
 
 function syncCollection() {
 
@@ -123,10 +123,10 @@ function addNewProjectSubs(subscribedProjectsCollection, currentActiveSubCollect
 
         if (!subscribedProjectsCollection.some(e => e.ID === project.ID)) {
 
-            console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID); // TODO: chnage log desc.
+            console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID); 
             subscribedProjectsCollection.push(project);
 
-            const _pid = setInterval(() => clientHandler.handleClient(project), 1000); // TODO
+            const _pid = setInterval(() => clientHandler.handleProject(project), consts.TIME_OUTS.PROJECT_CYCLE); // TODO
             subscriberPIDlist.push({
                 Pid: _pid,
                 Project: project
