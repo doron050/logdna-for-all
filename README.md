@@ -98,6 +98,7 @@ $ npm install
 
 
 ### Our Team 
+------
 
 ![LogDNA-For-All Team](https://github.com/doron050/logz-for-all/blob/master/resources/images/team.png?raw=true)
             
