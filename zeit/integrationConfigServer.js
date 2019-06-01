@@ -69,6 +69,7 @@ function createProjectUI(project, subscriber, currentAction) {
         LogDNA Token:
         <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
+        ${mongoProject.active ? htm`<Box><Img title="connected" float="right !important" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/ok.png?raw=true" /></Box>` :  ''}
         ${isConnectAction ? htm`<Notice type="success"><B>Successfuly connected ${project.name}</B> to LogDNA!</Notice>` :  ''}
         ${isDisconnectAction ? htm`<Notice type="message"><B>Successfuly disconnect ${project.name}</B> from LogDNA!</Notice>` :  ''}
         </Box>
