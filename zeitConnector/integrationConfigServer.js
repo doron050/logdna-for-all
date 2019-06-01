@@ -56,7 +56,6 @@ function createProjectUI(project, subscriber, currentAction) {
         <Button width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
         ${isSaveAction ? '<Notice type="success">${project.name} successfuly connected to logdna</Notice>' : ''}
     </Container>
-    <Notice type="success">${project.name} successfuly connected to logdna</Notice>
     `;
 }
 
