@@ -20,7 +20,7 @@ async function getLogs(deploymentId, token, teamId,lastSentLogTimestamp) {
             }
         });
         // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
-        console.log("Count of logs returned: " + response.data.length)
+        console.log("Count of logs returned: " + response.data.length + " depID: " + deploymentId);
         return response.data;
     } catch (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_LOGS + error);
