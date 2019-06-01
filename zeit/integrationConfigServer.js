@@ -24,7 +24,7 @@ function getLogTokenForProject(subscriber, projectId) {
 }
 
 async function updatePojectState(project, clientState, subscriber, configurationId) {
-    //console.log("client: *******" + clientState)
+    
     if (!subscriber.projects)
         subscriber.projects = [];
 
@@ -84,8 +84,6 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     const {clientState, action, configurationId} = payload;
 
     const subscriber = await getSubscriber(configurationId);
-    //console.log(subscriber.projects[0]);
-    //console.log({payload});
 
     for (let i = 0; i < projects.length; i++) {
         if (action === ('submit-' + projects[i].id)) {
@@ -98,8 +96,6 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     for (let i = 0; i < projects.length; i++) {
         projectsUI.push(createProjectUI(projects[i], subscriber, action));
     }
-
-    //height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/fuse-brussels-273772-unsplash.jpg?raw=true')
 
     return htm`
     <Page>
