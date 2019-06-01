@@ -23,7 +23,7 @@ async function handleProject(projectToHandle) {
         sendData(projectToHandle, logLines);
 
         // Save last index in DB
-        updateLastLog(projectToHandle, logLines);
+        await updateLastLog(projectToHandle, logLines);
     }
 }
 
