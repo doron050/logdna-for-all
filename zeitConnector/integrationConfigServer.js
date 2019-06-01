@@ -82,7 +82,6 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     <Page>
       <Box  background-image="https://github.com/doron050/logz-for-all/blob/master/resources/images/federica.jpg?raw=true" display="flex" justifyContent="space-between">
       
-      </Box>
       ${header}
       
       <H2>Let us connect your world!</H2>
@@ -94,6 +93,8 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
       <Notice type="message">This is an error messgae.</Notice>
       
       <Notice type="success">This is an error messgae.</Notice>
+      
+      </Box>
     </Page>
   `
 });
