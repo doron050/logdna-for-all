@@ -37,6 +37,7 @@
     "CONSUME_PROJECT_LOG_INTERVAL":"3000",
     "SYNC_SUBSCRIBER_WITH_DB_INTERVAL":"6000",
     "LOGGER_TOKEN":"@logger_token",
-    "LOG_LEVEL":"debug"
+    "LOG_LEVEL":"debug",
+    "ENVIRONMENT":"production"
   }
 }
