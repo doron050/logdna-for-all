@@ -23,7 +23,7 @@ const log4jslogger = log4js.getLogger("default");
 
 function debugLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
     log4jslogger.debug(msg);
-    if (constants.ENVIRONMENT === "producation") {
+    if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
             message: msg,
             level: 'debug',
@@ -41,7 +41,7 @@ function debugLog(msg, projId, configId, active, teamId, teamName, registrationD
 
 function infoLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
     log4jslogger.info(msg);
-    if (constants.ENVIRONMENT === "producation") {
+    if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
             message: msg,
             level: 'info',
@@ -59,7 +59,7 @@ function infoLog(msg, projId, configId, active, teamId, teamName, registrationDa
 
 function errorLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
     log4jslogger.error(msg);
-    if (constants.ENVIRONMENT === "producation") {
+    if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
             message: msg,
             level: 'error',
