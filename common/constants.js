@@ -6,8 +6,8 @@ const ZEIT_PROD_REDIRECT_URL = "https://logz-for-all.logz-for-all.now.sh/redirec
 const LOGZIO_TOKEN = "yyxbNlmITKFCAHGBfFtFfoHKWyFJAXiS"; // Moshe Basher
 const LOGSDNA_KEY = "33bc25c119324ac7341346450188cbc4"; // Moshe Basher
 const ZEIT_API_ROUTES = {
-    LOGS: "v2/now/events",
-    DEPLOYMENTS: "v2/now/deployments",
+    LOGS_FOR_DEPLOYMENT: (deploymentId) => `/v2/now/deployments/${deploymentId}/events`,
+    DEPLOYMENTS: "v4/now/deployments",
     ACCESS_TOKEN: "v2/oauth/access_token",
     PROJECTS: "v1/projects/list"
 };

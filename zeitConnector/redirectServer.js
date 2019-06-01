@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
         }));
 
         const token = resAccess.data.access_token;
-        await saveDataToMongo(newIntegration.configurationId, token);
+        await saveDataToMongo(newIntegration.configurationId, token, newIntegration.teamId);
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
         // Redirects to the ui-hooks
