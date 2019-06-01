@@ -40,8 +40,8 @@ const AUTH = {
 };
 
 const TIME_OUTS ={
-    PROJECT_CYCLE = 1000,
-    SYNC_CYCLE = 5000,
+    PROJECT_CYCLE : 1000,
+    SYNC_CYCLE : 5000,
 };
 module.exports = {
     API_BASIC_ENDPOINT_URL,
