@@ -8,7 +8,7 @@ function createHeaders(token) {
     }
 }
 
-async function getLogs(deploymentId, token, teamId,lastSentLogTimestamp) {
+async function getLogs(deploymentId, token, teamId, lastSentLogTimestamp) {
 
     try {
         const response = await httpClient.get(constants.ZEIT_API_ROUTES.LOGS_FOR_DEPLOYMENT(deploymentId), {
@@ -20,7 +20,8 @@ async function getLogs(deploymentId, token, teamId,lastSentLogTimestamp) {
             }
         });
         // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
-        console.log("Count of logs returned: " + response.data.length + " depID: " + deploymentId);
+        if (response.data.length > 0)
+            console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length);
         return response.data;
     } catch (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_LOGS + error);
@@ -53,7 +54,7 @@ async function getDeployments(projectId, token, teamId, limit) {
     }
 }
 
-async function getDeploymentsLogs(projectId, token, teamId,lastSentLogTimestamp, numOfDeployments) {
+async function getDeploymentsLogs(projectId, token, teamId, lastSentLogTimestamp, numOfDeployments) {
 
     // If no limit passed, get the last deployment
     if (!numOfDeployments) numOfDeployments = 1;
@@ -63,7 +64,7 @@ async function getDeploymentsLogs(projectId, token, teamId,lastSentLogTimestamp,
 
 
     for (let i = 0; i < deployments.length; i++) {
-        const currlog = await getLogs(deployments[i].uid, token, teamId,lastSentLogTimestamp);
+        const currlog = await getLogs(deployments[i].uid, token, teamId, lastSentLogTimestamp);
         logs.push(...currlog);
     }
 
