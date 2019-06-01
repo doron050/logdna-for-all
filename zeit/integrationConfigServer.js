@@ -65,7 +65,7 @@ function createProjectUI(project, subscriber, currentAction) {
     return htm`
     <Box border-style="groove" border-radius="5px" background-color="white">
         <Box margin="15px">
-        ${mongoProject.active ? htm`<Img position="absolute" title="connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png?raw=true" />` :  htm`<Img filter="grayscale(100%)" position="absolute" title="not connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon-no.jpg?raw=true" />`}
+        ${mongoProject.active ? htm`<Img position="absolute" title="connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png?raw=true" />` :  htm`<Img position="absolute" title="not connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon-no.pmg?raw=true" />`}
         <H2>Connect <B>${project.name}</B> to LogDNA:</H2>
         <Box>
         LogDNA Token:
