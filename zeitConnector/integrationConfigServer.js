@@ -33,6 +33,7 @@ async function updatePojectState(project, clientState, subscriber, configuration
             logDnaToken: clientState['token-' + project.id],
             active: !!clientState['token-' + project.id],
             projectId: project.id,
+            registrationDate: Date.now()
         };
         subscriber.projects.push(newProject);
     } else {
