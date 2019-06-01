@@ -7,11 +7,9 @@ const logger = require('../common/logger');
 const subscribedProjectsCollection = [];
 const subscriberPIDlist = [];
 
-console.log("starting with sync: " + constants.TIME_OUTS.SYNC_CYCLE);
 setInterval(() => syncCollection(), constants.TIME_OUTS.SYNC_CYCLE);
 
 async function syncCollection() {
-console.log("in main");
     const newProjectCollection = await mongo.getLogzCollection();
     const mappedProjectCollection = mapProjects(newProjectCollection);
 
