@@ -1,6 +1,6 @@
 const zeitAdapter = require('../common/zeitAdapter');
 const constants = require('../common/constants');
-const logger = require('../common/logger');
+const logger = require('../logger');
 
 async function getLastLogs(projectToHandle) {
     // Get logs for this project

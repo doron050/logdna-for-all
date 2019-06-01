@@ -3,7 +3,7 @@ const logConvertor = require('./zeitLogToDNALog');
 const constants = require('../common/constants');
 const logHandler = require('./logHandler');
 const mongoClient = require('../common/mongodb');
-const logger = require('../common/logger');
+const logger = require('../logger');
 
 async function handleProject(projectToHandle) {
     // console.log(constants.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId);

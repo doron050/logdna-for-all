@@ -1,4 +1,4 @@
-const constants = require('./constants');
+const constants = require('./common/constants');
 //
 // const logzioLogger = require('logzio-nodejs').createLogger({
 //     token: process.env.LOGGER_TOKEN

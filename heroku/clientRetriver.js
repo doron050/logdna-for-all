@@ -2,7 +2,7 @@ const mongo = require('../common/mongodb');
 const _ = require("lodash");
 const clientHandler = require('./clientHandler');
 const constants = require('../common/constants');
-const logger = require('../common/logger');
+const logger = require('../logger');
 
 const subscribedProjectsCollection = [];
 const subscriberPIDlist = [];

@@ -1,6 +1,6 @@
 const constants = require('./constants');
 const httpClient = require('../zeit/zeitHttpClient');
-const logger = require('./logger');
+const logger = require('../logger');
 
 function createHeaders(token) {
     return {
