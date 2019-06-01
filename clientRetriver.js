@@ -8,85 +8,85 @@ const subscribedProjectsCollection = [];
 const subscriberPIDlist = [];
 
 // DELETE LATER
-const debug = [{
-        configurationId: "0",
-        zeitToken: 'zeit-tocken-mock',
-        projects: [{
-                logDnaToken: "33bc25c119324ac7341346450188cbc4",
-                active: true,
-                projectId: 'project0',
-                lastSentLogId: 'last-log-mock'
-            },
-            {
-                logDnaToken: "33bc25c119324ac7341346450188cbc4",
-                active: true,
-                projectId: 'project0.1',
-                lastSentLogId: 'last-log-mock'
-            }
-        ]
-    },
-    {
-        configurationId: "2",
-        zeitToken: 'zeit-tocken-mock',
-        projects: [{
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: true,
-            projectId: 'project2.0',
-            lastSentLogId: 'last-log-mock'
-        }, {
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: true,
-            projectId: 'project2.1',
-            lastSentLogId: 'last-log-mock'
-        }, {
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: true,
-            projectId: 'project2.2',
-            lastSentLogId: 'last-log-mock'
-        }]
-    }, {
-        configurationId: "1",
-        zeitToken: 'zeit-tocken-mock',
-        projects: [{
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: true,
-            projectId: 'project1',
-            lastSentLogId: 'last-log-mock'
-        }]
-    }
-];
-addNewProjectSubs(subscribedProjectsCollection, debug);
+// const debug = [{
+//         configurationId: "0",
+//         zeitToken: 'zeit-tocken-mock',
+//         projects: [{
+//                 logDnaToken: "33bc25c119324ac7341346450188cbc4",
+//                 active: true,
+//                 projectId: 'project0',
+//                 lastSentLogId: 'last-log-mock'
+//             },
+//             {
+//                 logDnaToken: "33bc25c119324ac7341346450188cbc4",
+//                 active: true,
+//                 projectId: 'project0.1',
+//                 lastSentLogId: 'last-log-mock'
+//             }
+//         ]
+//     },
+//     {
+//         configurationId: "2",
+//         zeitToken: 'zeit-tocken-mock',
+//         projects: [{
+//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
+//             active: true,
+//             projectId: 'project2.0',
+//             lastSentLogId: 'last-log-mock'
+//         }, {
+//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
+//             active: true,
+//             projectId: 'project2.1',
+//             lastSentLogId: 'last-log-mock'
+//         }, {
+//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
+//             active: true,
+//             projectId: 'project2.2',
+//             lastSentLogId: 'last-log-mock'
+//         }]
+//     }, {
+//         configurationId: "1",
+//         zeitToken: 'zeit-tocken-mock',
+//         projects: [{
+//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
+//             active: true,
+//             projectId: 'project1',
+//             lastSentLogId: 'last-log-mock'
+//         }]
+//     }
+// ];
+// addNewProjectSubs(subscribedProjectsCollection, debug);
 
 const _clientRetriverPid = setInterval(() => syncCollection(), consts.TIME_OUTS.SYNC_CYCLE);
 
-function syncCollection() {
+async function syncCollection() {
 
     // DELETE LATER
-    // const currentActiveSubCollection = mongo.getLogzCollection();
-    const currentActiveSubCollection = [{
-        configurationId: "27",
-        zeitToken: 'zeit-tocken-mock',
-        projects: [{
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: true,
-            projectId: 'project27',
-            lastSentLogId: 'last-log-mock'
-        }]
-    }, {
-        configurationId: "2",
-        zeitToken: 'zeit-tocken-mock',
-        projects: [{
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: false,
-            projectId: 'project3',
-            lastSentLogId: 'last-log-mock'
-        }, {
-            logDnaToken: "33bc25c119324ac7341346450188cbc4",
-            active: true,
-            projectId: 'project27.27',
-            lastSentLogId: 'last-log-mock'
-        }]
-    }];
+    const currentActiveSubCollection = await mongo.getLogzCollection();
+    // const currentActiveSubCollection = [{
+    //     configurationId: "27",
+    //     zeitToken: 'zeit-tocken-mock',
+    //     projects: [{
+    //         logDnaToken: "33bc25c119324ac7341346450188cbc4",
+    //         active: true,
+    //         projectId: 'project27',
+    //         lastSentLogId: 'last-log-mock'
+    //     }]
+    // }, {
+    //     configurationId: "2",
+    //     zeitToken: 'zeit-tocken-mock',
+    //     projects: [{
+    //         logDnaToken: "33bc25c119324ac7341346450188cbc4",
+    //         active: false,
+    //         projectId: 'project3',
+    //         lastSentLogId: 'last-log-mock'
+    //     }, {
+    //         logDnaToken: "33bc25c119324ac7341346450188cbc4",
+    //         active: true,
+    //         projectId: 'project27.27',
+    //         lastSentLogId: 'last-log-mock'
+    //     }]
+    // }];
 
 
     addNewProjectSubs(subscribedProjectsCollection, currentActiveSubCollection);
@@ -123,7 +123,7 @@ function addNewProjectSubs(subscribedProjectsCollection, currentActiveSubCollect
 
         if (!subscribedProjectsCollection.some(e => e.ID === project.ID)) {
 
-            console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID); 
+            console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID);
             subscribedProjectsCollection.push(project);
 
             const _pid = setInterval(() => clientHandler.handleProject(project), consts.TIME_OUTS.PROJECT_CYCLE); // TODO
@@ -152,19 +152,20 @@ module.exports = {
 function mapProjects(dbRawData) {
 
     const projectList = [];
-    dbRawData.forEach(projects => {
-        projects.projects.forEach(project => {
+    dbRawData.forEach(document => {
+        document.projects.forEach(project => {
             projectList.push({
                 ID: project.projectId,
-                relatedConfID: dbRawData.configurationId,
-                zeitToken: dbRawData.zeitToken,
+                relatedConfID: document.configurationId,
+                zeitToken: document.zeitToken,
                 logDnaToken: project.logDnaToken,
                 active: project.active,
                 lastSentLogId: project.lastSentLogId
             });
         });
-
     });
+
+
 
     return projectList;
 
