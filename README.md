@@ -110,6 +110,11 @@ $ npm install
 + DB_COLLECTION_NAME=[your mongodb collection name]
 ```
 #### Advanced .env ####
+You shoul'd tell what is your environment:
+```diff
+# ENV
++ ENVIRONMENT=[producation / development]
+```
 If you want to, you can control some of our intervals :clock1::
 ```diff
 + CONSUME_PROJECT_LOG_INTERVAL=[time between reading and sending logs - default is 3000]
