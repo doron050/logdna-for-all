@@ -6,13 +6,14 @@
 </h1>
 
 <h4 align="center">Connect your Zeit Now Projects to <a href="https://logdna.com/" target="_blank">LogDNA</a></h4>
-<h5 align="center">Say goodbay to loggers!</a></h5>
 
 <p align="center">
   <a href="https://paypal.me/doron050">
     <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
   </a>
 </p> 
+
+<h5 align="center">Say goodbay to loggers!</a></h5>
 
 <p align="center">
   • <a href="#Our-Vision">Our Vision</a> 
