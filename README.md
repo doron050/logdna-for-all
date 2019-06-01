@@ -44,6 +44,7 @@
 * Integrate your Zeit Now with LogDNA :electric_plug:
   * Connect team projects :family:
   * Connect user projects :bowtie:
+* Consistently transfer all your logs to your LogDNA project
 
 #### Screenshot - Integration Configuration:
 ![Integration Configuration](https://github.com/doron050/logz-for-all/blob/master/resources/images/configuration.png?raw=true)
