@@ -5,23 +5,11 @@ const connectionString = constants.DB.urlPrefix + constants.DB.userName + ":" + 
 //const uri = "mongodb+srv://test:test123456@logz-for-all-wxd9m.mongodb.net/test?retryWrites=true&w=majority";
 
 const client = new MongoClient(connectionString, {useNewUrlParser: true});
-let connection = getConnection();
-
-async function getConnection(){
-
-    if (!connection){
-
-        connection = await client.connect();
-
-        console.log(constants.LOG_MESSAGES.INIT_DB_CONNECTION);
-    }
-
-    return (connection);
-}
+const connection = client.connect();
 
 const getDoc = function (configurationId) {
     return new Promise((resolve, reject) => {
-        getConnection().then(() => {
+        connection.then(() => {
             const db = client.db(dbName);
             const coll = db.collection(collectionName);
             coll.findOne({configurationId: configurationId}, (err, result) => {
@@ -36,7 +24,7 @@ const getDoc = function (configurationId) {
 };
 
 const upsertDoc = async function (configurationId, object) {
-    await getConnection();
+    await connection;
     const db = client.db(dbName);
     const coll = db.collection(collectionName);
     await coll.updateOne({configurationId: configurationId}, {$set: object}, {upsert: true});
@@ -44,7 +32,7 @@ const upsertDoc = async function (configurationId, object) {
 
 const getLogzCollection = function () {
     return new Promise((resolve, reject) => {
-        getConnection().then(() => {
+        connection.then(() => {
             const db = client.db(dbName);
             const coll = db.collection(collectionName);
             coll.find().toArray((err, result) => {
@@ -57,20 +45,8 @@ const getLogzCollection = function () {
     });
 };
 
-
-const upsertLastLogID = async function (configurationId,projectID, lastLogID) {
-    await connection;
-    const db = client.db(dbName);
-    const coll = db.collection(collecrtionName);
-    await coll.updateOne(
-        {configurationId: configurationId, 'projects.projectId': projectID},
-        {$set: {'projects.$.lastSentLogId': lastLogID}},
-        {upsert: true});
-};
-
 module.exports = {
     getDoc,
     upsertDoc,
-    getLogzCollection,
-    upsertLastLogID
+    getLogzCollection
 };
