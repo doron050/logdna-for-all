@@ -23,7 +23,6 @@ function getLogTokenForProject(subscriber, projectId) {
 }
 
 async function updatePojectState(project, clientState, subscriber, configurationId) {
-    console.log('work on project save');
     if (!subscriber.projects)
         subscriber.projects = [];
 
@@ -65,6 +64,7 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
 
     const subscriber = await getSubscriber(configurationId);
     console.log({subscriber});
+    console.log({payload});
 
     for (let i = 0; i < projects.length; i++) {
         if (action === ('submit-' + projects[i].id)) {

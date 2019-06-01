@@ -6,7 +6,12 @@ const qs = require('qs');
 
 // Saves this specific token for future use of the zeit api
 async function saveDataToMongo(configurationId, access_token, teamId) {
-    await mongoClient.upsertDoc(configurationId, {zeitToken: access_token, teamId});
+    const updatedFields = {};
+    updatedFields.zeitToken = access_token;
+    if (teamId)
+        updatedFields.teamId = teamId;
+
+    await mongoClient.upsertDoc(configurationId, updatedFields);
 }
 
 module.exports = async (req, res) => {
