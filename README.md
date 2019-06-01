@@ -70,7 +70,7 @@
 
 ## Setup for Development
 
-In order to develop locally you will need to open accounts on <a href="https://www.zeit.co/">Zeit</a>, <a href="https://www.mongodb.com/">MongoDB Cloud</a>
+In order to develop locally you will need to open accounts on <a href="https://www.zeit.co/">Zeit</a>, <a href="https://www.mongodb.com/">MongoDB Cloud</a>, <a href="https://logdna.com/">LogDNA</a>
 
 **Zeit integrations**
 * Follow the instarations on <a href="https://zeit.co/docs/integrations/">Zeit Integration doc</a> in order to setup your integration and connect it to this integration code
@@ -78,6 +78,7 @@ In order to develop locally you will need to open accounts on <a href="https://w
   * Leave the redirect url empty
   * Set the ui-hooks url to: http://localhost:5005/ui-hooks
 * Go to your integration page and add it to your user/team
+* Add your logDNA token
 
 **Mongo DB cloud**
 * Register to mongo db cloud
@@ -126,6 +127,7 @@ SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the mongo db - default 
 * Upload your cloned repo to zeit (you already have our now.json) and set your integration redirect url to '<zeit-host-name>/redirect'
 * don't forget all the secrets you need to set for the app to work (see now.json)
 * Create another configuration and add it to you user/team
+* Add your logDNA token
 * Now get the missing params from the new complete document in the mongodb and copy them to all the other document
 
 
