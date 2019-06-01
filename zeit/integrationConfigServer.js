@@ -24,36 +24,36 @@ function getLogTokenForProject(subscriber, projectId) {
 }
 
 async function updatePojectState(project, clientState, subscriber, configurationId) {
-    //console.log("client: *******" + clientState)
+    
     if (!subscriber.projects)
         subscriber.projects = [];
 
     
     const selectedProject = getProjectById(subscriber, project.id);
 
-    console.log("before: ***" + selectedProject.active)
     if (!selectedProject) {
         const newProject = {
             logDnaToken: clientState['token-' + project.id],
-            //active: !!clientState['token-' + project.id],
             active: true,
             projectId: project.id,
+            projectName: project.name,
             registrationDate: Date.now()
         };
         subscriber.projects.push(newProject);
     } else {
         selectedProject.logDnaToken = clientState['token-' + project.id];
-        //selectedProject.active = !clientState['token-' + project.id];
         selectedProject.active = !selectedProject.active
     }
-    console.log("after: ***" + selectedProject.active)
     await mongoClient.upsertDoc(configurationId, subscriber);
 }
 
 function createProjectUI(project, subscriber, currentAction) {
     const isSaveAction = currentAction === ('submit-' + project.id);
 
-    const mongoProject = getProjectById(subscriber, project.id);
+    let mongoProject = getProjectById(subscriber, project.id);
+
+    if (!mongoProject) mongoProject = {};
+
     const isActive = mongoProject && mongoProject.active;
     
     let isConnectAction = false;
@@ -65,14 +65,17 @@ function createProjectUI(project, subscriber, currentAction) {
     return htm`
     <Box border-style="groove" border-radius="5px" background-color="white">
         <Box margin="15px">
+        ${mongoProject.active ? htm`<Img position="absolute" title="connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png?raw=true" />` :  htm`<Img position="absolute" title="not connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon-no.png?raw=true" />`}
         <H2>Connect <B>${project.name}</B> to LogDNA:</H2>
+        <Box>
         LogDNA Token:
         <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
+        </Box>
         ${isConnectAction ? htm`<Notice type="success"><B>Successfuly connected ${project.name}</B> to LogDNA!</Notice>` :  ''}
         ${isDisconnectAction ? htm`<Notice type="message"><B>Successfuly disconnect ${project.name}</B> from LogDNA!</Notice>` :  ''}
         </Box>
-    </Box>
+    </Box><BR />
     `;
 }
 
@@ -81,8 +84,6 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     const {clientState, action, configurationId} = payload;
 
     const subscriber = await getSubscriber(configurationId);
-    //console.log(subscriber.projects[0]);
-    //console.log({payload});
 
     for (let i = 0; i < projects.length; i++) {
         if (action === ('submit-' + projects[i].id)) {
@@ -95,8 +96,6 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     for (let i = 0; i < projects.length; i++) {
         projectsUI.push(createProjectUI(projects[i], subscriber, action));
     }
-
-    //height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/fuse-brussels-273772-unsplash.jpg?raw=true')
 
     return htm`
     <Page>
