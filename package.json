@@ -13,7 +13,8 @@
     "mongodb": "^3.2.6",
     "logzio-nodejs": "^1.0.5",
     "log4js": "^4.3.1",
-    "qs": "^6.7.0"
+    "qs": "^6.7.0",
+    "winston": "^3.2.1"
   },
   "scripts": {
     "start": "node heroku/app.js",
