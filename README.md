@@ -70,35 +70,74 @@
 
 ## Setup for Development
 
-* Go to <a href="https://www.listennotes.com/api/">Listen Notes API</a> :page_facing_up:
-* Create new **_account_** and save your **_API_KEY_** :memo:
-* Now it's time for some preperation
+In order to develop locally you will need to open accounts on <a href="https://www.zeit.co/">Zeit</a>, <a href="https://www.mongodb.com/">MongoDB Cloud</a>
+
+**Zeit integrations**
+* Follow the instarations on <a href="https://zeit.co/docs/integrations/">Zeit Integration doc</a> in order to setup your integration and connect it to this integration code
+* On your integration settings page:
+  * Leave the redirect url empty
+  * Set the ui-hooks url to: http://localhost:5005/ui-hooks
+* Go to your integration page and add it to your user/team
+
+**Mongo DB cloud**
+* Register to mongo db cloud
+* Create your cluster and get the connection details
+* Make sure to set your mongo db connection detail in your env file (down)
+
+
 ```bash 
 # Clone this repository
-$ https://github.com/NivM1/podcasts-for-all.git
+$ git clone https://github.com/doron050/logdna-for-all.git
 
 # Go into the repository
-$ cd podcasts-for-all
+$ cd logdna-for-all
 
 # Install dependencies
 $ npm install
 ```
 * Set your `.env` file like that:
 ```diff
-+# VERSION= [Addon Version]
-+# PODCASTS_API_KEY= [Listen Notes API KEY]
-+# LOG_LEVEL= [Logger level- such as: trace, debug, error...]
-+# LOGGER_TOKEN= [Your Logzio api` token]
-+# LOGGER_HOST= [Destination host name]
-+# LOGGER_SUPRESS_ERRORS=true
-+# LOGGER_INCLUDE_DEBUG= [Should the logger print debug messages]
+# DB
+DB_USER_NAME=[your mongodb cloud user name]
+DB_PASSWORD=[your mongodb cloud password]
+DB_URL=[your mongodb url]
+DB_SCHEME=[your mongodb scheme]
+DB_NAME=[your mongodb db name]
+DB_COLLECTION_NAME=[your mongodb collection name]
+
+CONSUME_PROJECT_LOG_INTERVAL=[time between reading and sending logs - default is 3000]
+SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the mongo db - default is 6000]
 ```
 
-* Run your addon local server using `npm start`
-* Install it on your StremIO app (web / desktop) :computer:
-  * The addon will be available here: <https://127.0.0.1:56960/manifest.json>
-* Now go to <https://staging.strem.io/#/discover/Podcasts> and **enjoy your contribution to this great addon!** :trumpet:
+**Run your zeit ui-hook page**
+* Run your integration locally using `npm run zeit`
+* go to your integration config page and you should see the page is working with your local integration server
 
+> If you want to debug and change the configuration UI you are good to go!
+
+> Every configuration you create will be saved on your mongodb and you will see we use this data in the following background node app
+
+**Run your background node app**
+
+> NOTE - since locally we can't provide the redirect logic you will be missing 2 critical properties on every mongo document (ZeitToken, teamId)
+
+*In order to get the missing parameters do the following:*
+
+* Upload your cloned repo to zeit (you already have our now.json) and set your integration redirect url to '<zeit-host-name>/redirect'
+* don't forget all the secrets you need to set for the app to work (see now.json)
+* Create another configuration and add it to you user/team
+* Now get the missing params from the new complete document in the mongodb and copy them to all the other document
+
+
+*Now you can run the background node*
+
+* Run `npm start` this will load the node and it will start the sync
+
+Now in your console you will see that the node will load all the configuration from from the mongo.<br/>
+For every configuration the node will read the logs from zeit and send them to logDNA<br/>
+<br/>
+
+Keep Coding
 
 ### Our Team 
 ------
