@@ -146,8 +146,8 @@ In order to get over it :muscle::
 * Set the following `secret`s :closed_lock_with_key:: 
 ```diff
 # Zeit 
-INTEGRATION_CLIENT_ID=[Your app auth client id]
-INTEGRATION_CLIENT_SECRET=[Your app secret]
++ INTEGRATION_CLIENT_ID=[Your app auth client id]
++ INTEGRATION_CLIENT_SECRET=[Your app secret]
 ```
 * Now you have to follow <a href="#How-to-Use">How to Use</a> steps in order to use your integration :sweat_smile:
 
@@ -172,6 +172,6 @@ Authored and maintained by DE, MB, NM. with help from contributors.
 > GitHub [@Niv](https://github.com/nivm1) <br/>
 > GitHub [@Doron Eli](https://github.com/doron050) <br/>
 > GitHub [@Moshe Basher](https://github.com/moshebasher) <br/>
-> Contact us via mail: <doron050yahoo.com>
+> Contact us via mail: <podcasts_for_all@yahoo.com>
 
 [MIT License]: http://mit-license.org/
