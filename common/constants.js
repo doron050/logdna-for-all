@@ -28,7 +28,8 @@ const LOG_MESSAGES = {
     TERMINATION_NOTICE: "killing cycle for client with project ID: ",
     SUCCESS_GET_PROJECTS: "Success get projects: ",
     ERROR_GET_PROJECTS: "Error get projects: ",
-    UPDATE_LASTID:"Updating lastSentLogId: "
+    UPDATE_LASTID:"Updating lastSentLogId: ",
+    UPDATE_DNA_TOKEN_UDPATE:"Found change in DNAToken for project ID: "
 
 };
 
@@ -41,8 +42,8 @@ const AUTH = {
 };
 
 const TIME_OUTS ={
-    PROJECT_CYCLE : 1000,
-    SYNC_CYCLE : 5000,
+    PROJECT_CYCLE : 3000,
+    SYNC_CYCLE : 6000,
 };
 module.exports = {
     API_BASIC_ENDPOINT_URL,

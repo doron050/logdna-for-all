@@ -48,8 +48,20 @@ const getLogzCollection = function () {
     });
 };
 
+
+const upsertLastLogID = async function (configurationId,projectID, lastLogID) {
+    await connection;
+    const db = client.db(dbName);
+    const coll = db.collection(collecrtionName);
+    await coll.updateOne(
+        {configurationId: configurationId, 'projects.projectId': projectID},
+        {$set: {'projects.$.lastSentLogId': lastLogID}},
+        {upsert: true});
+};
+
 module.exports = {
     getDoc,
     upsertDoc,
-    getLogzCollection
+    getLogzCollection,
+    upsertLastLogID
 };

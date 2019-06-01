@@ -3,140 +3,102 @@ const _ = require("lodash");
 const clientHandler = require('./clientHandler');
 const consts = require('./common/constants');
 
-// const mySubCollection = mongo.getLogzCollection();
 const subscribedProjectsCollection = [];
 const subscriberPIDlist = [];
-
-// DELETE LATER
-// const debug = [{
-//         configurationId: "0",
-//         zeitToken: 'zeit-tocken-mock',
-//         projects: [{
-//                 logDnaToken: "33bc25c119324ac7341346450188cbc4",
-//                 active: true,
-//                 projectId: 'project0',
-//                 lastSentLogId: 'last-log-mock'
-//             },
-//             {
-//                 logDnaToken: "33bc25c119324ac7341346450188cbc4",
-//                 active: true,
-//                 projectId: 'project0.1',
-//                 lastSentLogId: 'last-log-mock'
-//             }
-//         ]
-//     },
-//     {
-//         configurationId: "2",
-//         zeitToken: 'zeit-tocken-mock',
-//         projects: [{
-//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
-//             active: true,
-//             projectId: 'project2.0',
-//             lastSentLogId: 'last-log-mock'
-//         }, {
-//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
-//             active: true,
-//             projectId: 'project2.1',
-//             lastSentLogId: 'last-log-mock'
-//         }, {
-//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
-//             active: true,
-//             projectId: 'project2.2',
-//             lastSentLogId: 'last-log-mock'
-//         }]
-//     }, {
-//         configurationId: "1",
-//         zeitToken: 'zeit-tocken-mock',
-//         projects: [{
-//             logDnaToken: "33bc25c119324ac7341346450188cbc4",
-//             active: true,
-//             projectId: 'project1',
-//             lastSentLogId: 'last-log-mock'
-//         }]
-//     }
-// ];
-// addNewProjectSubs(subscribedProjectsCollection, debug);
 
 const _clientRetriverPid = setInterval(() => syncCollection(), consts.TIME_OUTS.SYNC_CYCLE);
 
 async function syncCollection() {
+    const newProjectCollection = await mongo.getLogzCollection();
+    const mappedProjectCollection = mapProjects(newProjectCollection);
 
-    // DELETE LATER
-    const currentActiveSubCollection = await mongo.getLogzCollection();
-    // const currentActiveSubCollection = [{
-    //     configurationId: "27",
-    //     zeitToken: 'zeit-tocken-mock',
-    //     projects: [{
-    //         logDnaToken: "33bc25c119324ac7341346450188cbc4",
-    //         active: true,
-    //         projectId: 'project27',
-    //         lastSentLogId: 'last-log-mock'
-    //     }]
-    // }, {
-    //     configurationId: "2",
-    //     zeitToken: 'zeit-tocken-mock',
-    //     projects: [{
-    //         logDnaToken: "33bc25c119324ac7341346450188cbc4",
-    //         active: false,
-    //         projectId: 'project3',
-    //         lastSentLogId: 'last-log-mock'
-    //     }, {
-    //         logDnaToken: "33bc25c119324ac7341346450188cbc4",
-    //         active: true,
-    //         projectId: 'project27.27',
-    //         lastSentLogId: 'last-log-mock'
-    //     }]
-    // }];
+    addNewProjectCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
+    removeDisabledCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
+    updateTokenChanged(subscribedProjectsCollection,mappedProjectCollection);
+}
 
+function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollection) {
+    currentActiveSubCollection.forEach(project => {
 
-    addNewProjectSubs(subscribedProjectsCollection, currentActiveSubCollection);
+        // Check possibility of token change for same projectID
+        const projDataInMemory = subscribedProjectsCollection.find(x => x.ID === project.ID);
+        if (projDataInMemory) {
+            if (isDNATokenChanged(projDataInMemory, project)) {
 
-
-    subscribedProjectsCollection.forEach(existingProject => {
-        const newProjectData = mapProjects(currentActiveSubCollection).find(p => p.ID === existingProject.ID);
-        if (newProjectData) {
-
-            if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
-                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + existingProject.ID);
-
-                subscribedProjectsCollection.splice(_.findIndex(subscribedProjectsCollection, function (temp) {
-                    return isSameSubscriber(temp, subscribedProject);
-                }), 1);
-
-                // kill loop for this subscriber
-                const processToKill = subscriberPIDlist.find(x => x.Project.ID == newProjectData.ID);
-                if (processToKill) {
-                    console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.ID);
-                    clearTimeout(processToKill.Pid);
-                }
+                console.log(consts.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.ID + " <--> " + project.logDnaToken)
+                unsubscribeProject(subscribedProjectsCollection, project);
+                subscribeProject(subscribedProjectsCollection, project);
             }
         }
     });
 }
 
-function addNewProjectSubs(subscribedProjectsCollection, currentActiveSubCollection) {
+function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
+    subscribedProjectsCollection.forEach(existingProject => {
+        const newProjectData = currentActiveSubCollection.find(p => p.ID === existingProject.ID);
+        if (newProjectData) {
 
-    // Convert raw DB data to list of projects
-    const projectList = mapProjects(currentActiveSubCollection);
+            if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
+                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + existingProject.ID);
+                unsubscribeProject(subscribedProjectsCollection, newProjectData);
+            }
+        }
+    });
+}
 
-    projectList.forEach(project => {
+function unsubscribeProject(subscribedProjectsCollection, projectToRemove) {
+    subscribedProjectsCollection.splice(_.findIndex(subscribedProjectsCollection, function (temp) {
+        return isSameSubscriber(temp, projectToRemove);
+    }), 1);
+    killCycle(projectToRemove);
+}
 
+function subscribeProject(subscribedProjectsCollection, projectToAdd) {
+    subscribedProjectsCollection.push(projectToAdd);
+    startCycle(projectToAdd);
+}
+
+function killCycle(projectToRemove) {
+    const processToKill = subscriberPIDlist.find(x => x.Project.ID == projectToRemove.ID);
+    if (processToKill) {
+        console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.ID);
+        clearTimeout(processToKill.Pid); // TODO: interval ?
+
+
+        subscriberPIDlist.splice(_.findIndex(subscriberPIDlist,function(temp){
+           return (temp.Project.ID === processToKill.Project.ID);
+        }),1);
+    }
+}
+
+function startCycle(projectToRun) {
+    const _pid = setInterval(() => clientHandler.handleProject(projectToRun), consts.TIME_OUTS.PROJECT_CYCLE); // TODO
+    subscriberPIDlist.push({
+        Pid: _pid,
+        Project: projectToRun
+    });
+}
+
+function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
+    currentActiveSubCollection.forEach(project => {
         if (!subscribedProjectsCollection.some(e => e.ID === project.ID)) {
 
-            console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID);
-            subscribedProjectsCollection.push(project);
+            if (project.active) {
+                console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.ID);
 
-            const _pid = setInterval(() => clientHandler.handleProject(project), consts.TIME_OUTS.PROJECT_CYCLE); // TODO
-            subscriberPIDlist.push({
-                Pid: _pid,
-                Project: project
-            });
+                subscribeProject(subscribedProjectsCollection, project)
+            }
         }
+
     });
 }
 
 function isSubscriberStatusUpdate(sub1, sub2) {
     return (sub1.active !== sub2.active)
+}
+
+function isDNATokenChanged(sub1, sub2) {
+    return (sub1.logDnaToken !== sub2.logDnaToken)
 }
 
 function isSameSubscriber(sub1, sub2) {
