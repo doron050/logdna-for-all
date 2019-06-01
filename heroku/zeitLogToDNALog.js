@@ -4,7 +4,7 @@ function convertToDNA(zeitLog,clientToHandle) {
         data: zeitLog.payload.text,
         id: clientToHandle.ID,
         logEntrypoint:zeitLog.payload.info.entrypoint
-    }
+    };
 
     return dnaLog;
 }
@@ -12,4 +12,4 @@ function convertToDNA(zeitLog,clientToHandle) {
 
 module.exports = {
     convertToDNA
-}
+};

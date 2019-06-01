@@ -1,6 +1,5 @@
-const constants = require('../common/constants');
-const httpClient = require('../common/httpClient');
-const _ = require('lodash');
+const constants = require('./constants');
+const httpClient = require('../zeit/zeitHttpClient');
 
 function createHeaders(token) {
     return {
@@ -19,7 +18,6 @@ async function getLogs(deploymentId, token, teamId, lastSentLogTimestamp) {
                 direction: "forward"
             }
         });
-        // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
         if (response.data.length > 0)
             console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length);
         return response.data;
@@ -38,15 +36,12 @@ async function getDeployments(projectId, token, teamId, limit) {
     if (limit) queryParam.limit = limit;
     if (teamId) queryParam.teamId = teamId;
 
-
     try {
         const response = await httpClient.get(constants.ZEIT_API_ROUTES.DEPLOYMENTS, {
             params: queryParam,
             headers: createHeaders(token)
         });
-        // console.log(constants.LOG_MESSAGES.SUCCESS_GET_INTEGRATIONS + response.data.deployments.length);
 
-        //const filteredDeployments = _.filter(response.data.deployments, x => x.state === 'READY');
         return response.data.deployments;
 
     } catch (error) {

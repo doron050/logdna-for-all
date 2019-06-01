@@ -1,12 +1,12 @@
-const mongo = require('./common/mongodb');
+const mongo = require('../common/mongodb');
 const _ = require("lodash");
 const clientHandler = require('./clientHandler');
-const consts = require('./common/constants');
+const constants = require('../common/constants');
 
 const subscribedProjectsCollection = [];
 const subscriberPIDlist = [];
 
-const _clientRetriverPid = setInterval(() => syncCollection(), consts.TIME_OUTS.SYNC_CYCLE);
+setInterval(() => syncCollection(), constants.TIME_OUTS.SYNC_CYCLE);
 
 async function syncCollection() {
     const newProjectCollection = await mongo.getLogzCollection();
@@ -25,7 +25,7 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
 
-                console.log(consts.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
+                console.log(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
                 unsubscribeProject(subscribedProjectsCollection, project);
                 subscribeProject(subscribedProjectsCollection, project);
             }
@@ -39,7 +39,7 @@ function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiv
         if (newProjectData) {
 
             if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
-                console.log(consts.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId);
+                console.log(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId);
                 unsubscribeProject(subscribedProjectsCollection, newProjectData);
             }
         }
@@ -61,8 +61,8 @@ function subscribeProject(subscribedProjectsCollection, projectToAdd) {
 function killCycle(projectToRemove) {
     const processToKill = subscriberPIDlist.find(x => isSameSubscriber(x.Project, projectToRemove));
     if (processToKill) {
-        console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId);
-        clearTimeout(processToKill.Pid); // TODO: interval ?
+        console.log(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId);
+        clearInterval(processToKill.Pid);
 
 
         subscriberPIDlist.splice(_.findIndex(subscriberPIDlist, function (temp) {
@@ -72,7 +72,7 @@ function killCycle(projectToRemove) {
 }
 
 function startCycle(projectToRun) {
-    const _pid = setInterval(() => clientHandler.handleProject(projectToRun), consts.TIME_OUTS.PROJECT_CYCLE); // TODO
+    const _pid = setInterval(() => clientHandler.handleProject(projectToRun), constants.TIME_OUTS.PROJECT_CYCLE); // TODO
     subscriberPIDlist.push({
         Pid: _pid,
         Project: projectToRun
@@ -84,7 +84,7 @@ function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActive
         if (!subscribedProjectsCollection.some(e => isSameSubscriber(e, project))) {
 
             if (project.active) {
-                console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.projectId);
+                console.log(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId);
                 subscribeProject(subscribedProjectsCollection, project);
             }
         }
@@ -104,11 +104,37 @@ function isSameSubscriber(sub1, sub2) {
     return ((sub1.configurationId === sub2.configurationId) && (sub1.projectId === sub2.projectId));
 }
 
-module.exports = {
-    syncCollection
+function validateMongoRow(project, document) {
+    let valid = true;
+    let missingParams = [];
+
+    if (!project.projectId) {
+        valid = false;
+        missingParams.push('Project Id');
+    }
+    if (!project.logDnaToken) {
+        valid = false;
+        missingParams.push('Log DNA token');
+    }
+    if (!document.configurationId) {
+        valid = false;
+        missingParams.push('Configuration Id');
+    }
+    if (!document.zeitToken) {
+        valid = false;
+        missingParams.push('Zeit Token');
+    }
+    if (!document.teamId) {
+        valid = false;
+        missingParams.push('Team Id');
+    }
+
+    if (!valid) {
+        console.log(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId));
+    }
+
+    return valid;
 }
-
-
 
 function mapProjects(dbRawData) {
 
@@ -116,27 +142,32 @@ function mapProjects(dbRawData) {
     dbRawData.forEach(document => {
 
         if (!document.projects) {
-            console.log(consts.LOG_MESSAGES.NO_PROJECTS_FOUND + document.configurationId);
+            console.log(constants.LOG_MESSAGES.NO_PROJECTS_FOUND + document.configurationId);
         } else {
             document.projects.forEach(project => {
-                projectList.push({
-                    projectId: project.projectId,
-                    configurationId: document.configurationId,
-                    zeitToken: document.zeitToken,
-                    logDnaToken: project.logDnaToken,
-                    active: project.active,
-                    lastSentLogId: project.lastSentLogId,
-                    teamId: document.teamId,
-                    lastSentLogTimestamp: project.lastSentLogTimestamp,
-                    registrationDate: project.registrationDate
-                });
+                if (validateMongoRow(project, document)) {
+                    projectList.push({
+                        projectId: project.projectId,
+                        configurationId: document.configurationId,
+                        zeitToken: document.zeitToken,
+                        logDnaToken: project.logDnaToken,
+                        active: project.active,
+                        lastSentLogId: project.lastSentLogId,
+                        teamId: document.teamId,
+                        lastSentLogTimestamp: project.lastSentLogTimestamp,
+                        registrationDate: project.registrationDate
+                    });
+                }
             });
         }
     });
 
 
-
     return projectList;
-
-
 }
+
+module.exports = {
+    syncCollection
+};
+
+

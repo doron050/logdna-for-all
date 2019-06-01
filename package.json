@@ -2,7 +2,7 @@
   "name": "logz-for-all",
   "version": "1.0.0",
   "description": "This example is so cool.",
-  "main": "app.js",
+  "main": "heroku/app.js",
   "dependencies": {
     "@zeit/integration-utils": "^0.6.0",
     "axios": "^0.19.0",
@@ -10,14 +10,11 @@
     "express": "^4.17.1",
     "lodash": "^4.17.11",
     "logdna": "^3.0.2",
-    "logzio-nodejs": "^1.0.5",
     "mongodb": "^3.2.6",
-    "qs": "^6.7.0",
-    "winston": "^3.2.1",
-    "winston-logzio": "^5.0.0"
+    "qs": "^6.7.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node heroku/app.js",
     "zeit": "now dev -p 5005 --debug"
   },
   "license": "MIT"
