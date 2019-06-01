@@ -3,8 +3,6 @@ const {withUiHook, htm} = require('@zeit/integration-utils');
 const mongoClient = require('../common/mongodb');
 const _ = require('lodash');
 
-//const integ = require('./projectIntegration');
-
 async function getSubscriber(configurationId) {
     const subscriber = await mongoClient.getDoc(configurationId);
     return subscriber ? subscriber : {};
@@ -16,7 +14,7 @@ function getProjectById(subscriber, id) {
 
 function getLogTokenForProject(subscriber, projectId) {
     if (subscriber && subscriber.projects) {
-        const selectedProject = getProjectById(subscriber,projectId);
+        const selectedProject = getProjectById(subscriber, projectId);
         if (selectedProject)
             return selectedProject.logDnaToken || '';
     }
@@ -29,7 +27,7 @@ async function updatePojectState(project, clientState, subscriber, configuration
     if (!subscriber.projects)
         subscriber.projects = [];
 
-    const selectedProject = getProjectById(subscriber,project.id);
+    const selectedProject = getProjectById(subscriber, project.id);
     if (!selectedProject) {
         const newProject = {
             logDnaToken: clientState['token-' + project.id],
@@ -56,30 +54,17 @@ function createProjectUI(project, subscriber, currentAction) {
         <P>Connect Project ${project.name}</P>
         <Input label="LogDNA token" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-        ${ isSaveAction ? 'Saved' : ''}
+        ${isSaveAction ? 'Saved' : ''}
     </Container>
     `;
 }
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
-    const projects = [{id: 'a', name: 'aaa'}, {id: 'b', name: 'bbb'}, {id: 'c', name: 'ccc'}];
+    const projects = await zeitClient.fetchAndThrow('/v1/projects/list', {});
     const {clientState, action, configurationId} = payload;
 
     const subscriber = await getSubscriber(configurationId);
     console.log({subscriber});
-    console.log(action);
-    //const blaa = await integ.getTeamProjects('NueSG6t5Y8EoTcnOfaMOroa1');
-    //console.log({blaa});
-
-    try {
-        const bla = await zeitClient.fetchAndThrow('v1/projects/list');
-        console.log({bla});
-    }
-    catch (e) {
-
-    }
-
-
 
     for (let i = 0; i < projects.length; i++) {
         if (action === ('submit-' + projects[i].id)) {
