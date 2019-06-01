@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const zeit = require('./zeitConnector/projectIntegration');
-// const convertor = require('./convertors/logs');
+const convertor = require('./convertors/logs');
 
 // DEBUG ONLY
 const mylog = [{
@@ -38,28 +38,16 @@ const mylog = [{
 ];
 
 async function getLastLogs(projectToHandle) {
-    const relevantLogs = [];
+    let relevantLogs = [];
 
     // Get logs for this project
     const allLogLines = await zeit.getDeploymentsLogs(projectToHandle.ID,projectToHandle.zeitToken,projectToHandle.teamID);
     // const allLogLines = mylog; // DEBUG ONLY
 
     const lastID = projectToHandle.lastSentLogId;
-
-    // Search last log
-    let lastIndex = 0;
-    lastIndex = allLogLines.lastIndexOf(x => x.payload.id === lastID);
-
-    // Last log wasnt found
-    if (lastIndex < 0)
-        lastIndex = 0;
-
-    // Send logs
-    for (lastIndex; lastIndex < allLogLines.length; lastIndex++) {
-        const lineIWant = allLogLines[lastIndex];
-        relevantLogs.push(lineIWant);
-    }
-
+    const response = convertor.getLogsSince(allLogLines,lastID);
+    projectToHandle.lastSentLogId = response.lastLogId;
+    relevantLogs = response.logs;
     return relevantLogs;
 }
 
