@@ -141,7 +141,7 @@ INTEGRATION_CLIENT_SECRET=[Your app secret]
 ```
 * Now you have to follow <a href="#How-to-Use">How to Use</a> steps in order to use your integration :sweat_smile:
 
-_**Now you can run the background node!_**
+_**Now you can run the background node!**_
 * Use `npm start` in order to start the sync
 
 <br/>
