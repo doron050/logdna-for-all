@@ -72,7 +72,7 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
         }
     }
 
-    const header = htm`<H1>LogDNA configuration page:</H1>`;
+    const header = htm`<H1>LogDNA Projects Configuration Page:</H1>`;
     let projectsUI = [];
     for (let i = 0; i < projects.length; i++) {
         projectsUI.push(createProjectUI(projects[i], subscriber, action));
