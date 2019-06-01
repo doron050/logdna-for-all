@@ -30,7 +30,8 @@ const LOG_MESSAGES = {
     ERROR_GET_PROJECTS: "Error get projects: ",
     UPDATE_LASTID:"Updating lastSentLogId: ",
     INIT_DB_CONNECTION: "Init a new db connection",
-    UPDATE_DNA_TOKEN_UDPATE:"Found change in DNAToken for project ID: "
+    UPDATE_DNA_TOKEN_UDPATE:"Found change in DNAToken for project ID: ",
+    NO_PROJECTS_FOUND:"Found new document without project, ConfigID:  "
 };
 
 const PORT = process.env.PORT || 9000;

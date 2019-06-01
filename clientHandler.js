@@ -6,7 +6,7 @@ const logHandler = require('./logHandler');
 const mongo = require('./common/mongodb');
 
 
-function handleProject(projectToHandle) {
+async function handleProject(projectToHandle) {
     console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.ID);
 
     // Assign logger
@@ -16,7 +16,7 @@ function handleProject(projectToHandle) {
     }
 
     // Get last logs
-    const logLines = logHandler.getLastLogs(projectToHandle);
+    const logLines = await logHandler.getLastLogs(projectToHandle);
 
     // Send logs
     sendData(projectToHandle, logLines);
@@ -33,15 +33,11 @@ function sendData(projectToHandle, logLines) {
 }
 
 async function updateLastLog(projectToHandle, logLines) {
-    
-    await mongo.upsertLastLogID(projectToHandle.relatedConfID,projectToHandle.ID,logLines[logLines.length - 1].payload.id)
-    
-    // projectToHandle.lastSentLogId = logLines[logLines.length - 1];
-    // const docToUpdate = await mongo.getDoc(projectToHandle.relatedConfID);
-    // if (docToUpdate) {
-    //     console.log(consts.LOG_MESSAGES.UPDATE_LASTID + projectToHandle.relatedConfID + " <---> " +projectToHandle.ID);     
-    //     await mongo.upsertDoc(projectToHandle.relatedConfID, docToUpdate);
-    // }
+
+    const newLastSentLogId = logLines[logLines.length - 1].payload.id;
+    await mongo.upsertLastLogID(projectToHandle.relatedConfID,projectToHandle.ID,newLastSentLogId)
+    projectToHandle.lastSentLogId = newLastSentLogId;
+    console.log(consts.LOG_MESSAGES.UPDATE_LASTID + newLastSentLogId);
 }
 module.exports = {
     handleProject

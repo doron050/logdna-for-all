@@ -37,12 +37,12 @@ const mylog = [{
 }
 ];
 
-function getLastLogs(projectToHandle) {
+async function getLastLogs(projectToHandle) {
     const relevantLogs = [];
 
     // Get logs for this project
-    // const allLogLines = zeit.getDeploymentsLogs(projectToHandle.ID);
-    const allLogLines = mylog; // DEBUG ONLY
+    const allLogLines = await zeit.getDeploymentsLogs(projectToHandle.ID,projectToHandle.zeitToken,projectToHandle.teamID);
+    // const allLogLines = mylog; // DEBUG ONLY
 
     const lastID = projectToHandle.lastSentLogId;
 
