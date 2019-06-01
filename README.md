@@ -117,7 +117,7 @@ If you want to, you can control some of our intervals :clock1::
 ```
 If you want your integration to send the logs to [LogzIO]() you need to set this one also:
 ```diff
-# LOGGER_TOKEN
+# LOGGER
 + LOGGER_TOKEN=[LogzIO token]
 ```
 
