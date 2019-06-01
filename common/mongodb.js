@@ -1,20 +1,29 @@
 const MongoClient = require('mongodb').MongoClient;
 const constants = require('./constants');
 
+const connectionString = constants.DB.urlPrefix + constants.DB.userName + ":" + constants.DB.password + "@" + constants.DB.url + constants.DB.scheme + constants.DB.connectionParamsString;
+//const uri = "mongodb+srv://test:test123456@logz-for-all-wxd9m.mongodb.net/test?retryWrites=true&w=majority";
 
-const uri = "mongodb+srv://test:test123456@logz-for-all-wxd9m.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {useNewUrlParser: true});
-const connection = client.connect();
+const client = new MongoClient(connectionString, {useNewUrlParser: true});
+let connection = getConnection();
 
-const dbName = 'logz';
-const collecrtionName = 'logz';
+async function getConnection(){
 
+    if (!connection || !connection.connectionStatus.ok){
+
+        connection = await client.connect();
+
+        console.log(constants.LOG_MESSAGES.INIT_DB_CONNECTION);
+    }
+
+    return (connection);
+}
 
 const getDoc = function (configurationId) {
     return new Promise((resolve, reject) => {
-        connection.then(() => {
+        getConnection().then(() => {
             const db = client.db(dbName);
-            const coll = db.collection(collecrtionName);
+            const coll = db.collection(collectionName);
             coll.findOne({configurationId: configurationId}, (err, result) => {
                 if (err)
                     reject(err);
@@ -27,17 +36,17 @@ const getDoc = function (configurationId) {
 };
 
 const upsertDoc = async function (configurationId, object) {
-    await connection;
+    await getConnection();
     const db = client.db(dbName);
-    const coll = db.collection(collecrtionName);
+    const coll = db.collection(collectionName);
     await coll.updateOne({configurationId: configurationId}, {$set: object}, {upsert: true});
 };
 
 const getLogzCollection = function () {
     return new Promise((resolve, reject) => {
-        connection.then(() => {
+        getConnection().then(() => {
             const db = client.db(dbName);
-            const coll = db.collection(collecrtionName);
+            const coll = db.collection(collectionName);
             coll.find().toArray((err, result) => {
                 if (err)
                     reject(err);

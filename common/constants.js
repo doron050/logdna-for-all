@@ -28,8 +28,8 @@ const LOG_MESSAGES = {
     TERMINATION_NOTICE: "killing cycle for client with project ID: ",
     SUCCESS_GET_PROJECTS: "Success get projects: ",
     ERROR_GET_PROJECTS: "Error get projects: ",
-    UPDATE_LASTID:"Updating lastSentLogId: "
-
+    UPDATE_LASTID:"Updating lastSentLogId: ",
+    INIT_DB_CONNECTION: "Init a new db connection"
 };
 
 const PORT = process.env.PORT || 9000;
@@ -38,6 +38,17 @@ const AUTH = {
     HEADER: "Authorization",
     CLIENT_ID: process.env.INTEGRATION_CLIENT_ID,
     CLIENT_SECRET: process.env.INTEGRATION_CLIENT_SECRET
+};
+
+const DB = {
+    urlPrefix: "mongodb+srv://",
+    url: process.env.DB_URL,
+    userName: process.env.DB_USER_NAME,
+    password: process.env.DB_PASSWORD,
+    scheme: process.env.DB_SCHEME,
+    dbName: process.env.DB_NAME,
+    collectionName: process.env.DB_COLLECTION_NAME,
+    connectionParamsString: "?retryWrites=true&w=majority"
 };
 
 const TIME_OUTS ={
@@ -53,5 +64,6 @@ module.exports = {
     ZEIT_API_ROUTES,
     PORT,
     AUTH,
+    DB,
     TIME_OUTS
 };

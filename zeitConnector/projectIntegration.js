@@ -39,8 +39,8 @@ async function getDeployments(projectId, token, teamId, limit) {
         });
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_INTEGRATIONS + response.data.deployments.length);
 
-        const filteredDeployments = _.filter(response.data.deployments, x => x.state === 'READY');
-        return filteredDeployments;
+        //const filteredDeployments = _.filter(response.data.deployments, x => x.state === 'READY');
+        return response.data.deployments;
 
     } catch (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error);
