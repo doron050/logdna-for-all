@@ -112,8 +112,13 @@ $ npm install
 #### Advanced .env ####
 If you want to, you can control some of our intervals :clock1::
 ```diff
-CONSUME_PROJECT_LOG_INTERVAL=[time between reading and sending logs - default is 3000]
-SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the metadata inside the db - default is 6000]
++ CONSUME_PROJECT_LOG_INTERVAL=[time between reading and sending logs - default is 3000]
++ SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the metadata inside the db - default is 6000]
+```
+If you want your integration to send the logs to [LogzIO]() you need to set this one also:
+```diff
+# LOGGER_TOKEN
++ LOGGER_TOKEN=[LogzIO token]
 ```
 
 #### Run the integration ####
