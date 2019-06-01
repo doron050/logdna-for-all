@@ -1,5 +1,5 @@
-const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/";
-const ZEIT_PROD_REDIRECT_URL = "https://logz-for-all.logz-for-all.now.sh/redirect";
+const API_BASIC_ENDPOINT_URL = process.env.API_BASIC_ENDPOINT_URL;
+const ZEIT_PROD_REDIRECT_URL = process.env.ZEIT_PROD_REDIRECT_URL;
 
 const ZEIT_API_ROUTES = {
     LOGS_FOR_DEPLOYMENT: (deploymentId) => `/v2/now/deployments/${deploymentId}/events`,
@@ -54,8 +54,8 @@ const DB = {
 const MONGO_CONNECTION_STRING = DB.urlPrefix + DB.userName + ":" + DB.password + "@" + DB.url + DB.scheme + DB.connectionParamsString;
 
 const TIME_OUTS = {
-    PROJECT_CYCLE: 3000,
-    SYNC_CYCLE: 6000,
+    PROJECT_CYCLE: process.env.CONSUME_PROJECT_LOG_INTERVAL,
+    SYNC_CYCLE: process.env.SYNC_SUBSCRIBER_WITH_DB_INTERVAL,
 };
 
 module.exports = {
