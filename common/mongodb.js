@@ -69,13 +69,8 @@ const getLogzCollection = function () {
     });
 };
 
-<<<<<<< HEAD
 const upsertLastSentLogTimestamp  = async function (configurationId,projectID, lastSentLogTimestamp ) {
     await connection;
-=======
-const upsertLastLogID = async function (configurationId, projectID, lastLogID) {
-    await initConnction();
->>>>>>> a4ae09799bf763e2e2fe112e74ee125c1cfd0a6e
     const db = client.db(constants.DB.dbName);
     const coll = db.collection(constants.DB.collectionName);
     await coll.updateOne(
