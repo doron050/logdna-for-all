@@ -3,6 +3,7 @@ const mongoClient = require('../common/mongodb');
 const constants = require('../common/constants');
 const httpClient = require('./zeitHttpClient');
 const qs = require('qs');
+const logger = require('../common/logger');
 
 // Saves this specific token for future use of the zeit api
 async function saveDataToMongo(configurationId, access_token, teamId) {
@@ -36,7 +37,8 @@ module.exports = async (req, res) => {
 
         const token = resAccess.data.access_token;
         await saveDataToMongo(newIntegration.configurationId, token, newIntegration.teamId);
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
+        logger.info(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token,null,newIntegration.configurationId,null,newIntegration.teamId);
+        // console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
         // Redirects to the ui-hooks
         res.writeHead(302, {
@@ -45,7 +47,8 @@ module.exports = async (req, res) => {
         res.end();
 
     } catch (error) {
-        console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);
+        logger.error(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error,null,newIntegration.configurationId,null,newIntegration.teamId);
+        // console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);
         res.end();
     }
 };

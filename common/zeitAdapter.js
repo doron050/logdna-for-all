@@ -1,5 +1,6 @@
 const constants = require('./constants');
 const httpClient = require('../zeit/zeitHttpClient');
+const logger = require('./logger');
 
 function createHeaders(token) {
     return {
@@ -18,11 +19,14 @@ async function getLogs(deploymentId, token, teamId, lastSentLogTimestamp) {
                 direction: "forward"
             }
         });
-        if (response.data.length > 0)
-            console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length);
+        if (response.data.length > 0) {
+            logger.info(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length, null, null, null, teamId);
+            // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length);
+        }
         return response.data;
     } catch (error) {
-        console.log(constants.LOG_MESSAGES.ERROR_GET_LOGS + error);
+        logger.error(constants.LOG_MESSAGES.ERROR_GET_LOGS + error, null, null, null, teamId);
+        // console.log(constants.LOG_MESSAGES.ERROR_GET_LOGS + error);
     }
 
 }
@@ -45,7 +49,8 @@ async function getDeployments(projectId, token, teamId, limit) {
         return response.data.deployments;
 
     } catch (error) {
-        console.log(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error);
+        logger.error(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error,projectId, null, null, teamId);
+        // console.log(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error);
     }
 }
 

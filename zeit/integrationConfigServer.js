@@ -1,5 +1,8 @@
 require('dotenv').config();
-const {withUiHook, htm} = require('@zeit/integration-utils');
+const {
+    withUiHook,
+    htm
+} = require('@zeit/integration-utils');
 const mongoClient = require('../common/mongodb');
 const constants = require('../common/constants');
 const _ = require('lodash');
@@ -28,9 +31,8 @@ async function updatePojectState(project, clientState, subscriber, configuration
     if (!subscriber.projects)
         subscriber.projects = [];
 
-    
-    const selectedProject = getProjectById(subscriber, project.id);
 
+    const selectedProject = getProjectById(subscriber, project.id);
     console.log("before: ***" + selectedProject.active)
     if (!selectedProject) {
         const newProject = {
@@ -55,14 +57,14 @@ function createProjectUI(project, subscriber, currentAction) {
 
     const mongoProject = getProjectById(subscriber, project.id);
     const isActive = mongoProject && mongoProject.active;
-    
+
     let isConnectAction = false;
     let isDisconnectAction = false;
 
-    if (isSaveAction && !mongoProject.active) isDisconnectAction=true
-    else if (isSaveAction && mongoProject.active) isConnectAction=true;
+    if (isSaveAction && !mongoProject.active) isDisconnectAction = true
+    else if (isSaveAction && mongoProject.active) isConnectAction = true;
 
-    return htm`
+    return htm `
     <Box border-style="groove" border-radius="5px" background-color="white">
         <Box margin="15px">
         <H2>Connect <B>${project.name}</B> to LogDNA:</H2>
@@ -76,9 +78,16 @@ function createProjectUI(project, subscriber, currentAction) {
     `;
 }
 
-module.exports = withUiHook(async ({payload, zeitClient}) => {
+module.exports = withUiHook(async ({
+    payload,
+    zeitClient
+}) => {
     const projects = await zeitClient.fetchAndThrow("/" + constants.ZEIT_API_ROUTES.PROJECTS, {});
-    const {clientState, action, configurationId} = payload;
+    const {
+        clientState,
+        action,
+        configurationId
+    } = payload;
 
     const subscriber = await getSubscriber(configurationId);
     //console.log(subscriber.projects[0]);
@@ -90,7 +99,7 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
         }
     }
 
-    const header = htm`<H1>Your Projects Integrations with LogDNA:</H1>`;
+    const header = htm `<H1>Your Projects Integrations with LogDNA:</H1>`;
     let projectsUI = [];
     for (let i = 0; i < projects.length; i++) {
         projectsUI.push(createProjectUI(projects[i], subscriber, action));
@@ -98,7 +107,7 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
 
     //height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/fuse-brussels-273772-unsplash.jpg?raw=true')
 
-    return htm`
+    return htm `
     <Page>
       <Box>
       <BR />
