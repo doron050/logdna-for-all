@@ -5,8 +5,13 @@ const httpClient = require('../common/httpClient');
 const qs = require('qs');
 
 // Saves this specific token for future use of the zeit api
-async function saveToken(configurationId, access_token){
-    await mongoClient.upsertDoc(configurationId, {zeitToken: access_token});
+async function saveDataToMongo(configurationId, access_token, teamId) {
+    const updatedFields = {};
+    updatedFields.zeitToken = access_token;
+    if (teamId)
+        updatedFields.teamId = teamId;
+
+    await mongoClient.upsertDoc(configurationId, updatedFields);
 }
 
 module.exports = async (req, res) => {
@@ -30,7 +35,7 @@ module.exports = async (req, res) => {
         }));
 
         const token = resAccess.data.access_token;
-        await saveToken(newIntegration.configurationId, token);
+        await saveDataToMongo(newIntegration.configurationId, token, newIntegration.teamId);
         console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
         // Redirects to the ui-hooks

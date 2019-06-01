@@ -6,8 +6,8 @@ const ZEIT_PROD_REDIRECT_URL = "https://logz-for-all.logz-for-all.now.sh/redirec
 const LOGZIO_TOKEN = "yyxbNlmITKFCAHGBfFtFfoHKWyFJAXiS"; // Moshe Basher
 const LOGSDNA_KEY = "33bc25c119324ac7341346450188cbc4"; // Moshe Basher
 const ZEIT_API_ROUTES = {
-    LOGS: "v2/now/events",
-    DEPLOYMENTS: "v2/now/deployments",
+    LOGS_FOR_DEPLOYMENT: (deploymentId) => `/v2/now/deployments/${deploymentId}/events`,
+    DEPLOYMENTS: "v4/now/deployments",
     ACCESS_TOKEN: "v2/oauth/access_token",
     PROJECTS: "v1/projects/list"
 };
@@ -27,7 +27,8 @@ const LOG_MESSAGES = {
     STATUS_CHANGE: "Change of status for Client with project ID: ",
     TERMINATION_NOTICE: "killing cycle for client with project ID: ",
     SUCCESS_GET_PROJECTS: "Success get projects: ",
-    ERROR_GET_PROJECTS: "Error get projects: "
+    ERROR_GET_PROJECTS: "Error get projects: ",
+    UPDATE_LASTID:"Updating lastSentLogId: "
 
 };
 
@@ -39,6 +40,10 @@ const AUTH = {
     CLIENT_SECRET: process.env.INTEGRATION_CLIENT_SECRET
 };
 
+const TIME_OUTS ={
+    PROJECT_CYCLE : 1000,
+    SYNC_CYCLE : 5000,
+};
 module.exports = {
     API_BASIC_ENDPOINT_URL,
     ZEIT_PROD_REDIRECT_URL,
@@ -47,5 +52,6 @@ module.exports = {
     LOGSDNA_KEY,
     ZEIT_API_ROUTES,
     PORT,
-    AUTH
+    AUTH,
+    TIME_OUTS
 };
