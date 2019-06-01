@@ -53,8 +53,8 @@ function createProjectUI(project, subscriber, currentAction) {
         <P>Connect <B>${project.name}</B> to LogDNA:</P><BR />
         <Input width="250px" label="LogDNA Token:" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-        ${isSaveAction ? '<Notice type="success">${project.name} successfuly connected to logdna</Notice>' : ''}
     </Container>
+    ${isSaveAction ? '<Notice type="success">Successfuly connected to logdna</Notice>' : ''}
     `;
 }
 
