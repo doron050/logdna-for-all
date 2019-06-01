@@ -1,7 +1,7 @@
 require('dotenv').config();
 require('./clientRetriver');
 
-const constants = require('./common/constants');
+const constants = require('../common/constants');
 const express = require('express');
 const app = express();
 

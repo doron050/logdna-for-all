@@ -1,9 +1,6 @@
 const API_BASIC_ENDPOINT_URL = "https://api.zeit.co/";
-const API_AUTH_ENDPOINT_URL = "https://zeit.co/oauth/authorize";
 const ZEIT_PROD_REDIRECT_URL = "https://logz-for-all.logz-for-all.now.sh/redirect";
 
-const LOGZIO_TOKEN = "yyxbNlmITKFCAHGBfFtFfoHKWyFJAXiS"; // Moshe Basher
-const LOGSDNA_KEY = "33bc25c119324ac7341346450188cbc4"; // Moshe Basher
 const ZEIT_API_ROUTES = {
     LOGS_FOR_DEPLOYMENT: (deploymentId) => `/v2/now/deployments/${deploymentId}/events`,
     DEPLOYMENTS: "v4/now/deployments",
@@ -26,12 +23,14 @@ const LOG_MESSAGES = {
     TERMINATION_NOTICE: "killing cycle for client with project ID: ",
     SUCCESS_GET_PROJECTS: "Success get projects: ",
     ERROR_GET_PROJECTS: "Error get projects: ",
-    UPDATE_LASTID:"Updating lastSentLogId: ",
+    UPDATE_LASTID: "Updating lastSentLogId: ",
     INIT_DB_CONNECTION: "Init a new db connection",
-    UPDATE_DNA_TOKEN_UDPATE:"Found change in DNAToken for project ID: ",
-    NO_PROJECTS_FOUND:"Found new document without project, ConfigID:  ",
-    DB_FAILED_TO_CONNECT_FIRST_TRY:"Can't connect to the mongo, will try again, error:",
-    DB_FAILED_TO_CONNECT_SECOND_TRY:"Can't connect to the mongo!!! error:"
+    UPDATE_DNA_TOKEN_UDPATE: "Found change in DNAToken for project ID: ",
+    NO_PROJECTS_FOUND: "Found new document without project, ConfigID:  ",
+    DB_FAILED_TO_CONNECT_FIRST_TRY: "Can't connect to the mongo, will try again, error:",
+    DB_FAILED_TO_CONNECT_SECOND_TRY: "Can't connect to the mongo!!! error:",
+    MISSING_REGISTRATION_DATE: (projId, configId) => `No registration date found for project id:${projId} inside configuration id:${configId}`,
+    MISSING_PARAMETERS_FROM_DB: (missingParams, configurationId) => `Missing the Following params (${missingParams}) form mongo document ${configurationId ? 'with configuration id: ' + configurationId : ''} `
 };
 
 const PORT = process.env.PORT || 9000;
@@ -54,17 +53,15 @@ const DB = {
 };
 const MONGO_CONNECTION_STRING = DB.urlPrefix + DB.userName + ":" + DB.password + "@" + DB.url + DB.scheme + DB.connectionParamsString;
 
-const TIME_OUTS ={
-    PROJECT_CYCLE : 3000,
-    SYNC_CYCLE : 6000,
+const TIME_OUTS = {
+    PROJECT_CYCLE: 3000,
+    SYNC_CYCLE: 6000,
 };
 
 module.exports = {
     API_BASIC_ENDPOINT_URL,
     ZEIT_PROD_REDIRECT_URL,
     LOG_MESSAGES,
-    LOGZIO_TOKEN,
-    LOGSDNA_KEY,
     ZEIT_API_ROUTES,
     PORT,
     AUTH,

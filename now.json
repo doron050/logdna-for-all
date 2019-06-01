@@ -2,21 +2,21 @@
   "name": "logz-for-all",
   "version": 2,
   "builds": [{
-      "src": "zeitConnector/integrationConfigServer.js",
+      "src": "zeit/integrationConfigServer.js",
       "use": "@now/node"
     },
     {
-      "src": "zeitConnector/redirectServer.js",
+      "src": "zeit/redirectServer.js",
       "use": "@now/node"
     }
   ],
   "routes": [{
       "src": "/ui-hooks",
-      "dest": "zeitConnector/integrationConfigServer.js"
+      "dest": "zeit/integrationConfigServer.js"
     },
     {
       "src": "/redirect",
-      "dest": "zeitConnector/redirectServer.js"
+      "dest": "zeit/redirectServer.js"
     }
   ],
   "github": {

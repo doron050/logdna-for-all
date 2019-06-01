@@ -1,17 +1,16 @@
 const dna = require('logdna');
-const zeit = require('./zeitConnector/projectIntegration');
-const logConvertor = require('./common/zeitTOdna');
-const consts = require('./common/constants');
+const logConvertor = require('./zeitLogToDNALog');
+const constants = require('../common/constants');
 const logHandler = require('./logHandler');
-const mongo = require('./common/mongodb');
+const mongoClient = require('../common/mongodb');
 
 
 async function handleProject(projectToHandle) {
-    console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId);
+    console.log(constants.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId);
 
     // Assign logger
     if (!projectToHandle.logger) {
-        console.log(consts.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId);
+        console.log(constants.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId);
         projectToHandle.logger = dna.createLogger(projectToHandle.logDnaToken, {});
     }
 
@@ -36,11 +35,12 @@ function sendData(projectToHandle, logLines) {
 }
 
 async function updateLastLog(projectToHandle, logLines) {
-    const lastCreatedDate = logLines[logLines.length-1].created + 1;
+    const lastCreatedDate = logLines[logLines.length - 1].created + 1;
     projectToHandle.lastSentLogTimestamp = lastCreatedDate;
-    await mongo.upsertLastSentLogTimestamp(projectToHandle.configurationId, projectToHandle.projectId, lastCreatedDate)
-    console.log(consts.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId);
+    await mongoClient.upsertLastSentLogTimestamp(projectToHandle.configurationId, projectToHandle.projectId, lastCreatedDate)
+    console.log(constants.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId);
 }
+
 module.exports = {
     handleProject
-}
+};

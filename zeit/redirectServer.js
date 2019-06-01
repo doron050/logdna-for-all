@@ -1,7 +1,7 @@
 const url = require('url');
 const mongoClient = require('../common/mongodb');
 const constants = require('../common/constants');
-const httpClient = require('../common/httpClient');
+const httpClient = require('./zeitHttpClient');
 const qs = require('qs');
 
 // Saves this specific token for future use of the zeit api
