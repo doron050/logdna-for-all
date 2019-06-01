@@ -66,7 +66,7 @@ function killCycle(projectToRemove) {
 
 
         subscriberPIDlist.splice(_.findIndex(subscriberPIDlist, function (temp) {
-            return(isSameSubscriber(temp.Project,Proces.Project));
+            return(isSameSubscriber(temp.Project,processToKill.Project));
         }), 1);
     }
 }
