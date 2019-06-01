@@ -36,7 +36,7 @@ function sendData(projectToHandle, logLines) {
 }
 
 async function updateLastLog(projectToHandle, logLines) {
-    const lastCreatedDate = logLines[logLines.length-1].created;
+    const lastCreatedDate = logLines[logLines.length-1].created + 1;
     projectToHandle.lastSentLogTimestamp = lastCreatedDate;
     await mongo.upsertLastSentLogTimestamp(projectToHandle.configurationId, projectToHandle.projectId, lastCreatedDate)
     console.log(consts.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate);

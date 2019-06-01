@@ -19,7 +19,8 @@ async function getLogs(deploymentId, token, teamId,lastSentLogTimestamp) {
                 direction: "forward"
             }
         });
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
+        // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS);
+        console.log("Count of logs returned: " + response.data.length)
         return response.data;
     } catch (error) {
         console.log(constants.LOG_MESSAGES.ERROR_GET_LOGS + error);
@@ -42,7 +43,7 @@ async function getDeployments(projectId, token, teamId, limit) {
             params: queryParam,
             headers: createHeaders(token)
         });
-        console.log(constants.LOG_MESSAGES.SUCCESS_GET_INTEGRATIONS + response.data.deployments.length);
+        // console.log(constants.LOG_MESSAGES.SUCCESS_GET_INTEGRATIONS + response.data.deployments.length);
 
         //const filteredDeployments = _.filter(response.data.deployments, x => x.state === 'READY');
         return response.data.deployments;
@@ -52,7 +53,7 @@ async function getDeployments(projectId, token, teamId, limit) {
     }
 }
 
-async function getDeploymentsLogs(projectId, token, teamId, numOfDeployments) {
+async function getDeploymentsLogs(projectId, token, teamId,lastSentLogTimestamp, numOfDeployments) {
 
     // If no limit passed, get the last deployment
     if (!numOfDeployments) numOfDeployments = 1;
