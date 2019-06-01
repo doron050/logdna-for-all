@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const constants = require('./constants');
-const logger = require('../logger');
+const logger = require('./logger');
 
 const client = new MongoClient(constants.MONGO_CONNECTION_STRING, {useNewUrlParser: true});
 let connection = client.connect();

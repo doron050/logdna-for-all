@@ -3,7 +3,7 @@ const mongoClient = require('../common/mongodb');
 const constants = require('../common/constants');
 const httpClient = require('./zeitHttpClient');
 const qs = require('qs');
-const logger = require('../logger');
+const logger = require('../common/logger');
 
 // Saves this specific token for future use of the zeit api
 async function saveDataToMongo(configurationId, access_token, teamId) {
