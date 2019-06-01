@@ -34,6 +34,8 @@
 > **We are making our best efforts** to bring you the best loging integrations.<br/>
 > If you like our integration, you can help us by <a href="https://paypal.me/doron050">donate and become a backer</a>.
 
+:barber: [Try Our Integration](https://zeit.co/integrations/logdna-for-all)
+
 ## Our Vision
 > Let **every devloper** to **_take responsibility_** over his creation by deliver **_the best integration_**<br/>to connect his project to _logging:chart_with_upwards_trend: & monitororing:traffic_light: service **easiest as possible**
 
