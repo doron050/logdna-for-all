@@ -2,7 +2,7 @@ const dna = require('logdna');
 const zeit = require('./zeitConnector/projectIntegration');
 const logConvertor = require('./common/zeitTOdna');
 const consts = require('./common/constants');
-
+// const logHandler = require('./logHandler');
 
 // DEBUG ONLY
 const mylog = [{
@@ -40,21 +40,22 @@ const mylog = [{
 ];
 
 
-function handleClient(clientToHandle) {
+function handleProject(projectToHandle) {
+
     // const testLog = zeit.getDeploymentsLogs(clientToHandle.projectId)[0];
     const logLines = mylog;
-    console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + clientToHandle.configurationId);
+    console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.ID);
 
-    if (!clientToHandle.logger) {
-        console.log(consts.LOG_MESSAGES.NEW_LOGGER + clientToHandle.configurationId);
-        clientToHandle.logger = dna.createLogger(clientToHandle.logDnaToken, {});
+    if (!projectToHandle.logger) {
+        console.log(consts.LOG_MESSAGES.NEW_LOGGER + projectToHandle.ID);
+        projectToHandle.logger = dna.createLogger(projectToHandle.logDnaToken, {});
     }
     logLines.forEach(zeitLogLine => {
-        const dnaLog = logConvertor.convertToDNA(zeitLogLine,clientToHandle);
-        clientToHandle.logger.log(dnaLog);
+        const dnaLog = logConvertor.convertToDNA(zeitLogLine,projectToHandle);
+        projectToHandle.logger.log(dnaLog);
     });
 }
 
 module.exports = {
-    handleClient
+    handleClient: handleProject
 }
