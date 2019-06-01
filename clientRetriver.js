@@ -21,7 +21,7 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
     currentActiveSubCollection.forEach(project => {
 
         // Check possibility of token change for same projectID
-        const projDataInMemory = subscribedProjectsCollection.find(x => isSameSubscriber(x,project) && (x.active === project.active));
+        const projDataInMemory = subscribedProjectsCollection.find(x => isSameSubscriber(x, project) && (x.active === project.active));
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
 
@@ -35,7 +35,7 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
 
 function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
     subscribedProjectsCollection.forEach(existingProject => {
-        const newProjectData = currentActiveSubCollection.find(p =>isSameSubscriber(p,existingProject));
+        const newProjectData = currentActiveSubCollection.find(p => isSameSubscriber(p, existingProject));
         if (newProjectData) {
 
             if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
@@ -59,14 +59,14 @@ function subscribeProject(subscribedProjectsCollection, projectToAdd) {
 }
 
 function killCycle(projectToRemove) {
-    const processToKill = subscriberPIDlist.find(x => isSameSubscriber(x.Project,projectToRemove));
+    const processToKill = subscriberPIDlist.find(x => isSameSubscriber(x.Project, projectToRemove));
     if (processToKill) {
         console.log(consts.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId);
         clearTimeout(processToKill.Pid); // TODO: interval ?
 
 
         subscriberPIDlist.splice(_.findIndex(subscriberPIDlist, function (temp) {
-            return(isSameSubscriber(temp.Project,processToKill.Project));
+            return (isSameSubscriber(temp.Project, processToKill.Project));
         }), 1);
     }
 }
@@ -81,7 +81,7 @@ function startCycle(projectToRun) {
 
 function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
     currentActiveSubCollection.forEach(project => {
-        if (!subscribedProjectsCollection.some(e => isSameSubscriber(e,project))) {
+        if (!subscribedProjectsCollection.some(e => isSameSubscriber(e, project))) {
 
             if (project.active) {
                 console.log(consts.LOG_MESSAGES.NEW_CLIENT + project.projectId);
@@ -127,9 +127,8 @@ function mapProjects(dbRawData) {
                     active: project.active,
                     lastSentLogId: project.lastSentLogId,
                     teamId: document.teamId,
-                    lastSentLogTimestamp:project.lastSentLogTimestamp,
+                    lastSentLogTimestamp: project.lastSentLogTimestamp,
                     registrationDate: project.registrationDate
-
                 });
             });
         }
