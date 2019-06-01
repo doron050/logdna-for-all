@@ -35,7 +35,7 @@
 > If you like our integration, you can help us by <a href="https://paypal.me/doron050">donate and become a backer</a>.
 
 ## Our Vision
-> Let **every devloper** to **_take responsibility_** over his creation<br/>by deliver **_the best integration_** to connect his project to _log:chart_with_upwards_trend: & monitor:traffic_light: service_ easisest **easiest as possible**
+> Let **every devloper** to **_take responsibility_** over his creation by deliver **_the best integration_**<br/>to connect his project to _logging:chart_with_upwards_trend: & monitororing:traffic_light: service **easiest as possible**
 
 ## Key Features
 
