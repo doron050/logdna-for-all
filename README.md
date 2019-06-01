@@ -19,8 +19,8 @@
   • <a href="#How-to-Use">How to Use</a>
   • <a href="#Setup-for-Development">Dev Setup</a>
   • <a href="#Support-and-Contact">Contact</a>
-  • <a href="https://www.stremio.com/competition">Add-On Master</a>
-  • <a href="https://www.stremio.com/addon-sdk">Stremio add-on SDK</a>
+  • <a href="https://logdna.com/">LogDNA</a>
+  • <a href="https://zeit.co">Zeit</a>
   
 </p>
 
@@ -33,13 +33,13 @@
 > If you like our integration, you can help us by <a href="https://paypal.me/doron050">donate and become a backer</a>.
 
 ## Our Vision
-> Let **every devloper** to **_take responsibility_** over his creation<br/>by deliver **_the best integration_** to connect his project to _log & monitor service_ easisest **easiest as possible**
+> Let **every devloper** to **_take responsibility_** over his creation<br/>by deliver **_the best integration_** to connect his project to _log:chart_with_upwards_trend: & monitor:traffic_light: service_ easisest **easiest as possible**
 
 ## Key Features
 
-* Integrate your Zeit Now with LogDNA :trophy:
-  * Connect team projects
-  * Connect user projects
+* Integrate your Zeit Now with LogDNA :electric_plug:
+  * Connect team projects :family:
+  * Connect user projects :bowtie:
 
 #### Screenshot - Integration Configuration:
 ![Integration Configuration](https://github.com/doron050/logz-for-all/blob/master/resources/images/configuration.png?raw=true)
@@ -49,17 +49,16 @@
 
 ## How to Use
 * **Select one of the following:**
-  * **The fastest way** - Go [here](https://zeit.co/integrations/logdna-for-all/add)
+  * **The fastest way** :rocket: - Go [here](https://zeit.co/integrations/logdna-for-all/add)
   * `Or` Go to [Our integration page](https://zeit.co/integrations/logdna-for-all)
     * Press `add`
-  * Select which workspaces you want t
-  * `Or manually` Go to the [markekplace](https://zeit.co/integrations):
+  * `Or manually` :hand: Go to the [markekplace](https://zeit.co/integrations):
     * Go to `[logging category](https://zeit.co/integrations?category=logging)` 
       * select our integration `LogDNA`
 * Select which workspaces you want to connect to LogDNA -  `User or teams`
 * Press `add`
 * For each project of your worksapace that you want to connect:
-  * Insert your *LogDNA token* (get it via your project page on [LogDNA](https://logdna.com/)
+  * Insert your *LogDNA token* :key: (get it via your project page on [LogDNA](https://logdna.com/)
   * Press `Connect`
 * Now you are ready to go by yourself. Enjoy! :tada:
 > We hope you have _the great Logging & Monitoring Experience of your life!_ :rainbow:
