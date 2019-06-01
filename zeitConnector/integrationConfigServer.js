@@ -1,12 +1,12 @@
 require('dotenv').config();
 const {withUiHook, htm} = require('@zeit/integration-utils');
-const mongo = require('../common/mongodb');
+const mongoClient = require('../common/mongodb');
 const _ = require('lodash');
 
 //const integ = require('./projectIntegration');
 
 async function getSubscriber(configurationId) {
-    const subscriber = await mongo.getDoc(configurationId);
+    const subscriber = await mongoClient.getDoc(configurationId);
     return subscriber ? subscriber : {};
 }
 
@@ -42,7 +42,7 @@ async function updatePojectState(project, clientState, subscriber, configuration
         selectedProject.active = !!clientState['token-' + project.id];
     }
 
-    await mongo.upsertDoc(configurationId, subscriber);
+    await mongoClient.upsertDoc(configurationId, subscriber);
 }
 
 function createProjectUI(project, subscriber, currentAction) {
