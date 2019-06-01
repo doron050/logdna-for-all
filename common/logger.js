@@ -5,25 +5,24 @@ const logzioLogger = require('logzio-nodejs').createLogger({
 const constants = require('./constants');
 
 const log4js = require('log4js');
-// log4js.configure({
-//     appenders: {
-//         console: {
-//             type: 'console'
-//         }
-//     },
-//     categories: {
-//         default: {
-//             appenders: ['console'],
-//             level: "info"
-//         }
-//     }
-// });
-//const log4jslogger = log4js.getLogger("default");
+log4js.configure({
+    appenders: {
+        console: {
+            type: 'console'
+        }
+    },
+    categories: {
+        default: {
+            appenders: ['console'],
+            level: "debug"
+        }
+    }
+});
 const log4jslogger = log4js.getLogger();
-log4jslogger.level = 'debug';
 
 function debugLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
-    log4jslogger.debug(msg);
+    // log4jslogger.debug(msg);
+    console.log(msg);
     if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
             message: msg,
@@ -41,7 +40,8 @@ function debugLog(msg, projId, configId, active, teamId, teamName, registrationD
 }
 
 function infoLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
-    log4jslogger.info(msg);
+    // log4jslogger.info(msg);
+    console.log(msg);
     if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
             message: msg,
@@ -59,7 +59,8 @@ function infoLog(msg, projId, configId, active, teamId, teamName, registrationDa
 }
 
 function errorLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
-    log4jslogger.error(msg);
+    // log4jslogger.error(msg);
+    console.log(msg);
     if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
             message: msg,
