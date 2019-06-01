@@ -81,9 +81,8 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
     return htm`
     <Page>
       <Box height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/r.jpg?raw=true')">
-      <BR /><BR />
+      <BR />
       ${header}
-      <BR /><BR />
       <H2>Let us connect your world!</H2><BR />
       ${projectsUI}
       <BR />
