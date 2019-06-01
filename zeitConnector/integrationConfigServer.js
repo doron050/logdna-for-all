@@ -53,7 +53,7 @@ function createProjectUI(project, subscriber, currentAction) {
         <P>Connect <B>${project.name}</B> to LogDNA:</P><BR />
         <Input width="250px" label="LogDNA Token:" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-        ${isSaveAction ? 'Saved' : ''}
+        ${isSaveAction ? '<Notice type="success">${project.name} successfuly connected to logdna</Notice>' : ''}
     </Container>
     `;
 }
@@ -80,10 +80,9 @@ module.exports = withUiHook(async ({payload, zeitClient}) => {
 //<Img title="Let us connect!" width="600px" height="100px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/unsplash.jpg?raw=true" />
     return htm`
     <Page>
-      <Box height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/r.jpg?raw=true')" display="flex">
-      <BR /><BR />
+      <Box height="800px" background-repeat="round" border-radius="8px" background-image="url('https://github.com/doron050/logz-for-all/blob/master/resources/images/fuse-brussels-273772-unsplash.jpg?raw=true')">
+      <BR />
       ${header}
-      <BR /><BR />
       <H2>Let us connect your world!</H2><BR />
       ${projectsUI}
       <BR />
