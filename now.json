@@ -39,5 +39,5 @@
     "LOGGER_TOKEN":"@logger_token",
     "LOG_LEVEL":"debug",
     "ENVIRONMENT":"production"
-  }
+  } 
 }
