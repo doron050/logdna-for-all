@@ -1,6 +1,5 @@
 require('dotenv').config();
 const {withUiHook, htm} = require('@zeit/integration-utils');
-const constants = require('../common/constants');
 const mongoClient = require('../common/mongodb');
 const _ = require('lodash');
 
@@ -54,12 +53,13 @@ function createProjectUI(project, subscriber, currentAction) {
         <P>Connect <B>${project.name}</B> to LogDNA:</P><BR />
         <Input width="250px" label="LogDNA Token:" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-    </Container> ${isSaveAction ? '<Notice type="success">Successfuly connected to logdna</Notice>' : ''}
+        ${isSaveAction ? '<Notice type="success">${project.name} successfuly connected to logdna</Notice>' : ''}
+    </Container>
     `;
 }
 
 module.exports = withUiHook(async ({payload, zeitClient}) => {
-    const projects = await zeitClient.fetchAndThrow(constants.ZEIT_API_ROUTES.PROJECTS, {});
+    const projects = await zeitClient.fetchAndThrow('/v1/projects/list', {});
     const {clientState, action, configurationId} = payload;
 
     const subscriber = await getSubscriber(configurationId);
