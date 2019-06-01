@@ -10,8 +10,8 @@ const connection = client.connect();
 const getDoc = function (configurationId) {
     return new Promise((resolve, reject) => {
         connection.then(() => {
-            const db = client.db(dbName);
-            const coll = db.collection(collectionName);
+            const db = client.db(constants.DB.dbName);
+            const coll = db.collection(constants.DB.collectionName);
             coll.findOne({configurationId: configurationId}, (err, result) => {
                 if (err)
                     reject(err);
@@ -25,16 +25,16 @@ const getDoc = function (configurationId) {
 
 const upsertDoc = async function (configurationId, object) {
     await connection;
-    const db = client.db(dbName);
-    const coll = db.collection(collectionName);
+    const db = client.db(constants.DB.dbName);
+    const coll = db.collection(constants.DB.collectionName);
     await coll.updateOne({configurationId: configurationId}, {$set: object}, {upsert: true});
 };
 
 const getLogzCollection = function () {
     return new Promise((resolve, reject) => {
         connection.then(() => {
-            const db = client.db(dbName);
-            const coll = db.collection(collectionName);
+            const db = client.db(constants.DB.dbName);
+            const coll = db.collection(constants.DB.collectionName);
             coll.find().toArray((err, result) => {
                 if (err)
                     reject(err);
