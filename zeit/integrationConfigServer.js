@@ -31,29 +31,29 @@ async function updatePojectState(project, clientState, subscriber, configuration
     
     const selectedProject = getProjectById(subscriber, project.id);
 
-    console.log("before: ***" + selectedProject.active)
     if (!selectedProject) {
         const newProject = {
             logDnaToken: clientState['token-' + project.id],
-            //active: !!clientState['token-' + project.id],
             active: true,
             projectId: project.id,
+            projectName: project.name,
             registrationDate: Date.now()
         };
         subscriber.projects.push(newProject);
     } else {
         selectedProject.logDnaToken = clientState['token-' + project.id];
-        //selectedProject.active = !clientState['token-' + project.id];
         selectedProject.active = !selectedProject.active
     }
-    console.log("after: ***" + selectedProject.active)
     await mongoClient.upsertDoc(configurationId, subscriber);
 }
 
 function createProjectUI(project, subscriber, currentAction) {
     const isSaveAction = currentAction === ('submit-' + project.id);
 
-    const mongoProject = getProjectById(subscriber, project.id);
+    let mongoProject = getProjectById(subscriber, project.id);
+
+    if (!mongoProject) mongoProject = {};
+
     const isActive = mongoProject && mongoProject.active;
     
     let isConnectAction = false;
@@ -65,15 +65,17 @@ function createProjectUI(project, subscriber, currentAction) {
     return htm`
     <Box border-style="groove" border-radius="5px" background-color="white">
         <Box margin="15px">
+        ${mongoProject.active ? htm`<Img position="absolute" title="connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png?raw=true" />` :  htm`<Img filter="grayscale(100%)" position="absolute" title="not connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon-no.jpg?raw=true" />`}
         <H2>Connect <B>${project.name}</B> to LogDNA:</H2>
+        <Box>
         LogDNA Token:
         <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
         <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button>
-        ${mongoProject.active ? htm`<Box><Img title="connected" float="right !important" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/ok.png?raw=true" /></Box>` :  ''}
+        </Box>
         ${isConnectAction ? htm`<Notice type="success"><B>Successfuly connected ${project.name}</B> to LogDNA!</Notice>` :  ''}
         ${isDisconnectAction ? htm`<Notice type="message"><B>Successfuly disconnect ${project.name}</B> from LogDNA!</Notice>` :  ''}
         </Box>
-    </Box>
+    </Box><BR />
     `;
 }
 
