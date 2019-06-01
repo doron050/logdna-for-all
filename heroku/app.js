@@ -6,6 +6,8 @@ require('./clientRetriver');
 
 const app = express();
 
+app.use('/static', express.static('resources'));
+
 app.get('/keepalive', async (req, res) => {
     res.send("thank you");
 });
