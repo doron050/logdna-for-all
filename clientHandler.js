@@ -7,11 +7,11 @@ const mongo = require('./common/mongodb');
 
 
 async function handleProject(projectToHandle) {
-    console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.ID);
+    console.log(consts.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId);
 
     // Assign logger
     if (!projectToHandle.logger) {
-        console.log(consts.LOG_MESSAGES.NEW_LOGGER + projectToHandle.ID);
+        console.log(consts.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId);
         projectToHandle.logger = dna.createLogger(projectToHandle.logDnaToken, {});
     }
 
@@ -29,7 +29,6 @@ async function handleProject(projectToHandle) {
 }
 
 function sendData(projectToHandle, logLines) {
-    console.log("lines to sent: " + logLines.length);
     logLines.forEach(zeitLogLine => {
         const dnaLog = logConvertor.convertToDNA(zeitLogLine, projectToHandle);
         projectToHandle.logger.log(dnaLog);
@@ -39,7 +38,7 @@ function sendData(projectToHandle, logLines) {
 async function updateLastLog(projectToHandle, logLines) {
 
     const newLastSentLogId = logLines[logLines.length - 1].payload.id;
-    await mongo.upsertLastLogID(projectToHandle.relatedConfID, projectToHandle.ID, newLastSentLogId)
+    await mongo.upsertLastLogID(projectToHandle.configurationId, projectToHandle.projectId, newLastSentLogId)
     projectToHandle.lastSentLogId = newLastSentLogId;
     console.log(consts.LOG_MESSAGES.UPDATE_LASTID + newLastSentLogId);
 }
