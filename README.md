@@ -172,6 +172,6 @@ Authored and maintained by DE, MB, NM. with help from contributors.
 > GitHub [@Niv](https://github.com/nivm1) <br/>
 > GitHub [@Doron Eli](https://github.com/doron050) <br/>
 > GitHub [@Moshe Basher](https://github.com/moshebasher) <br/>
-> Contact us via mail: <podcasts_for_all@yahoo.com>
+> Contact us via mail: <doron050yahoo.com>
 
 [MIT License]: http://mit-license.org/
