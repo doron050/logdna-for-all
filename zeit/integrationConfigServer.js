@@ -77,7 +77,7 @@ function createProjectUI(project, subscriber, currentAction) {
             <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
             <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button> 
         </Box>
-        ${isActive ? htm`<Box background-color="rgb(250, 250, 250)"><Box  background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)"><B>Connected since:</B> ${dateAndTime.format(new Date(mongoProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}</Box></Box>`: ''}
+        ${isActive ? htm`<Box background-color="rgb(250, 250, 250)"><Box  background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)"><Link href="https://app.logdna.com/logs" target="_blank">View the logs on LogDNA</Link> | <B>Connected since:</B> ${dateAndTime.format(new Date(mongoProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}</Box></Box>`: ''}
         ${isConnectAction ? htm`<Box><Notice type="success"><B>Successfuly connected ${project.name}</B> to LogDNA!</Notice></Box>` :  ''}
         ${isDisconnectAction ? htm`<Box><Notice type="message"><B>Successfuly disconnect ${project.name}</B> from LogDNA!</Notice></Box>` :  ''}
     </Box><BR />
@@ -125,11 +125,13 @@ module.exports = withUiHook(async ({
       <Box border-style="groove" border-radius="5px" background-color="white">
         <Box margin="15px">
             <H2>${activeCounter} / ${projects.length} projects connected</H2>
-            Visit <Link href="https://logdna.com" target="_blank">LogDNA</Link> to create a project and get a token.
+            1. Visit <Link href="https://logdna.com" target="_blank">LogDNA</Link> to create a project and <B>get a token</B><BR />
+            2. <B>Set the LogDNA token</B> for each project you wish to connect<BR />
+            3. <B>View the project logs</B> on LogDNA and start monitoring!
         </Box>
         <Box background-color="rgb(250, 250, 250)">
             <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
-            If you already have a project, you can use that instead
+            If you already have a LogDNA token, you can use it
             </Box>
         </Box>
       </Box>
