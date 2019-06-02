@@ -33,7 +33,7 @@
     "DB_NAME": "logdna-prod",
     "DB_COLLECTION_NAME": "logdna",
     "API_BASIC_ENDPOINT_URL":"https://api.zeit.co/",
-    "ZEIT_PROD_REDIRECT_URL":"https://logz-for-all.logz-for-all.now.sh/redirect",
+    "ZEIT_PROD_REDIRECT_URL":"https://logdna-for-all.logs-for-all.now.sh/redirect",
     "CONSUME_PROJECT_LOG_INTERVAL":"3000",
     "SYNC_SUBSCRIBER_WITH_DB_INTERVAL":"6000",
     "LOGGER_TOKEN":"@logger_token",
