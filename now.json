@@ -1,5 +1,6 @@
 { 
   "name": "logdna-for-all",
+  "alias": ["logdna-for-all.tech"],  
   "version": 2,
   "builds": [{
       "src": "zeit/integrationConfigServer.js",
@@ -33,7 +34,7 @@
     "DB_NAME": "logdna-prod",
     "DB_COLLECTION_NAME": "logdna",
     "API_BASIC_ENDPOINT_URL":"https://api.zeit.co/",
-    "ZEIT_PROD_REDIRECT_URL":"https://logdna-for-all.logs-for-all.now.sh/redirect",
+    "ZEIT_PROD_REDIRECT_URL":"https://logdna-for-all.tech/redirect",
     "CONSUME_PROJECT_LOG_INTERVAL":"3000",
     "SYNC_SUBSCRIBER_WITH_DB_INTERVAL":"6000",
     "LOGGER_TOKEN":"@logger_token",
