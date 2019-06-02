@@ -20,6 +20,8 @@ async function handleProject(projectToHandle) {
 
     if (logLines.length > 0) {
 
+        logger.info(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + logLines.length,projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId,projectToHandle.teamName, projectToHandle.registrationDate,projectToHandle.userName,projectToHandle.userEmail,projectToHandle.projectName);
+
         // Send logs
         sendData(projectToHandle, logLines);
 

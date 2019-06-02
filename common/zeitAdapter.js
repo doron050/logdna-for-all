@@ -26,10 +26,9 @@ async function getLogs(deploymentId, token, teamId, lastSentLogTimestamp) {
             headers: createHeaders(token),
             params: queryParam
         });
-        if (response.data.length > 0) {
-            logger.info(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length, null, null, null, teamId);
-            // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length);
-        }
+        // if (response.data.length > 0) {
+        //     // console.log(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length);
+        // }
         return response.data;
     } catch (error) {
         logger.error(constants.LOG_MESSAGES.ERROR_GET_LOGS + error, null, null, null, teamId);
