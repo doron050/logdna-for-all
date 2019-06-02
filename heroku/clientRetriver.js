@@ -41,7 +41,7 @@ function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiv
         if (newProjectData) {
 
             if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
-                logger.info(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
+                logger.info(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId, existingProject.projectId, existingProject.configurationId, existingProject.active, existingProject.teamId,existingProject.teamName, existingProject.registrationDate,existingProject.userName,existingProject.userEmail,existingProject.projectName);
                 // console.log(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId);
                 unsubscribeProject(subscribedProjectsCollection, newProjectData);
             }
