@@ -18,6 +18,10 @@
     {
       "src": "/redirect",
       "dest": "zeit/redirectServer.js"
+    },
+    {
+      "src": "/",
+      "dest": "https://zeit.co/integrations/logdna-for-all"
     }
   ],
   "github": {
