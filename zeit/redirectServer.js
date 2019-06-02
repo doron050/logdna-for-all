@@ -16,11 +16,6 @@ async function saveDataToMongo(configurationId, access_token, teamId) {
 }
 
 module.exports = async (req, res) => {
-    console.log(`req.method = ${req.method}`);
-    console.log(`req.query = ${req.query}`);
-    console.log(`req.params = ${req.params}`);
-    console.log(`req.body = ${req.body}`);
-
     if (req.method === 'OPTIONS') {
         const headers = {};
         headers["Access-Control-Allow-Origin"] = "*";
@@ -30,10 +25,14 @@ module.exports = async (req, res) => {
         headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
         res.writeHead(200, headers);
         res.end();
+        return;
     }
 
-    // if (req.method === 'DELETE') {
-    //     const params = req.params;
+    if (req.method === 'DELETE') {
+        console.log({req});
+        return;
+    }
+        //     const params = req.params;
     //     const query = req.query;
     //     console.log({params});
     //     console.log({query});
