@@ -132,10 +132,10 @@ function validateMongoRow(project, document) {
         valid = false;
         missingParams.push('ZEIT Token');
     }
-    if (!document.teamId) {
-        valid = false;
-        missingParams.push('Team ID');
-    }
+    // if (!document.teamId) {
+    //     valid = false;
+    //     missingParams.push('Team ID');
+    // }
 
     if (!valid) {
         logger.error(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId), project.projectId, project.configurationId, project.active, project.teamId, null, project.registrationDate, null, null); //TODO: fill nulls with data

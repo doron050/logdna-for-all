@@ -10,14 +10,21 @@ function createHeaders(token) {
 
 async function getLogs(deploymentId, token, teamId, lastSentLogTimestamp) {
 
+
+    const queryParam = {
+        since: lastSentLogTimestamp,
+        direction: "forward"
+    };
+
+    if (teamId) {
+        queryParam.teamId = teamId;
+    }
+
+
     try {
         const response = await httpClient.get(constants.ZEIT_API_ROUTES.LOGS_FOR_DEPLOYMENT(deploymentId), {
             headers: createHeaders(token),
-            params: {
-                teamId: teamId,
-                since: lastSentLogTimestamp,
-                direction: "forward"
-            }
+            params: queryParam
         });
         if (response.data.length > 0) {
             logger.info(constants.LOG_MESSAGES.SUCCESS_GET_LOGS + response.data.length, null, null, null, teamId);
@@ -49,7 +56,7 @@ async function getDeployments(projectId, token, teamId, limit) {
         return response.data.deployments;
 
     } catch (error) {
-        logger.error(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error,projectId, null, null, teamId);
+        logger.error(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error, projectId, null, null, teamId);
         // console.log(constants.LOG_MESSAGES.ERROR_GET_INTEGRATIONS + error);
     }
 }
