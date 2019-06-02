@@ -16,6 +16,11 @@ async function saveDataToMongo(configurationId, access_token, teamId) {
 }
 
 module.exports = async (req, res) => {
+    console.log(`req.method = ${req.method}`);
+    console.log(`req.query = ${req.query}`);
+    console.log(`req.params = ${req.params}`);
+    console.log(`req.body = ${req.body}`);
+
     if (req.method === 'DELETE') {
         const params = req.params;
         const query = req.query;
