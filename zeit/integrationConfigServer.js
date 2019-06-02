@@ -78,8 +78,8 @@ function createProjectUI(project, subscriber, currentAction) {
             <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button> 
         </Box>
         ${isActive ? htm`<Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)"><Box  background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)"><Link href="https://app.logdna.com/logs" target="_blank">View the logs on LogDNA</Link> | <B>Connected since:</B> ${dateAndTime.format(new Date(mongoProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}</Box></Box>`: ''}
-        ${isConnectAction ? htm`<Box><Notice type="success"><B>Successfuly connected ${project.name}</B> to LogDNA!</Notice></Box>` :  ''}
-        ${isDisconnectAction ? htm`<Box><Notice type="message"><B>Successfuly disconnect ${project.name}</B> from LogDNA!</Notice></Box>` :  ''}
+        ${isConnectAction ? htm`<Box><Notice type="success"><B>Successfully connected ${project.name}</B> to LogDNA!</Notice></Box>` :  ''}
+        ${isDisconnectAction ? htm`<Box><Notice type="message"><B>Successfully disconnected ${project.name}</B> from LogDNA!</Notice></Box>` :  ''}
     </Box><BR />
     `};
 }
@@ -103,7 +103,7 @@ module.exports = withUiHook(async ({
         }
     }
 
-    const header = htm `<H1>Your Projects Integrations with LogDNA:</H1>`;
+    const header = htm `<H1>Your Project's Integrations with LogDNA:</H1>`;
     let projectsUI = [];
     let activeCounter = 0;
     let currentUI;
@@ -121,7 +121,7 @@ module.exports = withUiHook(async ({
       <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
         <Box margin="15px">
             <H2>${activeCounter} / ${projects.length} projects connected to LogDNA</H2>
-            <B>How to connect a project?</B><BR />
+            <B>How to connect a project</B><BR />
             1. Visit <Link href="https://logdna.com" target="_blank">LogDNA</Link> to create a project and <B>get a token</B><BR />
             2. <B>Set the LogDNA token</B> for each project you wish to connect<BR />
             3. <B>View the project logs</B> on LogDNA and start monitoring!
@@ -136,7 +136,7 @@ module.exports = withUiHook(async ({
       ${projectsUI}
       <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
         <Box margin="15px">
-            If you have any question or you need help, feel free to contact us:
+            If you have any question or need any help, please contact us:
         </Box>
         <Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)">
             <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">

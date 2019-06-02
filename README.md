@@ -1,11 +1,11 @@
 <h1 align="center">
   <img src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png" alt="LogDNA Zeit Integration" width="150"></a>
   <br>
-  LogDNA Zeit Integration
+  LogDNA ZEIT Integration
   <br>
 </h1>
 
-<h4 align="center">Connect your Zeit Now Projects to <a href="https://logdna.com/" target="_blank">LogDNA</a></h4>
+<h4 align="center">Connect your ZEIT Now Projects to <a href="https://logdna.com/" target="_blank">LogDNA</a></h4>
 
 <p align="center">
   <a href="https://paypal.me/doron050">
@@ -13,7 +13,7 @@
   </a>
 </p> 
 
-<h5 align="center">Say goodbay to loggers!</a></h5>
+<h5 align="center">Say goodbye to loggers!</a></h5>
 
 <p align="center">
   • <a href="#Our-Vision">Our Vision</a> 
@@ -22,7 +22,7 @@
   • <a href="#Setup-for-Development">Dev Setup</a>
   • <a href="#Support-and-Contact">Contact</a>
   • <a href="https://logdna.com/">LogDNA</a>
-  • <a href="https://zeit.co">Zeit</a>
+  • <a href="https://zeit.co">ZEIT</a>
   
 </p>
 
@@ -31,17 +31,17 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
-> **We are making our best efforts** to bring you the best loging integrations.<br/>
+> **We are making our best efforts** to bring you the best logging integrations.<br/>
 > If you like our integration, you can help us by <a href="https://paypal.me/doron050">donate and become a backer</a>.
 
 :fireworks: [Try it out!](https://zeit.co/integrations/logdna-for-all) :fireworks:
 
 ## Our Vision
-> Let **every devloper** to **_take responsibility_** over his creation by deliver **_the best integration_**<br/>to connect his project to _logging:chart_with_upwards_trend: & monitororing:traffic_light: service **easiest as possible**
+> Allow **every developer** to **_take responsibility_** over their creation by delivering **_the best integration_**<br/>to connect their project for _logging:chart_with_upwards_trend: & monitoring:traffic_light: service.
 
 ## Key Features
 
-* Integrate your Zeit Now with LogDNA :electric_plug:
+* Integrate your ZEIT Now project with LogDNA :electric_plug:
   * Connect team projects :family:
   * Connect user projects :bowtie:
 * Consistently transfer all your logs to your LogDNA project
@@ -57,12 +57,12 @@
   * **The fastest way** :rocket: - Go [here](https://zeit.co/integrations/logdna-for-all/add)
   * `Or` Go to [Our integration page](https://zeit.co/integrations/logdna-for-all)
     * Press `add`
-  * `Or manually` :hand: Go to the [markekplace](https://zeit.co/integrations):
+  * `Or manually` :hand: Go to the [marketplace](https://zeit.co/integrations):
     * Go to `[logging category](https://zeit.co/integrations?category=logging)` 
       * select our integration `LogDNA`
 * Select which workspaces you want to connect to LogDNA -  `User or teams`
 * Press `add`
-* For each project of your worksapace that you want to connect:
+* For each project of your workspaces that you want to connect:
   * Insert your *LogDNA token* :key: (get it via your project page on [LogDNA](https://logdna.com/)
   * Press `Connect`
 * Now you are ready to go by yourself. Enjoy! :tada:
@@ -71,7 +71,7 @@
 ## Setup for Development
 
 In order to contribute you will need the following accounts :bookmark::
-* <a href="https://www.zeit.co/">Zeit</a>
+* <a href="https://www.zeit.co/">ZEIT</a>
 * <a href="https://www.mongodb.com/cloud/atlas">MongoDB Cloud</a>
 * <a href="https://logdna.com/">LogDNA</a>
 
@@ -88,16 +88,16 @@ $ cd logdna-for-all
 $ npm install
 ```
 
-#### Zeit integrations ####
-* Follow the instarations on <a href="https://zeit.co/docs/integrations/">Zeit Integration documentation</a> in order to setup your integration
+#### ZEIT integrations ####
+* Follow the instructions on the <a href="https://zeit.co/docs/integrations/">ZEIT Integrations documentation</a> to setup your integration
 * On your integration settings page:
-  * Leave the redirect url empty
-  * Set the ui-hooks url to: http://localhost:5005/ui-hooks
+  * Leave the `redirect url` empty
+  * Set the `ui-hook url` to: http://localhost:5005/ui-hooks
 * Go to your integration page and add it to your user/team
 * Add your logDNA token :key:
 
 #### MongoDB cloud ####
-* Register to mongo db cloud
+* Register for MongoDB cloud
 * Create your cluster and get the connection details :bookmark_tabs:
 * Make sure you set your `.env` file :pencil2:: 
 ```diff
@@ -110,17 +110,17 @@ $ npm install
 + DB_COLLECTION_NAME=[your mongodb collection name]
 ```
 #### Advanced .env ####
-You shoul'd tell what is your environment:
+Specify what environment you are targeting:
 ```diff
 # ENV
-+ ENVIRONMENT=[producation / development]
++ ENVIRONMENT=[production / development]
 ```
 If you want to, you can control some of our intervals :clock1::
 ```diff
 + CONSUME_PROJECT_LOG_INTERVAL=[time between reading and sending logs - default is 3000]
 + SYNC_SUBSCRIBER_WITH_DB_INTERVAL=[time between sync with the metadata inside the db - default is 6000]
 ```
-If you want your integration to send the logs to [LogzIO]() you need to set this one also:
+If you want your integration to send logs to [LogzIO]() you need to configure this setting:
 ```diff
 # LOGGER
 + LOGGER_TOKEN=[LogzIO token]
@@ -128,28 +128,28 @@ If you want your integration to send the logs to [LogzIO]() you need to set this
 
 #### Run the integration ####
 * Run your integration locally using `npm run zeit`
-* Use you browser and go to your integration configuration page :scroll:
-* You now should see the integration configuration page _(it is connected to your localhost)_
+* Use your browser and go to your integration configuration page :scroll:
+* You should now see the integration configuration page _(it is connected to your localhost)_
 
 _**:warning:notice!**_
 > If you want to debug and change the configuration UI you are good to go!
-> Every configuration you create will be saved inside your db. You use this data in the following background node app.
+> Every configuration you create will be saved inside your database. You use this data in the following background node app.
 
 #### Run your background node app ####
 
 _**:warning:notice!**_
-> Since we can't use our localhost as the redirect endpoint for the oauth proccess<br/>you will miss 2 critical fields on every db document (ZeitToken, teamId) :sweat:
+> Since we cannot use our localhost as the redirect endpoint for the oauth proccess<br/>you will miss 2 critical fields on every database document (ZeitToken, teamId) :sweat:
 
 In order to get over it :muscle:: 
-* Upload your app to zeit using `now` command (you already got our now.json) :outbox_tray:
-* Set your integration with the redirect url redirect to `<zeit-host-name>/redirect`
+* Upload your app to ZEIT using the `now` command (the `now.json` file is provided for you) :outbox_tray:
+* Set your integrations `redirect url` to `<zeit-host-name>/redirect`
 * Set the following `secret`s :closed_lock_with_key:: 
 ```diff
 # Zeit 
 + INTEGRATION_CLIENT_ID=[Your app auth client id]
 + INTEGRATION_CLIENT_SECRET=[Your app secret]
 ```
-* Now you have to follow <a href="#How-to-Use">How to Use</a> steps in order to use your integration :sweat_smile:
+* Now you should follow the <a href="#How-to-Use">How to Use</a> steps in order to use your integration :sweat_smile:
 
 _**Now you can run the background node!**_
 * Use `npm start` in order to start the sync

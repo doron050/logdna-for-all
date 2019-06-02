@@ -118,7 +118,7 @@ function validateMongoRow(project, document) {
 
     if (!project.projectId) {
         valid = false;
-        missingParams.push('Project Id');
+        missingParams.push('Project ID');
     }
     if (!project.logDnaToken) {
         valid = false;
@@ -126,15 +126,15 @@ function validateMongoRow(project, document) {
     }
     if (!document.configurationId) {
         valid = false;
-        missingParams.push('Configuration Id');
+        missingParams.push('Configuration ID');
     }
     if (!document.zeitToken) {
         valid = false;
-        missingParams.push('Zeit Token');
+        missingParams.push('ZEIT Token');
     }
     if (!document.teamId) {
         valid = false;
-        missingParams.push('Team Id');
+        missingParams.push('Team ID');
     }
 
     if (!valid) {
