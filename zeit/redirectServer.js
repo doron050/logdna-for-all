@@ -16,6 +16,7 @@ async function saveDataToMongo(configurationId, access_token, teamId) {
 }
 
 module.exports = async (req, res) => {
+    console.log({req});
 
     let query = url.parse(req.url, true).query;
 
