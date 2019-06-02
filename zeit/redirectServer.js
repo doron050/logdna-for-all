@@ -21,14 +21,14 @@ module.exports = async (req, res) => {
     console.log(`req.params = ${req.params}`);
     console.log(`req.body = ${req.body}`);
 
-    if (req.method === 'DELETE') {
-        const params = req.params;
-        const query = req.query;
-        console.log({params});
-        console.log({query});
-        res.end();
-        return;
-    }
+    // if (req.method === 'DELETE') {
+    //     const params = req.params;
+    //     const query = req.query;
+    //     console.log({params});
+    //     console.log({query});
+    //     res.end();
+    //     return;
+    // }
 
     let query = url.parse(req.url, true).query;
 
