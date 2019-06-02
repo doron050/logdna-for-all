@@ -24,7 +24,7 @@ log4js.configure({
 });
 const log4jslogger = log4js.getLogger();
 
-function debugLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
+function debugLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail,projectName) {
     log4jslogger.debug(msg);
     if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
@@ -37,12 +37,13 @@ function debugLog(msg, projId, configId, active, teamId, teamName, registrationD
             registrationDate: registrationDate,
             teamName: teamName,
             userName: userName,
-            userEmail: userEmail
+            userEmail: userEmail,
+            projectName:projectName
         });
     }
 }
 
-function infoLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
+function infoLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail,projectName) {
     log4jslogger.info(msg);
     if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
@@ -55,12 +56,13 @@ function infoLog(msg, projId, configId, active, teamId, teamName, registrationDa
             registrationDate: registrationDate,
             teamName: teamName,
             userName: userName,
-            userEmail: userEmail
+            userEmail: userEmail,
+            projectName:projectName
         });
     }
 }
 
-function errorLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail) {
+function errorLog(msg, projId, configId, active, teamId, teamName, registrationDate, userName, userEmail,projectName) {
     log4jslogger.error(msg);
     if (constants.ENVIRONMENT === "production") {
         logzioLogger.log({
@@ -73,7 +75,8 @@ function errorLog(msg, projId, configId, active, teamId, teamName, registrationD
             registrationDate: registrationDate,
             teamName: teamName,
             userName: userName,
-            userEmail: userEmail
+            userEmail: userEmail,
+            projectName:projectName
         });
     }
 }
