@@ -4,6 +4,7 @@ const constants = require('../common/constants');
 const httpClient = require('./zeitHttpClient');
 const qs = require('qs');
 const logger = require('../common/logger');
+const {buffer, text, json} = require('micro');
 
 // Saves this specific token for future use of the zeit api
 async function saveDataToMongo(configurationId, access_token, teamId) {
@@ -16,6 +17,34 @@ async function saveDataToMongo(configurationId, access_token, teamId) {
 }
 
 module.exports = async (req, res) => {
+    if (req.method === 'DELETE') {
+        const payload = await json(req);
+        console.log({payload});
+        // where is req object is the params?
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (req.method === 'OPTIONS') {
         const headers = {};
         headers["Access-Control-Allow-Origin"] = "*";
@@ -28,15 +57,7 @@ module.exports = async (req, res) => {
         return;
     }
 
-    if (req.method === 'DELETE') {
-        console.log(JSON.stringify(req));
-        // for (const property in req) {
-        //     if (req.hasOwnProperty(property)) {
-        //         console.log('req property: ' + property + ' with value: '+req[property]);
-        //     }
-        // }
-        return;
-    }
+
         //     const params = req.params;
     //     const query = req.query;
     //     console.log({params});
