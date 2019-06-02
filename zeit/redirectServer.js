@@ -28,6 +28,9 @@ module.exports = async (req, res) => {
 
     console.log(query);
     try {
+        console.log("client id: " + constants.AUTH.CLIENT_ID);
+        console.log("client secret: " + constants.AUTH.CLIENT_SECRET);
+        
         const resAccess = await httpClient.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, qs.stringify({
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
             client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
@@ -38,7 +41,6 @@ module.exports = async (req, res) => {
         const token = resAccess.data.access_token;
         await saveDataToMongo(newIntegration.configurationId, token, newIntegration.teamId);
         logger.info(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token,null,newIntegration.configurationId,null,newIntegration.teamId);
-        // console.log(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token);
 
         // Redirects to the ui-hooks
         res.writeHead(302, {
@@ -48,7 +50,6 @@ module.exports = async (req, res) => {
 
     } catch (error) {
         logger.error(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error,null,newIntegration.configurationId,null,newIntegration.teamId);
-        // console.log(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error);
         res.end();
     }
 };
