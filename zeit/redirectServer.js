@@ -4,6 +4,7 @@ const constants = require('../common/constants');
 const httpClient = require('./zeitHttpClient');
 const qs = require('qs');
 const logger = require('../common/logger');
+const {json} = require('micro');
 
 // Saves this specific token for future use of the zeit api
 async function saveDataToMongo(configurationId, access_token, teamId) {
@@ -16,6 +17,14 @@ async function saveDataToMongo(configurationId, access_token, teamId) {
 }
 
 module.exports = async (req, res) => {
+    if (req.method === 'DELETE') {
+        const payload = await json(req);
+        await mongoClient.deleteConfiguration(payload.configurationId);
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
     if (req.method === 'OPTIONS') {
         const headers = {};
         headers["Access-Control-Allow-Origin"] = "*";
@@ -27,18 +36,6 @@ module.exports = async (req, res) => {
         res.end();
         return;
     }
-
-    if (req.method === 'DELETE') {
-        console.log(...req);
-        return;
-    }
-        //     const params = req.params;
-    //     const query = req.query;
-    //     console.log({params});
-    //     console.log({query});
-    //     res.end();
-    //     return;
-    // }
 
     let query = url.parse(req.url, true).query;
 
@@ -63,7 +60,7 @@ module.exports = async (req, res) => {
 
         const token = resAccess.data.access_token;
         await saveDataToMongo(newIntegration.configurationId, token, newIntegration.teamId);
-        logger.info(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token,null,newIntegration.configurationId,null,newIntegration.teamId);
+        logger.info(constants.LOG_MESSAGES.SUCCESS_GET_ACCESS_TOKEN + token, null, newIntegration.configurationId, null, newIntegration.teamId);
 
         // Redirects to the ui-hooks
         res.writeHead(302, {
@@ -72,7 +69,7 @@ module.exports = async (req, res) => {
         res.end();
 
     } catch (error) {
-        logger.error(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error,null,newIntegration.configurationId,null,newIntegration.teamId);
+        logger.error(constants.LOG_MESSAGES.ERROR_GET_ACCESS_TOKEN + error, null, newIntegration.configurationId, null, newIntegration.teamId);
         res.end();
     }
 };

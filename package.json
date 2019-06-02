@@ -15,7 +15,8 @@
     "logzio-nodejs": "^1.0.5",
     "log4js": "^4.3.1",
     "qs": "^6.7.0",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "micro": "^9.3.4"
   },
   "scripts": {
     "start": "node heroku/app.js",
