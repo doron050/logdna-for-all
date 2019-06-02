@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'DELETE') {
-        console.log(JSON.stringify(req.body));
+        console.log(JSON.stringify(req));
         // for (const property in req) {
         //     if (req.hasOwnProperty(property)) {
         //         console.log('req property: ' + property + ' with value: '+req[property]);
