@@ -25,8 +25,7 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
         const projDataInMemory = subscribedProjectsCollection.find(x => isSameSubscriber(x, project) && (x.active === project.active));
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
-
-                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId, null, project.registrationDate, null, null); //TODO: fill nulls with data
+                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
 
                 // console.log(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
                 unsubscribeProject(subscribedProjectsCollection, project);
@@ -42,8 +41,7 @@ function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiv
         if (newProjectData) {
 
             if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
-                const project = existingProject;
-                logger.info(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId, project.projectId, project.configurationId, project.active, project.teamId, null, project.registrationDate, null, null); //TODO: fill nulls with data
+                logger.info(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
                 // console.log(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId);
                 unsubscribeProject(subscribedProjectsCollection, newProjectData);
             }
@@ -67,7 +65,7 @@ function killCycle(projectToRemove) {
     const processToKill = subscriberPIDlist.find(x => isSameSubscriber(x.Project, projectToRemove));
     if (processToKill) {
         const project = processToKill.Project;
-        logger.info(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId, project.projectId, project.configurationId, project.active, project.teamId, null, project.registrationDate, null, null); //TODO: fill nulls with data
+        logger.info(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
         // console.log(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId);
         clearInterval(processToKill.Pid);
 
@@ -91,7 +89,7 @@ function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActive
         if (!subscribedProjectsCollection.some(e => isSameSubscriber(e, project))) {
 
             if (project.active) {
-                logger.info(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId,project.projectId, project.projectId, project.configurationId, project.active, project.teamId, null, project.registrationDate, null, null); //TODO: fill nulls with data
+                logger.info(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId,project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
                 // console.log(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId);
                 subscribeProject(subscribedProjectsCollection, project);
             }
@@ -138,7 +136,7 @@ function validateMongoRow(project, document) {
     // }
 
     if (!valid) {
-        logger.error(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId), project.projectId, project.configurationId, project.active, project.teamId, null, project.registrationDate, null, null); //TODO: fill nulls with data
+        logger.error(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId),project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
         // console.log(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId));
     }
 
@@ -165,7 +163,11 @@ function mapProjects(dbRawData) {
                         lastSentLogId: project.lastSentLogId,
                         teamId: document.teamId,
                         lastSentLogTimestamp: project.lastSentLogTimestamp,
-                        registrationDate: project.registrationDate
+                        registrationDate: project.registrationDate,
+                        teamName:project.teamName,
+                        userName:document.userName,
+                        userEmail:document.userEmail,
+                        projectName:project.projectName
                     });
                 }
             });

@@ -7,10 +7,10 @@ const logger = require('../common/logger');
 
 async function handleProject(projectToHandle) {
     // console.log(constants.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId);
-    logger.info(constants.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId, projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId, null, projectToHandle.registrationDate, null, null); //TODO: fill nulls with data
+    logger.info(constants.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId, projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId,projectToHandle.teamName, projectToHandle.registrationDate,projectToHandle.userName,projectToHandle.userEmail,projectToHandle.projectName);
     // Assign logger
     if (!projectToHandle.logger) {
-        logger.debug(constants.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId, projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId, null, projectToHandle.registrationDate, null, null); //TODO: fill nulls with data
+        logger.debug(constants.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId,projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId,projectToHandle.teamName, projectToHandle.registrationDate,projectToHandle.userName,projectToHandle.userEmail,projectToHandle.projectName);
         // console.log(constants.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId);
         projectToHandle.logger = dna.createLogger(projectToHandle.logDnaToken, {});
     }
@@ -39,7 +39,7 @@ async function updateLastLog(projectToHandle, logLines) {
     const lastCreatedDate = logLines[logLines.length - 1].created + 1;
     projectToHandle.lastSentLogTimestamp = lastCreatedDate;
     await mongoClient.upsertLastSentLogTimestamp(projectToHandle.configurationId, projectToHandle.projectId, lastCreatedDate)
-    logger.info(constants.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId, projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId, null, projectToHandle.registrationDate, null, null); //TODO: fill nulls with data
+    logger.info(constants.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId, projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId,projectToHandle.teamName, projectToHandle.registrationDate,projectToHandle.userName,projectToHandle.userEmail,projectToHandle.projectName);
     // console.log(constants.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId);
 }
 
