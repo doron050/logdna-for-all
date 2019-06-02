@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'DELETE') {
-        console.log({req});
+        console.log(...req);
         return;
     }
         //     const params = req.params;
