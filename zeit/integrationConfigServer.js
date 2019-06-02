@@ -27,11 +27,10 @@ function getLogTokenForProject(subscriber, projectId) {
     return '';
 }
 
-async function updatePojectState(project, clientState, subscriber, configurationId) {
+async function updatePojectState(project, clientState, subscriber, configurationId, user, team) {
 
     if (!subscriber.projects)
         subscriber.projects = [];
-
 
     const selectedProject = getProjectById(subscriber, project.id);
 
@@ -48,6 +47,16 @@ async function updatePojectState(project, clientState, subscriber, configuration
         selectedProject.logDnaToken = clientState['token-' + project.id];
         selectedProject.active = !selectedProject.active
     }
+
+    if (user) {
+        subscriber.userEmail = user.email;
+        subscriber.userName = user.name;
+    }
+
+    if (team) {
+        subscriber.teamName = team.name;
+    }
+
     await mongoClient.upsertDoc(configurationId, subscriber);
 }
 
@@ -92,18 +101,19 @@ module.exports = withUiHook(async ({
     const {
         clientState,
         action,
-        configurationId
+        configurationId,
+        user,
+        team
     } = payload;
 
     const subscriber = await getSubscriber(configurationId);
 
     for (let i = 0; i < projects.length; i++) {
         if (action === ('submit-' + projects[i].id)) {
-            await updatePojectState(projects[i], clientState, subscriber, configurationId);
+            await updatePojectState(projects[i], clientState, subscriber, configurationId, user, team);
         }
     }
 
-    const header = htm `<H1>Your Project's Integrations with LogDNA:</H1>`;
     let projectsUI = [];
     let activeCounter = 0;
     let currentUI;
