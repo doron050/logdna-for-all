@@ -24,6 +24,7 @@ const LOG_MESSAGES = {
   NEW_CLIENT: 'Found new client with project ID: ',
   HANDLING_CLIENT: 'Currently handling client with project ID: ',
   STATUS_CHANGE: 'Change of status for client with project ID: ',
+  PROJECT_REMOVED: 'Removed project name: ',
   TERMINATION_NOTICE: 'Killing cycle for client with project ID: ',
   SUCCESS_GET_PROJECTS: 'Success! Got projects: ',
   ERROR_GET_PROJECTS: 'Error! Cannot get projects: ',

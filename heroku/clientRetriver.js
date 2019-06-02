@@ -13,9 +13,23 @@ async function syncCollection() {
     const newProjectCollection = await mongo.getLogzCollection();
     const mappedProjectCollection = mapProjects(newProjectCollection);
 
+    removeMissingProjectCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
     addNewProjectCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
     removeDisabledCollectionSubs(subscribedProjectsCollection, mappedProjectCollection);
     updateTokenChanged(subscribedProjectsCollection, mappedProjectCollection);
+}
+
+function removeMissingProjectCollectionSubs(subscribedProjectsCollection, currentActiveSubCollection) {
+    subscribedProjectsCollection.forEach(oldProject => {
+        const projDataFound = currentActiveSubCollection.find(x => isSameSubscriber(x, oldProject));
+        if (!projDataFound)
+        {
+            const existingProject = oldProject;
+            logger.info(constants.LOG_MESSAGES.PROJECT_REMOVED + existingProject.projectName, existingProject.projectId, existingProject.configurationId, existingProject.active, existingProject.teamId, existingProject.teamName, existingProject.registrationDate, existingProject.userName, existingProject.userEmail, existingProject.projectName);
+            unsubscribeProject(subscribedProjectsCollection, oldProject);
+        }
+    });
+
 }
 
 function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollection) {
@@ -26,7 +40,7 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
 
-                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
+                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId, project.teamName, project.registrationDate, project.userName, project.userEmail, project.projectName);
                 // console.log(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
                 unsubscribeProject(subscribedProjectsCollection, project);
                 subscribeProject(subscribedProjectsCollection, project);
@@ -41,7 +55,7 @@ function removeDisabledCollectionSubs(subscribedProjectsCollection, currentActiv
         if (newProjectData) {
 
             if (isSubscriberStatusUpdate(newProjectData, existingProject)) {
-                logger.info(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId, existingProject.projectId, existingProject.configurationId, existingProject.active, existingProject.teamId,existingProject.teamName, existingProject.registrationDate,existingProject.userName,existingProject.userEmail,existingProject.projectName);
+                logger.info(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId, existingProject.projectId, existingProject.configurationId, existingProject.active, existingProject.teamId, existingProject.teamName, existingProject.registrationDate, existingProject.userName, existingProject.userEmail, existingProject.projectName);
                 // console.log(constants.LOG_MESSAGES.STATUS_CHANGE + existingProject.projectId);
                 unsubscribeProject(subscribedProjectsCollection, newProjectData);
             }
@@ -65,7 +79,7 @@ function killCycle(projectToRemove) {
     const processToKill = subscriberPIDlist.find(x => isSameSubscriber(x.Project, projectToRemove));
     if (processToKill) {
         const project = processToKill.Project;
-        logger.info(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
+        logger.info(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId, project.projectId, project.configurationId, project.active, project.teamId, project.teamName, project.registrationDate, project.userName, project.userEmail, project.projectName);
         // console.log(constants.LOG_MESSAGES.TERMINATION_NOTICE + processToKill.Project.projectId);
         clearInterval(processToKill.Pid);
 
@@ -89,12 +103,11 @@ function addNewProjectCollectionSubs(subscribedProjectsCollection, currentActive
         if (!subscribedProjectsCollection.some(e => isSameSubscriber(e, project))) {
 
             if (project.active) {
-                logger.info(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId,project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
+                logger.info(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId, project.projectId, project.configurationId, project.active, project.teamId, project.teamName, project.registrationDate, project.userName, project.userEmail, project.projectName);
                 // console.log(constants.LOG_MESSAGES.NEW_CLIENT + project.projectId);
                 subscribeProject(subscribedProjectsCollection, project);
             }
         }
-
     });
 }
 
@@ -136,7 +149,7 @@ function validateMongoRow(project, document) {
     // }
 
     if (!valid) {
-        logger.error(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId),project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
+        logger.error(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId), project.projectId, project.configurationId, project.active, project.teamId, project.teamName, project.registrationDate, project.userName, project.userEmail, project.projectName);
         // console.log(constants.LOG_MESSAGES.MISSING_PARAMETERS_FROM_DB(missingParams, document.configurationId));
     }
 
@@ -149,7 +162,7 @@ function mapProjects(dbRawData) {
     dbRawData.forEach(document => {
 
         if (!document.projects) {
-            logger.error(constants.LOG_MESSAGES.NO_PROJECTS_FOUND + document.configurationId,null,document.configurationId);
+            logger.error(constants.LOG_MESSAGES.NO_PROJECTS_FOUND + document.configurationId, null, document.configurationId);
             // console.log(constants.LOG_MESSAGES.NO_PROJECTS_FOUND + document.configurationId);
         } else {
             document.projects.forEach(project => {
@@ -164,10 +177,10 @@ function mapProjects(dbRawData) {
                         teamId: document.teamId,
                         lastSentLogTimestamp: project.lastSentLogTimestamp,
                         registrationDate: project.registrationDate,
-                        teamName:project.teamName,
-                        //userName:document.userName, Turned off. Enable when actually setting this in mongo!
-                        userEmail:document.userEmail,
-                        projectName:project.projectName
+                        teamName: document.teamName,
+                        userName: document.userName,
+                        userEmail: document.userEmail,
+                        projectName: project.projectName
                     });
                 }
             });
