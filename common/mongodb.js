@@ -20,14 +20,12 @@ function initConnction() {
             resolve();
         }).catch((e) => {
             logger.error(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_FIRST_TRY + e);
-            // console.log(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_FIRST_TRY, e);
             connection = client.connect();
 
             connection.then(() => {
                 resolve();
             }).catch((e) => {
                 logger.error(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_SECOND_TRY + e);
-                // console.log(constants.LOG_MESSAGES.DB_FAILED_TO_CONNECT_SECOND_TRY, e);
             });
         });
     });
@@ -72,20 +70,27 @@ const getLogzCollection = function () {
     });
 };
 
-const upsertLastSentLogTimestamp  = async function (configurationId,projectID, lastSentLogTimestamp ) {
-    await connection;
+const upsertLastSentLogTimestamp = async function (configurationId, projectID, lastSentLogTimestamp) {
+    await initConnction();
     const db = client.db(constants.DB.dbName);
     const coll = db.collection(constants.DB.collectionName);
     await coll.updateOne(
         {configurationId: configurationId, 'projects.projectId': projectID},
-        {$set: {'projects.$.lastSentLogTimestamp': lastSentLogTimestamp }},
+        {$set: {'projects.$.lastSentLogTimestamp': lastSentLogTimestamp}},
         {upsert: true});
 };
 
+const deleteConfiguration = async function (configurationId) {
+    await initConnction();
+    const db = client.db(constants.DB.dbName);
+    const coll = db.collection(constants.DB.collectionName);
+    await coll.deleteOne({ configurationId });
+};
 
 module.exports = {
     getDoc,
     upsertDoc,
     getLogzCollection,
-    upsertLastSentLogTimestamp 
+    upsertLastSentLogTimestamp,
+    deleteConfiguration,
 };
