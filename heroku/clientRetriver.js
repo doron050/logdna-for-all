@@ -165,7 +165,7 @@ function mapProjects(dbRawData) {
                         lastSentLogTimestamp: project.lastSentLogTimestamp,
                         registrationDate: project.registrationDate,
                         teamName:project.teamName,
-                        userName:document.userName,
+                        //userName:document.userName, Turned off. Enable when actually setting this in mongo!
                         userEmail:document.userEmail,
                         projectName:project.projectName
                     });
