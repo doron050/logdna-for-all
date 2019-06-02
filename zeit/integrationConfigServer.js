@@ -69,7 +69,7 @@ function createProjectUI(project, subscriber, currentAction) {
     return {
         isActive: mongoProject.active,
         htm: htm `
-    <Box border-style="groove" border-radius="5px" background-color="white">
+    <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
         <Box margin="15px">
             ${mongoProject.active ? htm`<Img position="absolute" title="connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png?raw=true" />` :  htm`<Img position="absolute" title="not connected" float="right" width="40px" height="40px" src="https://github.com/doron050/logdna-for-all/blob/master/resources/images/%E2%80%8F%E2%80%8FlogDNA-Icon-no.png?raw=true" />`}
             <H2>Connect <B>${project.name}</B>:</H2>
@@ -77,7 +77,7 @@ function createProjectUI(project, subscriber, currentAction) {
             <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
             <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button> 
         </Box>
-        ${isActive ? htm`<Box background-color="rgb(250, 250, 250)"><Box  background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)"><Link href="https://app.logdna.com/logs" target="_blank">View the logs on LogDNA</Link> | <B>Connected since:</B> ${dateAndTime.format(new Date(mongoProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}</Box></Box>`: ''}
+        ${isActive ? htm`<Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)"><Box  background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)"><Link href="https://app.logdna.com/logs" target="_blank">View the logs on LogDNA</Link> | <B>Connected since:</B> ${dateAndTime.format(new Date(mongoProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}</Box></Box>`: ''}
         ${isConnectAction ? htm`<Box><Notice type="success"><B>Successfuly connected ${project.name}</B> to LogDNA!</Notice></Box>` :  ''}
         ${isDisconnectAction ? htm`<Box><Notice type="message"><B>Successfuly disconnect ${project.name}</B> from LogDNA!</Notice></Box>` :  ''}
     </Box><BR />
@@ -118,18 +118,15 @@ module.exports = withUiHook(async ({
     return htm `
     <Page>
       <Box>
-      <BR />
-      ${header}
-      Let us connect your world. Say goodbay to loggers!
-      <BR /><BR />
-      <Box border-style="groove" border-radius="5px" background-color="white">
+      <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
         <Box margin="15px">
-            <H2>${activeCounter} / ${projects.length} projects connected</H2>
+            <H2>${activeCounter} / ${projects.length} projects connected to LogDNA</H2>
+            <B>How to connect a project?</B><BR />
             1. Visit <Link href="https://logdna.com" target="_blank">LogDNA</Link> to create a project and <B>get a token</B><BR />
             2. <B>Set the LogDNA token</B> for each project you wish to connect<BR />
             3. <B>View the project logs</B> on LogDNA and start monitoring!
         </Box>
-        <Box background-color="rgb(250, 250, 250)">
+        <Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)">
             <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
             If you already have a LogDNA token, you can use it
             </Box>
@@ -137,8 +134,16 @@ module.exports = withUiHook(async ({
       </Box>
       <BR />
       ${projectsUI}
-      <BR />
-
+      <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
+        <Box margin="15px">
+            If you have any question or you need help, feel free to contact us:
+        </Box>
+        <Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)">
+            <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
+            email: <Link href="" target="_blank">logs_for_all@yahoo.com</Link> | <Link href="https://github.com/doron050/logdna-for-all" target="_blank">github</Link>
+            </Box>
+        </Box>
+      </Box><BR />
       </Box>  
     </Page>
   `
