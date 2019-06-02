@@ -25,8 +25,8 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
         const projDataInMemory = subscribedProjectsCollection.find(x => isSameSubscriber(x, project) && (x.active === project.active));
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
-                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
 
+                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId,project.teamName, project.registrationDate,project.userName,project.userEmail,project.projectName);
                 // console.log(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
                 unsubscribeProject(subscribedProjectsCollection, project);
                 subscribeProject(subscribedProjectsCollection, project);
