@@ -11,4 +11,8 @@ app.get('/keepalive', async (req, res) => {
     res.send("thank you");
 });
 
+app.delete('/delete', (req,res) => {
+    console.log('asd');
+});
+
 app.listen(constants.PORT, () => console.log(`app on port ${constants.PORT}`));

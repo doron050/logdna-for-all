@@ -18,6 +18,15 @@ async function saveDataToMongo(configurationId, access_token, teamId) {
 module.exports = async (req, res) => {
     console.log({req});
 
+    if (req.method === 'DELETE') {
+        const params = req.params;
+        const query = req.query;
+        console.log({params});
+        console.log({query});
+        res.end();
+        return;
+    }
+
     let query = url.parse(req.url, true).query;
 
     const newIntegration = {
@@ -31,7 +40,7 @@ module.exports = async (req, res) => {
     try {
         console.log("client id: " + constants.AUTH.CLIENT_ID);
         console.log("client secret: " + constants.AUTH.CLIENT_SECRET);
-        
+
         const resAccess = await httpClient.post(constants.ZEIT_API_ROUTES.ACCESS_TOKEN, qs.stringify({
             client_id: constants.AUTH.CLIENT_ID, //ID of your application
             client_secret: constants.AUTH.CLIENT_SECRET, //Secret of your application
