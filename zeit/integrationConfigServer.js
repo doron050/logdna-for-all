@@ -125,7 +125,7 @@ module.exports = withUiHook(async ({
       <Box border-style="groove" border-radius="5px" background-color="white">
         <Box margin="15px">
             <H2>${activeCounter} / ${projects.length} projects connected</H2>
-            Visit <Link href="https://logdna.com">LogDNA</Link> to create a project and get a token.
+            Visit <Link href="https://logdna.com" target="_blank">LogDNA</Link> to create a project and get a token.
         </Box>
         <Box background-color="rgb(250, 250, 250)">
             <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
