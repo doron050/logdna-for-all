@@ -1,7 +1,7 @@
 
 const LOG_SERIVCE_NAME = "LogDNA"
 const LOGO = {
-    ON: "https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA/logDNA-Icon.png?raw=true",
+    ON: "https://github.com/doron050/logdna-for-all/blob/master/resources/images/logDNA/logDNA-Icon.png?raw=true",
     OFF: "https://github.com/doron050/logdna-for-all/blob/master/resources/images/logDNA/%E2%80%8F%E2%80%8FlogDNA-Icon-no.png?raw=true"
 }
 const URLS ={
