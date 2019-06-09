@@ -4,6 +4,7 @@ const constants = require('../common/constants');
 const logHandler = require('./logHandler');
 const mongoClient = require('../common/mongodb');
 const logger = require('../common/logger');
+const logSender = require('./logSender');
 
 async function handleProject(projectToHandle) {
     // console.log(constants.LOG_MESSAGES.HANDLING_CLIENT + projectToHandle.projectId);
@@ -31,10 +32,15 @@ async function handleProject(projectToHandle) {
 }
 
 function sendData(projectToHandle, logLines) {
-    logLines.forEach(zeitLogLine => {
-        const dnaLog = logConvertor.convertToDNA(zeitLogLine, projectToHandle);
-        projectToHandle.logger.log(dnaLog);
-    });
+    logSender.sentLogs(projectToHandle.loggerToken,logLines).then(x=> {
+        const a =1;
+    })
+
+    //
+    // logLines.forEach(zeitLogLine => {
+    //     const dnaLog = logConvertor.convertToDNA(zeitLogLine, projectToHandle);
+    //     projectToHandle.logger.log(dnaLog);
+    // });
 }
 
 async function updateLastLog(projectToHandle, logLines) {

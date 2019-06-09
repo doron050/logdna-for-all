@@ -1,7 +1,8 @@
 const axios = require('axios');
+const os = require('os');
 
 const sentLogs = function (loggerToken, logs) {
-    axios.post('https://logs.logdna.com/logs/ingest?hostname=hostname&mac=mac&ip=ip&now=now', {
+    return axios.post(`https://logs.logdna.com/logs/ingest?hostname=${os.hostname}&now=${Date.now()}`, {
         lines: logs
     }, {
         auth:{

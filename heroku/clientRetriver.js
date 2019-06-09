@@ -133,7 +133,7 @@ function validateMongoRow(project, document) {
     }
     if (!project.loggerToken) {
         valid = false;
-        missingParams.push('Log DNA token');
+        missingParams.push('Logger token');
     }
     if (!document.configurationId) {
         valid = false;
