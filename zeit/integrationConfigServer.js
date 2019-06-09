@@ -85,26 +85,26 @@ function createProjectUI(project, subscriber, currentAction) {
             <Img position="absolute" title="connected" float="right" width="40px" height="40px" src="${uiConstants.LOGO.ON}" />` 
             :  htm`<Img position="absolute" title="not connected" float="right" width="40px" height="40px" src="${uiConstants.LOGO.OFF}" />`}
             <H2>Connect <B>${project.name}</B>:</H2>
-            ${uiConstants.LOG_SERIVCE_NAME} Token:
+            ${uiConstants.LOG_SERVICE_NAME} Token:
             <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
             <Button background-color="#4CAF50" width="250px" action="${'submit-' + project.id}">${isActive ? 'Disconnect' : 'Connect'}</Button> 
         </Box>
         ${isActive ? htm`
         <Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)">
             <Box  background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
-                <Link href="${uiConstants.URLS.VIEW_LOGS}" target="_blank">View the logs on ${uiConstants.LOG_SERIVCE_NAME}</Link> | <B>Connected since:</B> ${dateAndTime.format(new Date(zeitProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}
+                <Link href="${uiConstants.URLS.VIEW_LOGS}" target="_blank">View the logs on ${uiConstants.LOG_SERVICE_NAME}</Link> | <B>Connected since:</B> ${dateAndTime.format(new Date(zeitProject.registrationDate), 'DD/MM/YYYY HH:mm:ss')}
             </Box>
         </Box>`: ''}
         ${isConnectAction ? htm`
         <Box>
             <Notice type="success">
-                <B>Successfully connected ${project.name}</B> to ${uiConstants.LOG_SERIVCE_NAME}!
+                <B>Successfully connected ${project.name}</B> to ${uiConstants.LOG_SERVICE_NAME}!
             </Notice>
         </Box>` :  ''}
         ${isDisconnectAction ? htm`
         <Box>
             <Notice type="message">
-                <B>Successfully disconnected ${project.name}</B> from ${uiConstants.LOG_SERIVCE_NAME}!
+                <B>Successfully disconnected ${project.name}</B> from ${uiConstants.LOG_SERVICE_NAME}!
             </Notice>
         </Box>` :  ''}
     </Box>
@@ -149,15 +149,15 @@ module.exports = withUiHook(async ({
       <Box>
         <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
             <Box margin="15px">
-                <H2>${activeCounter} / ${projects.length} projects connected to ${uiConstants.LOG_SERIVCE_NAME}</H2>
+                <H2>${activeCounter} / ${projects.length} projects connected to ${uiConstants.LOG_SERVICE_NAME}</H2>
                 <B>How to connect a project</B><BR />
-                1. Visit <Link href="${uiConstants.URLS.GET_TOKEN}" target="_blank">${uiConstants.LOG_SERIVCE_NAME}</Link> to create a project and <B>get a token</B><BR />
-                2. <B>Set the ${uiConstants.LOG_SERIVCE_NAME} token</B> for each project you wish to connect<BR />
-                3. <B>View the project logs</B> on ${uiConstants.LOG_SERIVCE_NAME} and start monitoring!
+                1. Visit <Link href="${uiConstants.URLS.GET_TOKEN}" target="_blank">${uiConstants.LOG_SERVICE_NAME}</Link> to create a project and <B>get a token</B><BR />
+                2. <B>Set the ${uiConstants.LOG_SERVICE_NAME} token</B> for each project you wish to connect<BR />
+                3. <B>View the project logs</B> on ${uiConstants.LOG_SERVICE_NAME} and start monitoring!
             </Box>
             <Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)">
                 <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
-                    If you already have a ${uiConstants.LOG_SERIVCE_NAME} token, you can use it
+                    If you already have a ${uiConstants.LOG_SERVICE_NAME} token, you can use it
                 </Box>
             </Box>
         </Box>
@@ -169,7 +169,7 @@ module.exports = withUiHook(async ({
             </Box>
             <Box border-top-style="solid" border-top-width="1px" border-top-color="rgb(234, 234, 234)" background-color="rgb(250, 250, 250)">
                 <Box background-color="rgb(250, 250, 250)" margin-left="15px" color="rgb(68, 68, 68)">
-                email: <Link href="" target="_blank">${uiConstants.SERIVCE_AND_SUPPORT.EMAIL}</Link> | <Link href="${uiConstants.SERIVCE_AND_SUPPORT.GIT}" target="_blank">github</Link>
+                email: <Link href="" target="_blank">${uiConstants.SERVICE_AND_SUPPORT.EMAIL}</Link> | <Link href="${uiConstants.SERVICE_AND_SUPPORT.GIT}" target="_blank">github</Link>
                 </Box>
             </Box>
         </Box>
