@@ -6,10 +6,10 @@ AUTH = {
     PREFIX: ""
 };
 
-LOG_FIELD_NAME = "log"
+LOG_FIELD_NAME = "log";
 
 module.exports = {
     ENDPOINT_URL,
     AUTH,
     LOG_FIELD_NAME
-}
+};
