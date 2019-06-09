@@ -47,10 +47,10 @@
 * Consistently transfer all your logs to your LogDNA project
 
 #### Screenshot - Integration Configuration:
-![Integration Configuration](https://github.com/doron050/logz-for-all/blob/master/resources/images/configuration.png?raw=true)
+![Integration Configuration](https://github.com/doron050/logz-for-all/blob/master/resources/images/logService/configuration.png?raw=true)
 
 #### Screenshot - LogDNA:
-![LogDNA](https://github.com/doron050/logz-for-all/blob/master/resources/images/dashboardV4.png?raw=true)
+![LogDNA](https://github.com/doron050/logz-for-all/blob/master/resources/images/logService/dashboard.png?raw=true)
 
 ## How to Use
 * **Select one of the following:**
