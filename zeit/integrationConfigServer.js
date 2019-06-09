@@ -22,7 +22,7 @@ function getLogTokenForProject(subscriber, projectId) {
     if (subscriber && subscriber.projects) {
         const selectedProject = getProjectById(subscriber, projectId);
         if (selectedProject)
-            return selectedProject.logDnaToken || '';
+            return selectedProject.loggerToken || '';
     }
 
     return '';
@@ -37,7 +37,7 @@ async function updatePojectState(project, clientState, subscriber, configuration
 
     if (!selectedProject) {
         const newProject = {
-            logDnaToken: clientState['token-' + project.id],
+            loggerToken: clientState['token-' + project.id],
             active: true,
             projectId: project.id,
             projectName: project.name,
@@ -45,7 +45,7 @@ async function updatePojectState(project, clientState, subscriber, configuration
         };
         subscriber.projects.push(newProject);
     } else {
-        selectedProject.logDnaToken = clientState['token-' + project.id];
+        selectedProject.loggerToken = clientState['token-' + project.id];
         selectedProject.active = !selectedProject.active
     }
 

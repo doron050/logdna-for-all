@@ -40,8 +40,8 @@ function updateTokenChanged(subscribedProjectsCollection, currentActiveSubCollec
         if (projDataInMemory) {
             if (isDNATokenChanged(projDataInMemory, project)) {
 
-                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken, project.projectId, project.configurationId, project.active, project.teamId, project.teamName, project.registrationDate, project.userName, project.userEmail, project.projectName);
-                // console.log(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.logDnaToken)
+                logger.info(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.loggerToken, project.projectId, project.configurationId, project.active, project.teamId, project.teamName, project.registrationDate, project.userName, project.userEmail, project.projectName);
+                // console.log(constants.LOG_MESSAGES.UPDATE_DNA_TOKEN_UDPATE + project.projectId + " <--> " + project.loggerToken)
                 unsubscribeProject(subscribedProjectsCollection, project);
                 subscribeProject(subscribedProjectsCollection, project);
             }
@@ -116,7 +116,7 @@ function isSubscriberStatusUpdate(sub1, sub2) {
 }
 
 function isDNATokenChanged(sub1, sub2) {
-    return (sub1.logDnaToken !== sub2.logDnaToken)
+    return (sub1.loggerToken !== sub2.loggerToken)
 }
 
 function isSameSubscriber(sub1, sub2) {
@@ -131,7 +131,7 @@ function validateMongoRow(project, document) {
         valid = false;
         missingParams.push('Project ID');
     }
-    if (!project.logDnaToken) {
+    if (!project.loggerToken) {
         valid = false;
         missingParams.push('Log DNA token');
     }
@@ -171,7 +171,7 @@ function mapProjects(dbRawData) {
                         projectId: project.projectId,
                         configurationId: document.configurationId,
                         zeitToken: document.zeitToken,
-                        logDnaToken: project.logDnaToken,
+                        loggerToken: project.loggerToken,
                         active: project.active,
                         lastSentLogId: project.lastSentLogId,
                         teamId: document.teamId,

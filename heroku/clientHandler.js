@@ -12,7 +12,7 @@ async function handleProject(projectToHandle) {
     if (!projectToHandle.logger) {
         logger.debug(constants.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId,projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId,projectToHandle.teamName, projectToHandle.registrationDate,projectToHandle.userName,projectToHandle.userEmail,projectToHandle.projectName);
         // console.log(constants.LOG_MESSAGES.NEW_LOGGER + projectToHandle.projectId);
-        projectToHandle.logger = dna.createLogger(projectToHandle.logDnaToken, {});
+        projectToHandle.logger = dna.createLogger(projectToHandle.loggerToken, {});
     }
 
     // Get last logs
@@ -42,7 +42,6 @@ async function updateLastLog(projectToHandle, logLines) {
     projectToHandle.lastSentLogTimestamp = lastCreatedDate;
     await mongoClient.upsertLastSentLogTimestamp(projectToHandle.configurationId, projectToHandle.projectId, lastCreatedDate)
     logger.info(constants.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId, projectToHandle.projectId, projectToHandle.configurationId, projectToHandle.active, projectToHandle.teamId,projectToHandle.teamName, projectToHandle.registrationDate,projectToHandle.userName,projectToHandle.userEmail,projectToHandle.projectName);
-    // console.log(constants.LOG_MESSAGES.UPDATE_LASTID + lastCreatedDate + " For projectId: " + projectToHandle.projectId);
 }
 
 module.exports = {
