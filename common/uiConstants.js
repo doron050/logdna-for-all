@@ -5,9 +5,9 @@ const LOGO = {
     OFF: "https://github.com/doron050/logdna-for-all/blob/master/resources/images/logDNA/%E2%80%8F%E2%80%8FlogDNA-Icon-no.png?raw=true"
 }
 const URLS ={
-    HOME_PAGE = "https://logdna.com",
-    GET_TOKEN = "https://logdna.com",
-    VIEW_LOGS = "https://app.logdna.com/logs"
+    HOME_PAGE: "https://logdna.com",
+    GET_TOKEN: "https://logdna.com",
+    VIEW_LOGS: "https://app.logdna.com/logs"
 }
 const SERIVCE_AND_SUPPORT = {
     GIT: "https://github.com/doron050/logdna-for-all",
