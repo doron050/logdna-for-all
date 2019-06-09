@@ -18,6 +18,7 @@ const LOG_MESSAGES = {
   ERROR_GET_INTEGRATIONS: 'Error! Cannot get last integrations: ',
   SUCCESS_GET_LOGS: 'Success! Got logs: ',
   ERROR_GET_LOGS: 'Error! Cannot get logs: ',
+  ERROR_SEND_LOGS: 'Error! Failed to write logs',
   SUCCESS_GET_ACCESS_TOKEN: 'Success! Access token retrieved: ',
   ERROR_GET_ACCESS_TOKEN: 'Error! Cannot retrieve access token: ',
   NEW_LOGGER: 'Creating new logger for client with project ID: ',
