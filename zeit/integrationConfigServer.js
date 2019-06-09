@@ -81,7 +81,9 @@ function createProjectUI(project, subscriber, currentAction) {
         htm: htm `
     <Box border-style="solid" border-width="1px" border-color="rgb(234, 234, 234)" border-radius="5px" background-color="white">
         <Box margin="15px">
-            ${zeitProject.active ? htm`<Img position="absolute" title="connected" float="right" width="40px" height="40px" src="${uiConstants.LOGO.ON}" />` :  htm`<Img position="absolute" title="not connected" float="right" width="40px" height="40px" src="${uiConstants.LOGO.OFF}" />`}
+            ${zeitProject.active ? htm`
+            <Img position="absolute" title="connected" float="right" width="40px" height="40px" src="${uiConstants.LOGO.ON}" />` 
+            :  htm`<Img position="absolute" title="not connected" float="right" width="40px" height="40px" src="${uiConstants.LOGO.OFF}" />`}
             <H2>Connect <B>${project.name}</B>:</H2>
             ${uiConstants.LOG_SERIVCE_NAME} Token:
             <Input width="250px" type="password" name="${'token-' + project.id}" value="${getLogTokenForProject(subscriber, project.id)}" />
