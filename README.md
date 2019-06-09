@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logDNA-Icon.png" alt="LogDNA Zeit Integration" width="150"></a>
+  <img src="https://github.com/doron050/logz-for-all/blob/master/resources/images/logService/on-icon.png" alt="LogDNA Zeit Integration" width="150"></a>
   <br>
   LogDNA ZEIT Integration
   <br>
