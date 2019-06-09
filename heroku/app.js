@@ -11,7 +11,7 @@ app.get('/keepalive', async (req, res) => {
     res.send("thank you");
 });
 
-app.delete('/delete', (req,res) => {
+app.delete('/delete', (req, res) => {
     console.log('asd');
 });
 

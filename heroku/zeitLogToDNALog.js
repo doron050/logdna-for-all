@@ -1,9 +1,13 @@
 function convertToDNA(zeitLog,clientToHandle) {
     const dnaLog = {
-        deploymentId: zeitLog.payload.deploymentId,
-        data: zeitLog.payload.text,
-        id: clientToHandle.ID,
-        logEntrypoint:zeitLog.payload.info.entrypoint
+        meta: {
+            deploymentId: zeitLog.payload.deploymentId,
+            id: clientToHandle.ID,
+            logEntrypoint:zeitLog.payload.info.entrypoint
+        },
+        line: zeitLog.payload.text,
+        env: "production",
+
     };
 
     return dnaLog;
